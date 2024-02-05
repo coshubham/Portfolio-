@@ -1,5 +1,6 @@
 /*  import google fonts */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Ubuntu:wght@400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700&display=swap');
 
 *{
     margin: 0;
@@ -335,89 +336,64 @@ section .title::after{
 .skills .title::after{
     content: "what i know";
 }
-.skills .skills-content .column{
-    color: whitesmoke;
-    font-weight: 900;
-    width: calc(50% - 30px);
-}
-.skills .skills-content .left .text{
-    color: #fff;
-    font-size: 20px;
-    font-weight: 600;
-    margin-bottom: 10px;
-}
-.skills .skills-content .left p{
-    color:whitesmoke;
-    text-align: justify;
-}
 
-.skills .skills-content .left a:hover{
-    background: none;
-}
-.skills .skills-content .right .bars{
-    margin-bottom: 15px;
-}
-.skills .skills-content .right .info{
+
+.container .box-container{
     display: flex;
-    font-family: forte;
-    margin-bottom: 5px;
-    align-items: center;
-    justify-content: space-between;
-}
-.skills .skills-content .right .info .numbers{
-    color: lime;
+    flex-wrap: wrap;
+    justify-content: center;
+    flex-direction: row;
+
 }
 
-.skills .skills-content .right span{
-    font-weight: 500;
-    font-size: 23px;
+.container .box-container .box{
+
+    box-shadow: 0px 2px 5px rgba(0, 255, 0, 0.84);
+    border-radius: 40px;
+    background: #5b55551a;
+    text-align: center;
+    cursor: pointer;
+    margin: 25px;
+    padding:30px 10px;
 }
-.skills .skills-content .right .line{
-    height: 5px;
-    width: 100%;
-    background:#000;
-    position: relative;
-}
-.skills .skills-content .right .line::before{
-    content: "";
-    position: absolute;
-    height: 100%;
-    left: 0;
-    top: 0;
-    background: lime;
-}
-.skills-content .right .html::before{
-    width: 90%;
-}
-.skills-content .right .css::before{
-    width: 69%;
-}
-.skills-content .right .BootStrap::before{
-    width: 55%;
+.container .box-container .box:hover{
+    box-shadow: 0 5px 10px rgba(249, 123, 20, 0.959);
 }
 
-.skills-content .right .js::before{
-    width: 45%;
+
+
+.container .box-container .box:hover{
+    background:whitesmoke;
 }
-.skills-content .right .php::before{
-    width: 68%;
+
+.container .box-container .box img{
+    height: 50px;
 }
-.skills-content .right .mysql::before{
-    width: 70%;
+
+.container .box-container .box h3{
+    color:#7E22CE;
+    font-size: 22px;
+    padding:10px 0;
 }
-.skills-content .right .vb::before{
-    width: 51%;
+
+.container .box-container .box p{
+    color:#7E22CE;
+    font-size: 15px;
+    font-weight: 300;
+    cursor: pointer;
+    line-height: 1.8;
 }
-.skills-content .right .Android::before{
-    width: 45%;
+
+.container .box-container .box:hover{
+    box-shadow: 0 10px 15px rgba(0,0,0,.3);
+    transform: scale(1.03);
 }
-.skills-content .right .python::before{
-    width: 35%;
-}
-.skills-content .right .work::before{
-    width: 100%;
-}
-    
+
+@media (max-width:768px){
+    .container{
+        padding:20px;
+    }
+}    
 /* contact section styling */
 .contact .title::after{
     content: "get in touch";
