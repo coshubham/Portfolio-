@@ -479,9 +479,10 @@ footer{
 }
 
 .footer p:hover{
-    font-family: 'Algerian','bold';
+    font-family: Algerian;
     font-size: 1.6rem;
     color: lime;
+     font-weight: bolder;
 }
 
 /* Github and linked */
