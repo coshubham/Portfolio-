@@ -462,12 +462,35 @@ section .title::after{
   font-family: cooper black;
   background: none;
 }
+
+/* footer section styling */
+footer{
+    background: #111;
+    padding: 15px 23px;
+    color: #fff;
+    text-align: left;
+}
+
+.footer p{
+    font-family: 'Algerian','bold';
+    font-style: italic;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+.footer p:hover{
+    font-family: 'Algerian','bold';
+    font-size: 1.6rem;
+    color: lime;
+}
+
+/* Github and linked */
 .photo img{
-    position: relative;
-    height: 50px;
-    width: 50px;
-    top: -13.4rem;
-    left: 49.7rem;
+    position:relative;
+    height: 30px;
+    width: 30px;
+    left: 65rem;
+    top: -1.5rem;
     margin-left: 20px;
     cursor: pointer;
     box-shadow: 0px 2px 10px rgba(0, 255, 0, 0.84);
@@ -476,16 +499,8 @@ section .title::after{
 }
 .photo img:hover{
     box-shadow: 0px 2px 10px rgba(64, 0, 255, 0.84);
-
-
 }
-/* footer section styling */
-footer{
-    background: #111;
-    padding: 15px 23px;
-    color: #fff;
-    text-align: left;
-}
+
 /* responsive media query start */
 @media (max-width: 1104px) {
     .about .about-content .left img{
