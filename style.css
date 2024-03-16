@@ -463,7 +463,6 @@ section .title::after{
   background: none;
 }
 
-
 /* footer section styling */
 footer{
     background: #111;
@@ -471,6 +470,7 @@ footer{
     color: #fff;
     text-align: left;
 }
+
 .footer p{
     font-family: 'Algerian','bold';
     font-style: italic;
@@ -479,9 +479,10 @@ footer{
 }
 
 .footer p:hover{
-    font-family: 'Algerian','bold';
+    font-family: Algerian;
     font-size: 1.6rem;
     color: lime;
+     font-weight: bolder;
 }
 
 /* Github and linked */
