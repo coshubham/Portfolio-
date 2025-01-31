@@ -15,6 +15,10 @@
 
 
     <style>
+        html{
+    scroll-behavior: smooth;
+    cursor: pointer;
+}
        .project .title{
         font-size: 35px;
         font-weight: 700;
@@ -32,10 +36,10 @@
 .card{
     position: relative;
 	box-shadow: 2px 4px 5px rgba(0, 255, 0, 0.84);
-	width: 290px;
-	height: 279px;
+	width: 410px;
+	height: 329px;
 	background: #000;
-	border-radius: 15px;
+	border-radius: 20px;
 	overflow: hidden;
 	display: flex;
     margin: 40px;
@@ -46,7 +50,8 @@
 	backface-visibility: hidden;
 }
 .card:hover{
-    box-shadow: 0 1.5px 3px rgba(249, 123, 20, 0.959);
+    box-shadow: 0 1.5px 20px whitesmoke;
+    border-radius: 70px 6px 70px 6px;
 }
 .om{
 	height:270px;
@@ -66,7 +71,7 @@
 	opacity: 1;
 }
 .card:hover img{
-	transform: scale(1.25);
+	transform: scale(0.3);
 }
 .card:after{
 	width: 100%;
@@ -83,6 +88,7 @@
 	height: 100%;
     width: 100%;
 	z-index: 10;
+    border-radius: 25px;
     align-items: center;
 	transition: all .25s ease;
 }
@@ -100,9 +106,18 @@
 	margin-bottom: -280px;
 	transition: all .25s ease;
 	display: flex;
+    color: whitesmoke;
+    font-weight: 400;
+    font-family: 'Times New Roman', Times, serif;
 	align-items: center;
 	justify-content: flex-end;
 	flex-direction: column;
+}
+.card .con-text p b{
+    color: whitesmoke;
+    font-size: 1.3rem;
+    font-weight: bolder;
+
 }
 .card .con-text p button{
     padding: 7px 17px;
@@ -121,7 +136,7 @@
 .card .con-text p button:hover{
   color: lime;
   border: 2px solid lime;
-  font-size: 15px;
+  font-size: 11px;
   font-family: cooper black;
   background: none;
 }
@@ -140,7 +155,7 @@
     </div>
             <nav class="navbar">
                 <div class="max-width">
-                    <div class="logo"><a href="index.html#home">Shubham<span>folio.</span></a></div>
+                    <div class="logo"><a href="index.html#home">Shub<span>folio.</span></a></div>
                     <!-- <div class="logo"><a href="#">Proj<span>ects</span></a></div> -->
                     <ul class="menu">
                         <li><a href="index.html#home" class="menu-btn">Home</a></li>
@@ -159,6 +174,22 @@
                 <div class="max-width">
                     <h2 class="title">Projects</h2>
                     <div class="container">
+
+                        <div class="card">
+                            <img src="images/delivery.png" alt="" class="om" style="background-color: #fff;">
+                            <div class="con-text">
+                                <h2>
+                                    FoodHut
+                                </h2>
+                                <p>
+                                    <b>Project Name:-</b> Online Food Ordering Websites using PHP HTML CSS Bootstrap Javascript MySQL(Xampp) VScode with documention and Please ready (README.md) file very Carefully to Run this Project.                                
+                                     <a href="https://drive.google.com/file/d/1AqczHoJnrp7TiGWrd-pmbnjpBoIE28WD/view?usp=sharing" > <button>
+                                        Download Zip File
+                                    </button></a>
+                                </p>
+                            </div>
+                        </div>
+
                     <div class="card">
                         <img src="images/img3.jpg" alt="" class="om">
                         <div class="con-text">
