@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <link rel="shortcut icon" type="x-icon" href="images/coshubham.png">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>My Portfolio</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
@@ -132,6 +132,13 @@
     font-family: .75rem;
     outline: none;
 }
+.card .con-text .btndownload{
+    margin: 10px;
+
+}
+.card .con-text .btndemo{
+   padding: 10px;
+}
 
 .card .con-text p button:hover{
   color: lime;
@@ -141,9 +148,48 @@
 }
 
 @media (max-width:768px){
-    .container{
-        padding:20px;
-    }
+    .card{
+    position: relative;
+	box-shadow: 2px 4px 5px rgba(0, 255, 0, 0.84);
+	width: 460px;
+    height: 200px;
+}
+.card .con-text h3{
+    font-size: 16px;
+    margin-top: 0px;
+}
+.card .con-text p{
+	font-size: 12px;
+	opacity: 0;
+	margin-bottom: -280px;
+	
+}
+.card .con-text p b{
+    color: whitesmoke;
+    font-size: 11px;
+}
+.card .con-text p button{
+    font-size: 10px;
+    margin-top: -2px;
+    padding: 7px;
+    height: 10%;
+
+}
+.card:hover{
+    border-radius: 6px;
+}
+.card .con-text .btndownload{
+    position: relative;
+    top:20px;
+}
+.card .con-text .btndemo{
+    position: relative;
+    top:20px;
+}
+.project .title{
+        font-size: 28px;
+
+       }
 }    
     </style>
 </head>
@@ -178,15 +224,15 @@
                         <div class="card">
                             <img src="images/expenes.jpg" alt="" class="om" style="background-color: #fff;">
                             <div class="con-text">
-                                <h2>
+                                <h3 class="heading">
                                     Expense Tracking
-                                </h2>
+                                </h3>
                                 <p>
                                     <b>Project Name:-</b> Online Expense Tracking Websites Using Node.js, Express.js, MongoDB, GraphQL, Chart.js, React + Vite and Tailwind CSS for a responsive UI.       
-                                    <a href="https://expense-tracking-36eb.onrender.com"> <button>
+                                    <a href="https://expense-tracking-36eb.onrender.com"> <button class="btndemo">
                                         Demo Live
                                     </button></a>                         
-                                     <a href="https://drive.google.com/file/d/1tFnmj6mSkrr1aLQMNxhNiCgV8qutNoRX/view?usp=drive_link" > <button>
+                                     <a href="https://drive.google.com/file/d/1tFnmj6mSkrr1aLQMNxhNiCgV8qutNoRX/view?usp=drive_link" > <button class="btndownload">
                                         Download Zip File
                                     </button></a>
                                 </p>
@@ -196,15 +242,15 @@
                         <div class="card">
                             <img src="images/delivery.png" alt="" class="om" style="background-color: #fff;">
                             <div class="con-text">
-                                <h2>
+                                <h3 class="heading">
                                     FoodHut
-                                </h2>
+                                </h3>
                                 <p>
                                     <b>Project Name:-</b> Online Food Ordering Websites using PHP HTML CSS Bootstrap Javascript MySQL(Xampp) VScode with documention and Please ready (README.md) file very Carefully to Run this Project.                                
-                                    <a href="https://foodhut.rf.gd/"> <button>
+                                    <a href="https://foodhut.rf.gd/"> <button class="btndemo">
                                         Demo Live
                                     </button></a> 
-                                    <a href="https://drive.google.com/file/d/1tFnmj6mSkrr1aLQMNxhNiCgV8qutNoRX/view?usp=drive_link" > <button>
+                                    <a href="https://drive.google.com/file/d/1tFnmj6mSkrr1aLQMNxhNiCgV8qutNoRX/view?usp=drive_link" > <button class="btndownload">
                                         Download Zip File
                                     </button></a>
                                 </p>
@@ -215,15 +261,15 @@
                     <div class="card">
                         <img src="images/City driver-pana.svg" alt="" class="om" style="background-color: #fff;">
                         <div class="con-text">
-                            <h2>
+                            <h3 class="heading">
                                 Car Rental Website
-                            </h2>
+                            </h3>
                             <p>
                                 <b>Project Name:-</b> Car Rental Websites using PHP HTML CSS Bootstrap Javascript MySQL(Xampp) VScode with documention and Please ready (README.md) file very Carefully to Run this Project.                                
-                                <a href="https://carrent.rf.gd/"> <button>
+                                <a href="https://carrent.rf.gd/"> <button class="btndemo">
                                     Demo Live
                                 </button></a>  
-                                <a href="https://drive.google.com/file/d/1wogMEZAnBAJ5za9-Z4B33r3epubz6-Qq/view?usp=drive_link" > <button>
+                                <a href="https://drive.google.com/file/d/1wogMEZAnBAJ5za9-Z4B33r3epubz6-Qq/view?usp=drive_link" > <button class="btndownload">
                                     Download Zip File
                                 </button></a>
                             </p>
@@ -233,15 +279,15 @@
                     <div class="card">
                         <img src="images/portfolio.png" alt="" class="om" style="background-color: #fff;">
                         <div class="con-text">
-                            <h2>
+                            <h3>
                                 Portfolio
-                            </h2>
+                            </h3>
                             <p>
                                 <b>Project Name:-</b>  Portfolio Websites using HTML CSS Bootstrap Javascript VScode unzip the file and Run this Project any Browser.                                
-                                <a href="https://coshubham.github.io/Portfolio-/"> <button>
+                                <a href="https://coshubham.github.io/Portfolio-/"> <button class="btndemo">
                                     Demo Live
                                 </button></a>   
-                                <a href="#" > <button>
+                                <a href="#" > <button class="btndownload">
                                     Download Zip File
                                 </button></a>
                             </p>
@@ -251,15 +297,15 @@
                     <div class="card">
                         <img src="images/foodchatboy.jpg" alt="" class="om">
                         <div class="con-text">
-                            <h2>
+                            <h3 class="heading">
                                 Food Chat Bot
-                            </h2>
+                            </h3>
                             <p>
                                 <b>Project Name:-</b> Food Chat Bot using IBM SkillsBuild Website to created this Chat Bot this Chat Bot is for Restaurant Simple Download Zip file and Run the Project in Any Browser.
-                                <a href="https://coshubham.github.io/chatbot/"> <button>
+                                <a href="https://coshubham.github.io/chatbot/"> <button class="btndemo">
                                     Demo Live
                                 </button></a>   
-                                <a href="https://github.com/coshubham/chatbot" ><button>
+                                <a href="https://github.com/coshubham/chatbot" ><button class="btndownload">
                                     Download Zip File
                                 </button></a>
                             </p>
@@ -270,9 +316,9 @@
                     <div class="card">
                         <img src="images/img3.jpg" alt="" class="om">
                         <div class="con-text">
-                            <h2>
+                            <h3 class="heading">
                                 Chatting Website
-                            </h2>
+                            </h3>
                             <p>
                                 <b>Project Name:-</b> Chatting Websites using PHP HTML CSS Bootstrap Javascript MySQL(Xampp) VScode with documention and Please ready (README.md) file very Carefully to Run this Project.                                
                                 <a href="https://drive.google.com/file/d/1qFqeoOd-u4fhw_lJNld1Po-gYGbhUk2D/view?usp=drive_link" ><button>
@@ -285,9 +331,9 @@
                     <div class="card">
                         <img src="images/Jewellery.jpg" alt="" class="om">
                         <div class="con-text">
-                            <h2>
+                            <h3>
                                 Jewellery Website
-                            </h2>
+                            </h3>
                             <p>
                                 <b>Project Name:-</b> Jewellery Websites using PHP HTML CSS Bootstrap Javascript MySQL(Xampp) VScode. Please ready (README.md) file very Carefully to Run this Project.                                
                                  <a href="https://drive.google.com/file/d/151cCRpRUV4ZL36L-p1IS7xbg-SE8ya_p/view?usp=drive_link" > <button>
@@ -300,9 +346,9 @@
                     <div class="card">
                         <img src="images/Car wash-bro.svg" alt="" class="om" style="background-color: #fff;">
                         <div class="con-text">
-                            <h2>
+                            <h3>
                                 Car Wash Website
-                            </h2>
+                            </h3>
                             <p>
                                 <b>Project Name:-</b>  Car Wash Websites using PHP HTML CSS Bootstrap Javascript MySQL(Xampp) VScode. Please ready (README.md) file very Carefully to Run this Project.                                
                                  <a href="https://drive.google.com/file/d/1-mrJa8EEA1I9iFeDqtFnkuDnfcVCt__a/view?usp=drive_link" > <button>
@@ -315,9 +361,9 @@
                     <div class="card">
                         <img src="images/chat_app.svg" alt="" class="om" style="background-color: #fff;">
                         <div class="con-text">
-                            <h2>
+                            <h3>
                                 Chatting Android App
-                            </h2>
+                            </h3>
                             <p>
                                <samp style="color: #000;"><b>Project Name:-</b></samp>  Chatting Android Applications using Android Studio Kotlin languages DataBase:-Firebase and PHP HTML CSS Bootstrap Javascript VScode with documention and Please ready (README.md) file very Carefully to Run this Project in Android Studio.                                
                                  <a href="https://drive.google.com/file/d/1Is7Ri2jDmluq55D5LmKnkgMD0fXEr8Ds/view?usp=drive_link" > <button>
@@ -330,9 +376,9 @@
                     <div class="card">
                         <img src="images/Dice Roller App.jpg" alt="" class="om">
                         <div class="con-text">
-                            <h2>
+                            <h3>
                                 Dice Roller App
-                            </h2>
+                            </h3>
                             <p>
                                 <b>Project Name:-</b></samp>  Dice Roller Applications using Android Studio.It is very Simple App. Run this Project in Android Studio.                                
                                 <a href="https://drive.google.com/file/d/1OL6xSqY2Ct4cV91RetGry-xEn2mKTqpT/view?usp=drive_link" > <button>
@@ -345,9 +391,9 @@
                     <div class="card">
                         <img src="images/Tar.svg" alt="" class="om">
                         <div class="con-text">
-                            <h2>
+                            <h3>
                                 Translater App
-                            </h2>
+                            </h3>
                             <p>
                                 <b>Project Name:-</b></samp>Translater Applications using Android Studio to use Translater Connect with Wifi to Run.It is very Simple App Run this Project in Android Studio.                                
                                 <a href="https://drive.google.com/file/d/1sAW5oiicuAnWRJZjbhAhGBgoq9qMpyKs/view?usp=drive_link" > <button>
@@ -361,9 +407,9 @@
                     <div class="card">
                         <img src="images/hostel.png" alt="" class="om" style="background-color: #fff;">
                         <div class="con-text">
-                            <h2>
-                                Hostel Management (VB.Net)
-                            </h2>
+                            <h3>
+                                Hostel Management
+                            </h3>
                             <p>
                                 <b>Project Name:-</b> Hostel Management using Visual Basic(VB.NET) Visual Studio unzip the file and Please ready (README.md) file very Carefully to Run this Project.                                
                                  <a href="https://drive.google.com/file/d/194h07Y8bCvEUSq7_DCiK8qn9F-uVu2jQ/view?usp=drive_link" > <button>
@@ -376,9 +422,9 @@
                     <div class="card">
                         <img src="images/calculator.png" alt="" class="om">
                         <div class="con-text">
-                            <h2>
+                            <h3>
                                 Calculator
-                            </h2>
+                            </h3>
                             <p>
                                 <b>Project Name:-</b>Calculator using Python to created this calculator Download Zip file and Run the Project in Python Compiler.
                                  <a href="https://drive.google.com/file/d/1SG0xPW6ysmlT5Gqnc7uEfpa4QB6FXIeE/view?usp=drive_link" > <button>
@@ -391,9 +437,9 @@
                     <div class="card">
                         <img src="images/robo.jpg" alt="" class="om">
                         <div class="con-text">
-                            <h2>
+                            <h3>
                                 Robo Speaker
-                            </h2>
+                            </h3>
                             <p>
                                 <b>Project Name:-</b>Robo Speaker using Python to created this Robo Speaker Download Zip file and Run the Project in Python Compiler.
                                  <a href="https://drive.google.com/file/d/1T513Hag5jGMCcJ0u8AjCjscPj_DjlT7i/view?usp=drive_link" > <button>
@@ -406,9 +452,9 @@
                     <div class="card">
                         <img src="images/weather.png" alt="" class="om">
                         <div class="con-text">
-                            <h2>
+                            <h3>
                                 Weather App
-                            </h2>
+                            </h3>
                             <p>
                                 <b>Project Name:-</b> Weather App using Python to created this Weather App without GUI Simple Download Zip file and Run the Project in Python Compiler.
                                  <a href="https://drive.google.com/file/d/10uz3ac_8XnuOBydS1eGl4LKrUnwG7PT_/view?usp=drive_link" > <button>
@@ -421,9 +467,9 @@
                     <div class="card">
                         <img src="images/Ai_Q&A.jpg" alt="" class="om">
                         <div class="con-text">
-                            <h2>
+                            <h3>
                                 AI Q & A
-                            </h2>
+                            </h3>
                             <p>
                                 <b>Project Name:-</b> AI Question and Answering using Python to created this Q & A without GUI and Please change the API key from Chatgpt and Simple Download Zip file and Run the Project in Python Compiler.
                                  <a href="https://drive.google.com/file/d/1iWjlCZiylPznckgoFQe5SYjERuyidf_M/view?usp=drive_link" > <button>
