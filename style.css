@@ -281,6 +281,7 @@ section .title::after{
 .about .about-content .right p{
     text-align:justify; /* or justify if you need it, but be aware */
     white-space: 20px;
+    line-height: 1.7;
     color: whitesmoke;
 }
 .about .about-content .right a{
