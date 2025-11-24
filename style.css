@@ -587,8 +587,8 @@ footer{
     }
     .about .about-content .right p{
         color: whitesmoke;
-        text-align: initial;
-        white-space: 5px;
+        text-align:inherit;
+        white-space: 9px;
     }
     
     .about .about-content .left img {
