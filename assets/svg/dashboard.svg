@@ -1,0 +1,152 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 400" role="img" aria-labelledby="t" font-family="Inter, system-ui, sans-serif">
+  <title id="t">Analytics dashboard for a multi-tenant AI search product: KPI tiles, searches over time, sources and top queries</title>
+  <defs>
+    <clipPath id="dashboard-clip"><rect x="0" y="0" width="640" height="400" rx="18"/></clipPath>
+    <linearGradient id="dashboard-g" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#c084fc"/><stop offset="1" stop-color="#8b5cf6"/>
+    </linearGradient>
+    <linearGradient id="dashboard-gh" x1="0" y1="0" x2="1" y2="0">
+      <stop stop-color="#c084fc"/><stop offset="1" stop-color="#8b5cf6"/>
+    </linearGradient>
+    <linearGradient id="dashboard-area" x1="0" y1="0" x2="0" y2="1">
+      <stop stop-color="#8b5cf6" stop-opacity="0.38"/><stop offset="1" stop-color="#8b5cf6" stop-opacity="0"/>
+    </linearGradient>
+    <filter id="dashboard-glow" x="-100%" y="-100%" width="300%" height="300%"><feGaussianBlur stdDeviation="6"/></filter>
+  </defs>
+
+  <!-- base panel -->
+  <rect x="0" y="0" width="640" height="400" rx="18" fill="#090710"/>
+
+  <!-- shell: sidebar + header -->
+  <g clip-path="url(#dashboard-clip)">
+    <rect x="0" y="0" width="72" height="400" fill="#120e1f"/>
+    <line x1="72" y1="0" x2="72" y2="400" stroke="rgba(148,163,184,0.18)"/>
+    <line x1="72" y1="46" x2="640" y2="46" stroke="rgba(148,163,184,0.18)"/>
+
+    <!-- logo mark -->
+    <rect x="23" y="14" width="26" height="26" rx="7" fill="url(#dashboard-g)"/>
+    <circle cx="34.5" cy="25.5" r="5" fill="none" stroke="#090710" stroke-width="2"/>
+    <line x1="38.5" y1="29.5" x2="42.5" y2="33.5" stroke="#090710" stroke-width="2" stroke-linecap="round"/>
+
+    <!-- menu rows -->
+    <g>
+      <rect x="16" y="74" width="14" height="14" rx="3" fill="#797294" opacity="0.55"/>
+      <rect x="36" y="78" width="24" height="6" rx="3" fill="#797294" opacity="0.45"/>
+    </g>
+    <g>
+      <rect x="6" y="100" width="60" height="26" rx="6" fill="#181329"/>
+      <rect x="0" y="104" width="3" height="18" rx="1.5" fill="#c084fc"/>
+      <rect x="16" y="106" width="14" height="14" rx="3" fill="#c084fc"/>
+      <rect x="36" y="110" width="24" height="6" rx="3" fill="#ede9fe" opacity="0.8"/>
+    </g>
+    <g>
+      <rect x="16" y="138" width="14" height="14" rx="3" fill="#797294" opacity="0.55"/>
+      <rect x="36" y="142" width="20" height="6" rx="3" fill="#797294" opacity="0.45"/>
+    </g>
+    <g>
+      <rect x="16" y="170" width="14" height="14" rx="3" fill="#797294" opacity="0.55"/>
+      <rect x="36" y="174" width="24" height="6" rx="3" fill="#797294" opacity="0.45"/>
+    </g>
+    <g>
+      <rect x="16" y="202" width="14" height="14" rx="3" fill="#797294" opacity="0.55"/>
+      <rect x="36" y="206" width="18" height="6" rx="3" fill="#797294" opacity="0.45"/>
+    </g>
+    <!-- avatar -->
+    <circle cx="36" cy="372" r="11" fill="#181329" stroke="rgba(148,163,184,0.18)"/>
+    <circle cx="36" cy="368" r="4" fill="#a9a2c3"/>
+    <path d="M28 380 Q36 372 44 380" fill="#a9a2c3"/>
+  </g>
+
+  <!-- header content -->
+  <text x="90" y="29" font-size="13" font-weight="600" fill="#ede9fe">Analytics</text>
+  <g>
+    <rect x="382" y="13" width="136" height="22" rx="11" fill="#120e1f" stroke="rgba(148,163,184,0.18)"/>
+    <circle cx="396" cy="24" r="3" fill="#34d399"/>
+    <text x="456" y="28" font-size="12" fill="#a9a2c3" text-anchor="middle">client: demo-store</text>
+    <rect x="528" y="13" width="96" height="22" rx="11" fill="#120e1f" stroke="rgba(148,163,184,0.18)"/>
+    <text x="576" y="28" font-size="12" fill="#a9a2c3" text-anchor="middle">last 30 days</text>
+  </g>
+
+  <!-- KPI tiles -->
+  <g>
+    <rect x="90" y="58" width="126" height="64" rx="10" fill="#120e1f" stroke="rgba(148,163,184,0.18)"/>
+    <circle cx="202" cy="72" r="3" fill="#c084fc"/>
+    <text x="102" y="80" font-size="12" fill="#a9a2c3">Searches</text>
+    <text x="102" y="106" font-size="18" font-weight="600" fill="#ede9fe">128,440</text>
+
+    <rect x="226" y="58" width="126" height="64" rx="10" fill="#120e1f" stroke="rgba(148,163,184,0.18)"/>
+    <circle cx="338" cy="72" r="3" fill="#8b5cf6"/>
+    <text x="238" y="80" font-size="12" fill="#a9a2c3">Avg latency</text>
+    <text x="238" y="106" font-size="18" font-weight="600" fill="#ede9fe">190 ms</text>
+
+    <rect x="362" y="58" width="126" height="64" rx="10" fill="#120e1f" stroke="rgba(148,163,184,0.18)"/>
+    <circle cx="474" cy="72" r="3" fill="#34d399"/>
+    <text x="374" y="80" font-size="12" fill="#a9a2c3">Voice</text>
+    <text x="374" y="106" font-size="18" font-weight="600" fill="#ede9fe">14%</text>
+
+    <rect x="498" y="58" width="126" height="64" rx="10" fill="#120e1f" stroke="rgba(148,163,184,0.18)"/>
+    <circle cx="610" cy="72" r="3" fill="#fbbf24"/>
+    <text x="510" y="80" font-size="12" fill="#a9a2c3">Zero-result</text>
+    <text x="510" y="106" font-size="18" font-weight="600" fill="#ede9fe">2.1%</text>
+  </g>
+
+  <!-- line chart card -->
+  <rect x="90" y="132" width="342" height="134" rx="10" fill="#120e1f" stroke="rgba(148,163,184,0.18)"/>
+  <text x="102" y="150" font-size="12" fill="#a9a2c3">Searches over time</text>
+  <g stroke="rgba(148,163,184,0.18)">
+    <line x1="102" y1="168" x2="420" y2="168"/>
+    <line x1="102" y1="192" x2="420" y2="192"/>
+    <line x1="102" y1="216" x2="420" y2="216"/>
+    <line x1="102" y1="240" x2="420" y2="240"/>
+  </g>
+  <path d="M102 219 C115.3 219 128.7 208 142 208 C155.3 208 168.7 215 182 215 C195.3 215 208.7 194 222 194 C235.3 194 248.7 200 262 200 C275.3 200 288.7 183 302 183 C315.3 183 328.7 191 342 191 C355.3 191 368.7 174 382 174 C392.7 174 403.3 168 414 168 L414 240 L102 240 Z" fill="url(#dashboard-area)"/>
+  <g class="draw" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <path class="d1" d="M102 219 C115.3 219 128.7 208 142 208 C155.3 208 168.7 215 182 215 C195.3 215 208.7 194 222 194 C235.3 194 248.7 200 262 200 C275.3 200 288.7 183 302 183 C315.3 183 328.7 191 342 191 C355.3 191 368.7 174 382 174 C392.7 174 403.3 168 414 168" stroke="#c084fc" stroke-width="2.5"/>
+  </g>
+  <circle cx="414" cy="168" r="6" fill="#c084fc" opacity="0.6" filter="url(#dashboard-glow)"/>
+  <circle class="blink" cx="414" cy="168" r="4" fill="#c084fc" stroke="#090710" stroke-width="1.5"/>
+  <text x="102" y="257" font-size="12" fill="#797294">30d ago</text>
+  <text x="420" y="257" font-size="12" fill="#797294" text-anchor="end">today</text>
+
+  <!-- bar chart card -->
+  <rect x="442" y="132" width="182" height="134" rx="10" fill="#120e1f" stroke="rgba(148,163,184,0.18)"/>
+  <text x="454" y="150" font-size="12" fill="#a9a2c3">By source</text>
+  <g stroke="rgba(148,163,184,0.18)">
+    <line x1="454" y1="168" x2="612" y2="168"/>
+    <line x1="454" y1="204" x2="612" y2="204"/>
+    <line x1="454" y1="240" x2="612" y2="240"/>
+  </g>
+  <path d="M466 240 V180 Q466 176 470 176 H490 Q494 176 494 180 V240 Z" fill="#8b5cf6"/>
+  <path d="M519 240 V229 Q519 225 523 225 H543 Q547 225 547 229 V240 Z" fill="#8b5cf6" opacity="0.75"/>
+  <path d="M572 240 V217 Q572 213 576 213 H596 Q600 213 600 217 V240 Z" fill="#8b5cf6" opacity="0.6"/>
+  <text x="480" y="257" font-size="12" fill="#797294" text-anchor="middle">text</text>
+  <text x="533" y="257" font-size="12" fill="#797294" text-anchor="middle">voice</text>
+  <text x="586" y="257" font-size="12" fill="#797294" text-anchor="middle">widget</text>
+
+  <!-- top queries table -->
+  <rect x="90" y="276" width="534" height="96" rx="10" fill="#120e1f" stroke="rgba(148,163,184,0.18)"/>
+  <text x="102" y="294" font-size="12" fill="#a9a2c3">Top queries</text>
+  <g stroke="rgba(148,163,184,0.18)">
+    <line x1="90" y1="301" x2="624" y2="301"/>
+    <line x1="102" y1="323" x2="612" y2="323"/>
+    <line x1="102" y1="345" x2="612" y2="345"/>
+  </g>
+  <g font-size="12">
+    <text x="102" y="316" fill="#797294">1</text>
+    <text x="118" y="316" fill="#ede9fe">running shoes</text>
+    <rect x="440" y="309" width="172" height="6" rx="3" fill="#181329"/>
+    <rect x="440" y="309" width="107" height="6" rx="3" fill="url(#dashboard-gh)"/>
+
+    <text x="102" y="338" fill="#797294">2</text>
+    <text x="118" y="338" fill="#ede9fe">gift for someone who cooks</text>
+    <rect x="440" y="331" width="172" height="6" rx="3" fill="#181329"/>
+    <rect x="440" y="331" width="76" height="6" rx="3" fill="url(#dashboard-gh)"/>
+
+    <text x="102" y="360" fill="#797294">3</text>
+    <text x="118" y="360" fill="#ede9fe">laptop under 50000</text>
+    <rect x="440" y="353" width="172" height="6" rx="3" fill="#181329"/>
+    <rect x="440" y="353" width="53" height="6" rx="3" fill="url(#dashboard-gh)"/>
+  </g>
+
+  <text x="624" y="390" font-size="12" fill="#797294" text-anchor="end">sample data</text>
+</svg>

@@ -1,0 +1,119 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 400" role="img" aria-labelledby="t">
+  <title id="t">Architecture of the AI search platform: a storefront widget and two React dashboards call a FastAPI service with 51 endpoints, backed by OpenAI embeddings, an OpenSearch vector index, PostgreSQL and a 2-tier Redis cache, guarded by 31 tenant-isolation tests and an LLM helpdesk agent with 3 tools, deployed with Docker Compose, nginx and Let's Encrypt TLS on an Azure VM</title>
+  <defs>
+    <linearGradient id="arch-g" x1="0" y1="0" x2="1" y2="0">
+      <stop stop-color="#c084fc"/><stop offset="1" stop-color="#8b5cf6"/>
+    </linearGradient>
+    <filter id="arch-glow" x="-20%" y="-300%" width="140%" height="700%"><feGaussianBlur stdDeviation="6"/></filter>
+  </defs>
+
+  <rect x="0" y="0" width="640" height="400" rx="18" fill="#090710"/>
+
+  <!-- soft halo behind the API layer -->
+  <rect x="70" y="134" width="352" height="16" rx="8" fill="url(#arch-g)" opacity="0.2" filter="url(#arch-glow)"/>
+
+  <g font-family="Inter, system-ui, sans-serif" font-size="12">
+
+    <!-- header -->
+    <text x="24" y="36" fill="#a9a2c3">Platform architecture</text>
+
+    <!-- row 1: clients -->
+    <g fill="#120e1f" stroke="rgba(148,163,184,0.18)">
+      <rect x="16" y="54" width="224" height="44" rx="10"/>
+      <rect x="252" y="54" width="224" height="44" rx="10"/>
+    </g>
+    <rect x="32" y="67" width="20" height="16" rx="3" fill="none" stroke="#a9a2c3" stroke-width="1.4"/>
+    <line x1="32" y1="72.5" x2="52" y2="72.5" stroke="#a9a2c3" stroke-width="1.4"/>
+    <text x="62" y="80.5" fill="#ede9fe" font-size="13" font-weight="600">Storefront widget</text>
+    <g fill="#a9a2c3">
+      <rect x="268" y="76" width="4" height="7" rx="1"/>
+      <rect x="274" y="69" width="4" height="14" rx="1"/>
+      <rect x="280" y="72" width="4" height="11" rx="1"/>
+    </g>
+    <text x="296" y="80.5" fill="#ede9fe" font-size="13" font-weight="600">React dashboards ×2</text>
+
+    <!-- row 2: API bar + chips -->
+    <rect x="16" y="122" width="460" height="40" rx="10" fill="url(#arch-g)" opacity="0.16"/>
+    <rect x="16" y="122" width="460" height="40" rx="10" fill="none" stroke="url(#arch-g)" stroke-opacity="0.55"/>
+    <text x="246" y="146.5" text-anchor="middle" fill="#ede9fe" font-size="13" font-weight="600">FastAPI · 51 endpoints</text>
+
+    <g fill="#181329" stroke="rgba(148,163,184,0.18)">
+      <rect x="16" y="172" width="70" height="24" rx="12"/>
+      <rect x="94" y="172" width="70" height="24" rx="12" stroke="#c084fc" stroke-opacity="0.7"/>
+      <rect x="172" y="172" width="70" height="24" rx="12"/>
+      <rect x="250" y="172" width="70" height="24" rx="12"/>
+      <rect x="328" y="172" width="70" height="24" rx="12"/>
+      <rect x="406" y="172" width="70" height="24" rx="12"/>
+    </g>
+    <g fill="#a9a2c3" text-anchor="middle">
+      <text x="51" y="188.5">ingestion</text>
+      <text x="129" y="188.5" fill="#c084fc">search</text>
+      <text x="207" y="188.5">analytics</text>
+      <text x="285" y="188.5">billing</text>
+      <text x="363" y="188.5">admin</text>
+      <text x="441" y="188.5">portal</text>
+    </g>
+
+    <!-- row 3: data services -->
+    <g fill="#120e1f" stroke="rgba(148,163,184,0.18)">
+      <rect x="16" y="222" width="162" height="66" rx="10"/>
+      <rect x="184" y="222" width="104" height="66" rx="10"/>
+      <rect x="294" y="222" width="92" height="66" rx="10"/>
+      <rect x="392" y="222" width="84" height="66" rx="10"/>
+    </g>
+    <text x="26" y="249" fill="#8b5cf6" font-size="13" font-weight="600">OpenAI embeddings</text>
+    <text x="26" y="269" fill="#a9a2c3">text-embedding-3-large</text>
+    <text x="194" y="249" fill="#c084fc" font-size="13" font-weight="600">OpenSearch</text>
+    <text x="194" y="269" fill="#a9a2c3">vector index</text>
+    <text x="304" y="249" fill="#ede9fe" font-size="13" font-weight="600">PostgreSQL</text>
+    <text x="304" y="269" fill="#a9a2c3">relational data</text>
+    <text x="402" y="249" fill="#fbbf24" font-size="13" font-weight="600">Redis</text>
+    <text x="402" y="269" fill="#a9a2c3">2-tier cache</text>
+
+    <!-- right strip: cross-cutting badges -->
+    <rect x="492" y="54" width="132" height="234" rx="12" fill="#120e1f" stroke="rgba(148,163,184,0.18)"/>
+    <g fill="#181329" stroke="rgba(148,163,184,0.18)">
+      <rect x="502" y="64" width="112" height="102" rx="10"/>
+      <rect x="502" y="176" width="112" height="102" rx="10"/>
+    </g>
+    <g class="floaty">
+      <path d="M558 80l13 5v10c0 11-7.5 17.5-13 20-5.5-2.5-13-9-13-20V85z" fill="#34d399" fill-opacity="0.14" stroke="#34d399" stroke-width="1.6" stroke-linejoin="round"/>
+      <path d="M551.5 97.5l4.5 4.5 9-10" fill="none" stroke="#34d399" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M549 194h18a7 7 0 0 1 7 7v8a7 7 0 0 1-7 7h-10l-7 6v-6h-1a7 7 0 0 1-7-7v-8a7 7 0 0 1 7-7z" fill="#8b5cf6" fill-opacity="0.14" stroke="url(#arch-g)" stroke-width="1.6" stroke-linejoin="round"/>
+      <g fill="#c084fc">
+        <circle cx="551" cy="205" r="1.8"/><circle cx="558" cy="205" r="1.8"/><circle cx="565" cy="205" r="1.8"/>
+      </g>
+    </g>
+    <g text-anchor="middle">
+      <text x="558" y="136" fill="#34d399" font-size="13" font-weight="600">31-test</text>
+      <text x="558" y="154" fill="#a9a2c3">tenant isolation</text>
+      <text x="558" y="248" fill="#ede9fe" font-size="13" font-weight="600">LLM helpdesk</text>
+      <text x="558" y="266" fill="#a9a2c3">agent · <tspan fill="#c084fc">3 tools</tspan></text>
+    </g>
+
+    <!-- base bar: infrastructure -->
+    <rect x="16" y="320" width="608" height="44" rx="10" fill="#120e1f" stroke="rgba(148,163,184,0.18)"/>
+    <g fill="#a9a2c3">
+      <rect x="32" y="340" width="6" height="6" rx="1"/>
+      <rect x="40" y="340" width="6" height="6" rx="1"/>
+      <rect x="48" y="340" width="6" height="6" rx="1"/>
+      <rect x="40" y="332" width="6" height="6" rx="1"/>
+    </g>
+    <text x="64" y="346.5" fill="#ede9fe">Docker Compose<tspan fill="#797294"> · </tspan>nginx<tspan fill="#797294"> · </tspan>Let's Encrypt TLS<tspan fill="#797294"> · </tspan>Azure VM</text>
+    <circle class="blink" cx="578" cy="342.5" r="3.5" fill="#34d399"/>
+    <text x="606" y="346.5" text-anchor="end" fill="#a9a2c3">live</text>
+  </g>
+
+  <!-- connectors -->
+  <g class="draw" fill="none" stroke="#c084fc" stroke-opacity="0.75" stroke-width="1.5" stroke-linecap="round">
+    <path class="d1" d="M128 98V122M364 98V122"/>
+    <path class="d2" d="M246 162V209M97 209H434M97 209V222M236 209V222M340 209V222M434 209V222"/>
+    <path class="d3" d="M97 288V320M236 288V320M340 288V320M434 288V320"/>
+    <path class="d4" d="M476 142H492M558 288V320"/>
+  </g>
+  <g fill="#c084fc">
+    <circle cx="128" cy="122" r="2.2"/><circle cx="364" cy="122" r="2.2"/>
+    <circle cx="97" cy="222" r="2.2"/><circle cx="236" cy="222" r="2.2"/><circle cx="340" cy="222" r="2.2"/><circle cx="434" cy="222" r="2.2"/>
+    <circle cx="97" cy="320" r="2.2"/><circle cx="236" cy="320" r="2.2"/><circle cx="340" cy="320" r="2.2"/><circle cx="434" cy="320" r="2.2"/><circle cx="558" cy="320" r="2.2"/>
+  </g>
+</svg>

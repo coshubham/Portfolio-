@@ -1,0 +1,114 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 400" role="img" aria-labelledby="t">
+  <title id="t">AI lead-capture chat widget on a website, feeding a leads table</title>
+  <defs>
+    <linearGradient id="lw-g" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#c084fc"/>
+      <stop offset="1" stop-color="#8b5cf6"/>
+    </linearGradient>
+    <filter id="lw-glow" x="-100%" y="-100%" width="300%" height="300%">
+      <feGaussianBlur stdDeviation="6"/>
+    </filter>
+  </defs>
+
+  <rect x="0" y="0" width="640" height="400" rx="18" fill="#090710"/>
+
+  <g font-family="Inter, system-ui, sans-serif" font-size="12">
+
+    <!-- website mock -->
+    <rect x="16" y="16" width="344" height="368" rx="12" fill="#120e1f" stroke="rgba(148,163,184,0.18)"/>
+    <circle cx="36" cy="34" r="6" fill="url(#lw-g)"/>
+    <rect x="48" y="30" width="36" height="8" rx="4" fill="#797294" opacity="0.6"/>
+    <rect x="132" y="31" width="26" height="6" rx="3" fill="#797294" opacity="0.45"/>
+    <rect x="168" y="31" width="26" height="6" rx="3" fill="#797294" opacity="0.45"/>
+    <rect x="204" y="31" width="26" height="6" rx="3" fill="#797294" opacity="0.45"/>
+    <rect x="292" y="24" width="54" height="20" rx="10" fill="#c084fc" fill-opacity="0.14" stroke="#c084fc" stroke-opacity="0.55"/>
+    <text x="319" y="38" text-anchor="middle" fill="#c084fc">Contact</text>
+    <line x1="16" y1="52" x2="360" y2="52" stroke="rgba(148,163,184,0.18)"/>
+
+    <!-- hero -->
+    <rect x="32" y="66" width="312" height="72" rx="10" fill="#181329"/>
+    <rect x="48" y="80" width="164" height="10" rx="5" fill="#a9a2c3" opacity="0.55"/>
+    <rect x="48" y="96" width="128" height="7" rx="3.5" fill="#797294" opacity="0.5"/>
+    <rect x="48" y="112" width="54" height="12" rx="6" fill="url(#lw-g)" opacity="0.85"/>
+    <circle cx="298" cy="102" r="18" fill="#c084fc" opacity="0.45" filter="url(#lw-glow)"/>
+    <circle cx="298" cy="102" r="14" fill="url(#lw-g)"/>
+    <circle cx="298" cy="102" r="24" fill="none" stroke="rgba(148,163,184,0.18)"/>
+
+    <!-- content lines -->
+    <rect x="32" y="156" width="124" height="6" rx="3" fill="#797294" opacity="0.4"/>
+    <rect x="32" y="172" width="104" height="6" rx="3" fill="#797294" opacity="0.4"/>
+    <rect x="32" y="188" width="116" height="6" rx="3" fill="#797294" opacity="0.4"/>
+    <rect x="32" y="212" width="116" height="76" rx="8" fill="#181329"/>
+    <rect x="44" y="224" width="30" height="20" rx="5" fill="url(#lw-g)" opacity="0.45"/>
+    <rect x="44" y="254" width="80" height="6" rx="3" fill="#797294" opacity="0.4"/>
+    <rect x="44" y="268" width="60" height="6" rx="3" fill="#797294" opacity="0.4"/>
+    <rect x="32" y="306" width="118" height="6" rx="3" fill="#797294" opacity="0.4"/>
+    <rect x="32" y="322" width="96" height="6" rx="3" fill="#797294" opacity="0.4"/>
+    <rect x="32" y="338" width="108" height="6" rx="3" fill="#797294" opacity="0.4"/>
+
+    <!-- chat widget -->
+    <rect x="164" y="152" width="172" height="220" rx="12" fill="#181329" stroke="rgba(148,163,184,0.18)"/>
+    <circle cx="184" cy="168" r="9" fill="url(#lw-g)"/>
+    <circle cx="191" cy="175" r="3.2" fill="#34d399" stroke="#181329" stroke-width="1.5" class="blink"/>
+    <text x="200" y="172" fill="#ede9fe">Assistant</text>
+    <path d="M320 164 l8 8 M328 164 l-8 8" stroke="#797294" stroke-width="1.4" stroke-linecap="round"/>
+    <line x1="164" y1="184" x2="336" y2="184" stroke="rgba(148,163,184,0.18)"/>
+
+    <rect x="204" y="194" width="124" height="38" rx="10" fill="#120e1f" stroke="rgba(148,163,184,0.18)"/>
+    <text x="214" y="210" fill="#a9a2c3">Do you build AI</text>
+    <text x="214" y="225" fill="#a9a2c3">search for Shopify?</text>
+
+    <rect x="172" y="240" width="128" height="54" rx="10" fill="#c084fc" fill-opacity="0.12" stroke="#c084fc" stroke-opacity="0.35"/>
+    <text x="182" y="256" fill="#ede9fe">Yes. Can I take your</text>
+    <text x="182" y="271" fill="#ede9fe">email so the team</text>
+    <text x="182" y="286" fill="#ede9fe">can send examples?</text>
+
+    <rect x="204" y="302" width="124" height="24" rx="10" fill="#120e1f" stroke="rgba(148,163,184,0.18)"/>
+    <text x="214" y="318" fill="#a9a2c3">sam@example.com</text>
+
+    <rect x="172" y="336" width="156" height="26" rx="13" fill="#120e1f" stroke="rgba(148,163,184,0.18)"/>
+    <text x="184" y="353" fill="#797294">Type a message</text>
+    <circle cx="315" cy="349" r="9" fill="url(#lw-g)"/>
+    <path d="M310 349 h9 m-3.5 -3.5 l3.5 3.5 -3.5 3.5" fill="none" stroke="#090710" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+
+    <!-- new lead toast -->
+    <g class="floaty">
+      <rect x="376" y="84" width="248" height="48" rx="12" fill="#181329" stroke="rgba(148,163,184,0.18)"/>
+      <circle cx="400" cy="108" r="11" fill="#34d399" fill-opacity="0.18" stroke="#34d399" stroke-opacity="0.6"/>
+      <path d="M394.5 108.5 l3.5 3.5 l7.5 -7.5" fill="none" stroke="#34d399" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      <text x="420" y="105" font-weight="600" fill="#ede9fe">New lead</text>
+      <text x="420" y="122" fill="#a9a2c3">sam@example.com</text>
+    </g>
+
+    <!-- leads table -->
+    <rect x="376" y="172" width="248" height="152" rx="12" fill="#120e1f" stroke="rgba(148,163,184,0.18)"/>
+    <text x="390" y="198" font-size="13" font-weight="600" fill="#ede9fe">Leads</text>
+    <rect x="572" y="184" width="40" height="18" rx="9" fill="#181329" stroke="rgba(148,163,184,0.18)"/>
+    <text x="592" y="197" text-anchor="middle" fill="#a9a2c3">CSV</text>
+
+    <rect x="384" y="212" width="232" height="22" rx="6" fill="#181329"/>
+    <text x="392" y="227" fill="#a9a2c3">Name</text>
+    <text x="459" y="227" fill="#a9a2c3">Email</text>
+    <text x="608" y="227" text-anchor="end" fill="#a9a2c3">Intent</text>
+
+    <text x="392" y="255" fill="#ede9fe">Lee</text>
+    <text x="459" y="255" fill="#ede9fe">lee@example.com</text>
+    <text x="608" y="255" text-anchor="end" fill="#ede9fe">Pricing</text>
+    <line x1="384" y1="268" x2="616" y2="268" stroke="rgba(148,163,184,0.18)"/>
+
+    <rect x="384" y="274" width="232" height="30" rx="6" fill="#34d399" fill-opacity="0.12" stroke="#34d399" stroke-opacity="0.5"/>
+    <text x="392" y="293" fill="#ede9fe">Sam</text>
+    <rect x="421" y="280" width="32" height="17" rx="8.5" fill="#34d399" fill-opacity="0.22"/>
+    <text x="437" y="293" text-anchor="middle" fill="#34d399">new</text>
+    <text x="459" y="293" fill="#ede9fe">sam@example.com</text>
+    <text x="608" y="293" text-anchor="end" fill="#ede9fe">Search</text>
+
+    <!-- widget -> table arrow -->
+    <circle cx="338" cy="314" r="7" fill="#c084fc" opacity="0.5" filter="url(#lw-glow)"/>
+    <circle cx="338" cy="314" r="3" fill="#c084fc"/>
+    <g class="draw" fill="none" stroke="#c084fc" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path class="d1" d="M338 314 C354 314 356 289 372 289"/>
+      <path class="d2" d="M366 284 L372 289 L366 294"/>
+    </g>
+  </g>
+</svg>

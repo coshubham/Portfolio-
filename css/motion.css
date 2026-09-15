@@ -1,0 +1,63 @@
+/* ==========================================================================
+   motion.css — intro sequence, scroll-linked timeline,
+   ambient parallax, word-by-word headings, case depth
+   ========================================================================== */
+
+/* ---------- intro sequence (first visit per session) ---------- */
+body.is-loading { overflow: hidden; }
+.intro { position: fixed; inset: 0; z-index: 200; display: grid; place-items: center; background: var(--bg); transition: transform 0.9s var(--ease), opacity 0.9s var(--ease); }
+.intro::before { content: ''; position: absolute; inset: 0; background: radial-gradient(60vw 60vw at 70% 20%, rgba(14, 165, 233, 0.12), transparent 60%), radial-gradient(50vw 50vw at 20% 80%, rgba(34, 211, 238, 0.08), transparent 60%); }
+.intro.is-done { transform: translateY(-100%); opacity: 0; pointer-events: none; }
+/* pure-CSS auto-dismiss so the overlay can never trap a visitor if scripts are slow or blocked */
+.intro { animation: introAway 0.9s var(--ease) 3.2s forwards; }
+@keyframes introAway { to { transform: translateY(-100%); opacity: 0; visibility: hidden; pointer-events: none; } }
+.intro-name:not(:has(span)) { animation: introFade 0.6s ease 0.15s both; }
+.intro-inner { position: relative; text-align: center; }
+.intro-name { font-family: var(--font-display); font-weight: 800; font-size: clamp(2rem, 7vw, 4.6rem); letter-spacing: -0.03em; line-height: 1; display: flex; gap: 0.02em; align-items: baseline; justify-content: center; flex-wrap: wrap; }
+.intro-name span { display: inline-block; opacity: 0; transform: translateY(0.6em) rotateX(-60deg); animation: introLetter 0.7s var(--ease) forwards; animation-delay: calc(var(--i) * 45ms + 120ms); transform-origin: bottom; }
+.intro-name span.sp { width: 0.35em; }
+.intro-name span.accent { background: none; color: #a5f3fc; font-family: 'Instrument Serif', Georgia, serif; font-style: italic; font-weight: 400; font-size: 1.12em; letter-spacing: 0; }
+/* while the display fonts load: the progress line keeps running, the name and tag wait (no fallback-font flash) */
+.intro.is-wait .intro-name, .intro.is-wait .intro-tag { visibility: hidden; }
+.intro.is-wait .intro-name, .intro.is-wait .intro-name *, .intro.is-wait .intro-tag { animation-play-state: paused; }
+@keyframes introLetter { to { opacity: 1; transform: none; } }
+.intro-line { width: min(60vw, 320px); height: 2px; margin: 26px auto 14px; background: rgba(148, 163, 184, 0.14); border-radius: 2px; overflow: hidden; }
+.intro-line i { display: block; height: 100%; width: 100%; background: var(--grad); transform-origin: left; transform: scaleX(0); animation: introLine 1.15s var(--ease) 0.25s forwards; }
+@keyframes introLine { to { transform: scaleX(1); } }
+.intro-tag { font-family: var(--font-mono); font-size: 0.78rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--purple-2); opacity: 0; animation: introFade 0.6s ease 0.9s forwards; }
+@keyframes introFade { to { opacity: 1; } }
+
+/* ---------- timeline draws with scroll ---------- */
+.timeline::before { transform: scaleY(var(--tl, 0)); transform-origin: top; transition: transform 0.15s linear; }
+.tl-item::before { transition: border-color var(--med), box-shadow var(--med), background var(--med); }
+.tl-item.is-past::before { background: var(--purple-2); }
+.tl-item.is-edu.is-past::before { background: var(--purple); }
+.tl-item.is-cert.is-past::before { background: var(--amber); }
+
+/* ---------- ambient background: its own layer; motion.js fades it and sets --sp ---------- */
+.ambient { will-change: opacity; contain: strict; }
+
+/* ---------- word-by-word headings ---------- */
+.section-head h2 .w { display: inline-block; overflow: hidden; vertical-align: bottom; padding-bottom: 0.08em; margin-bottom: -0.08em; }
+.js .section-head h2 .w > span { display: inline-block; transform: translateY(110%); transition: transform 0.7s var(--ease); transition-delay: calc(var(--i) * 60ms); }
+.section-head.is-in h2 .w > span { transform: none; }
+
+/* ---------- case visual depth ---------- */
+.case-visual { transform-style: preserve-3d; transition: transform var(--med) var(--ease); }
+.case:hover .case-visual { transform: translateZ(18px) scale(1.01); }
+.case-visual svg { transition: transform 0.25s var(--ease); }
+
+/* ---------- hero: floating orbit chips ---------- */
+.orbit { position: absolute; inset: 0; pointer-events: none; z-index: 0; }
+.orbit span { position: absolute; padding: 6px 10px; border-radius: 999px; font-family: var(--font-mono); font-size: 0.68rem; letter-spacing: 0.06em; color: var(--purple-3); background: rgba(8, 13, 24, 0.90); border: 1px solid rgba(34, 211, 238, 0.25); opacity: 0; animation: orbitIn 1s var(--ease) forwards, float 6s ease-in-out infinite; animation-delay: var(--d, 1s), var(--d, 1s); }
+@keyframes orbitIn { to { opacity: 0.9; } }
+
+@media (max-width: 960px) {
+  .orbit { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .intro { display: none; }
+  .timeline::before { transform: none; }
+  .section-head h2 .w > span { transform: none; }
+  .orbit span { animation: none; opacity: 0.9; }
+}

@@ -1,0 +1,188 @@
+/* ==========================================================================
+   layout.css — page frame, nav, sections, grids, responsive rules
+   ========================================================================== */
+
+.container { width: min(var(--container), 100% - 2 * var(--gutter)); margin-inline: auto; }
+.section { position: relative; padding-block: var(--section-y); }
+.section + .section { padding-top: 0; }
+.section-head { max-width: 720px; margin-bottom: clamp(32px, 5vw, 56px); }
+.eyebrow {
+  display: inline-flex; align-items: center; gap: 10px;
+  font-family: var(--font-mono); font-size: 0.78rem; letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--cyan); margin-bottom: 14px;
+}
+.eyebrow::before { content: ''; width: 26px; height: 1px; background: var(--cyan); opacity: 0.7; }
+.section-head h2 { margin-bottom: 18px; }
+.section-head p { color: var(--muted); font-size: 1.05rem; }
+
+/* ambient background: a slow cyan aurora, a drifting grid, twinkling points and a rare light sweep, fixed behind
+   every section. Everything animates with transform/opacity only (compositor), and it never scrolls away.
+   motion.js sets --sp (0..1 page progress) for a gentle parallax and lowers the strength behind the hero. */
+.ambient {
+  position: fixed; inset: 0; z-index: -2; pointer-events: none; overflow: hidden;
+  background:
+    radial-gradient(70vw 55vw at 88% -8%, rgba(14, 165, 233, 0.10), transparent 62%),
+    radial-gradient(60vw 50vw at -8% 48%, rgba(34, 211, 238, 0.06), transparent 62%),
+    linear-gradient(180deg, #030712 0%, #041022 50%, #030712 100%);
+}
+.ambient::after { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 120% 90% at 50% 45%, transparent 55%, rgba(2, 5, 14, 0.55) 100%); }
+.ambient > * { position: absolute; display: block; pointer-events: none; }
+
+.amb-orbs { inset: -12vh 0; transform: translate3d(0, calc(var(--sp, 0) * -10vh), 0); }
+.amb-orb { position: absolute; display: block; border-radius: 50%; }
+.amb-orb.o1 { width: 60vmax; height: 60vmax; left: -16vmax; top: -14vmax; background: radial-gradient(closest-side, rgba(34, 211, 238, 0.21), rgba(34, 211, 238, 0.06) 55%, transparent); animation: ambA 42s ease-in-out infinite alternate; }
+.amb-orb.o2 { width: 66vmax; height: 66vmax; right: -24vmax; top: 18vh; background: radial-gradient(closest-side, rgba(14, 165, 233, 0.2), rgba(14, 165, 233, 0.055) 55%, transparent); animation: ambB 50s ease-in-out infinite alternate; }
+.amb-orb.o3 { width: 54vmax; height: 54vmax; left: 12vw; bottom: -22vmax; background: radial-gradient(closest-side, rgba(20, 184, 166, 0.16), rgba(20, 184, 166, 0.045) 55%, transparent); animation: ambC 58s ease-in-out infinite alternate; }
+.amb-orb.o4 { width: 42vmax; height: 42vmax; left: 40vw; top: 30vh; background: radial-gradient(closest-side, rgba(37, 99, 235, 0.17), transparent); animation: ambD 66s ease-in-out infinite alternate; }
+@keyframes ambA { 0% { transform: translate3d(0, 0, 0) scale(1); } 50% { transform: translate3d(22vw, 14vh, 0) scale(1.12); } 100% { transform: translate3d(8vw, 34vh, 0) scale(0.94); } }
+@keyframes ambB { 0% { transform: translate3d(0, 0, 0) scale(1.05); } 50% { transform: translate3d(-18vw, 20vh, 0) scale(0.92); } 100% { transform: translate3d(-6vw, -12vh, 0) scale(1.1); } }
+@keyframes ambC { 0% { transform: translate3d(0, 0, 0) scale(0.95); } 50% { transform: translate3d(26vw, -18vh, 0) scale(1.1); } 100% { transform: translate3d(46vw, -4vh, 0) scale(1); } }
+@keyframes ambD { 0% { transform: translate3d(0, 0, 0) scale(1); } 50% { transform: translate3d(-24vw, -16vh, 0) scale(1.25); } 100% { transform: translate3d(-10vw, 18vh, 0) scale(0.9); } }
+
+/* the grid: masked by a still parent, so the endless pan never shows a seam */
+.amb-grid { inset: 0; overflow: hidden; -webkit-mask-image: radial-gradient(ellipse 75% 65% at 50% 42%, #000 15%, transparent 78%); mask-image: radial-gradient(ellipse 75% 65% at 50% 42%, #000 15%, transparent 78%); }
+.amb-grid i { position: absolute; display: block; inset: -56px; background-image: linear-gradient(rgba(56, 189, 248, 0.055) 1px, transparent 1px), linear-gradient(90deg, rgba(56, 189, 248, 0.055) 1px, transparent 1px); background-size: 56px 56px; animation: ambGrid 26s linear infinite; }
+@keyframes ambGrid { to { transform: translate3d(56px, 56px, 0); } }
+
+/* shining particles: js/particles.js draws them on this canvas */
+.amb-particles { inset: 0; width: 100%; height: 100%; }
+
+/* a soft diagonal light sweep, once every 14 s */
+.amb-beam { top: -30vh; bottom: -30vh; left: 0; width: 38vw; background: linear-gradient(90deg, transparent, rgba(125, 211, 252, 0.035) 45%, rgba(165, 243, 252, 0.06) 50%, rgba(125, 211, 252, 0.035) 55%, transparent); transform: translate3d(-60vw, 0, 0) rotate(18deg); animation: ambBeam 14s cubic-bezier(0.45, 0, 0.25, 1) 3s infinite; }
+@keyframes ambBeam { 0% { transform: translate3d(-60vw, 0, 0) rotate(18deg); } 45%, 100% { transform: translate3d(170vw, 0, 0) rotate(18deg); } }
+
+@media (max-width: 760px) {
+  .amb-orb.o4, .amb-beam { display: none; }
+  .amb-grid i { background-size: 44px 44px; inset: -44px; animation-name: ambGridS; }
+}
+@keyframes ambGridS { to { transform: translate3d(44px, 44px, 0); } }
+@media (prefers-reduced-motion: reduce) {
+  .amb-orb, .amb-grid i, .amb-beam { animation: none !important; }
+  .amb-beam { display: none; }
+  .amb-orbs { transform: none; }
+}
+
+/* ---------- nav ---------- */
+.nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  transition: background var(--med) var(--ease), border-color var(--med) var(--ease), backdrop-filter var(--med);
+  border-bottom: 1px solid transparent;
+}
+.nav.is-scrolled {
+  background: rgba(3, 7, 18, 0.6);
+  backdrop-filter: blur(24px) saturate(140%);
+  -webkit-backdrop-filter: blur(24px) saturate(140%);
+  border-bottom-color: rgba(255, 255, 255, 0.07);
+}
+.nav .container { display: flex; align-items: center; justify-content: space-between; height: 72px; }
+.brand { display: inline-flex; align-items: center; gap: 0; font-family: var(--font-display); font-weight: 700; font-size: 1.15rem; letter-spacing: -0.02em; }
+.nav-links { display: flex; gap: 6px; }
+.nav-links a {
+  white-space: nowrap; position: relative; padding: 8px 12px; border-radius: 10px; font-size: 0.93rem; color: var(--text-2);
+  transition: color var(--fast), background var(--fast);
+}
+.nav-links a:hover, .nav-links a.is-active { color: var(--text); background: rgba(255, 255, 255, 0.05); }
+.nav-cta { display: inline-flex; white-space: nowrap; }
+.nav-toggle { display: none; width: 44px; height: 44px; border-radius: 10px; align-items: center; justify-content: center; }
+.nav-toggle span, .nav-toggle span::before, .nav-toggle span::after {
+  display: block; width: 22px; height: 2px; background: var(--text); border-radius: 2px; position: relative;
+  transition: transform var(--med) var(--ease), opacity var(--med);
+}
+.nav-toggle span::before, .nav-toggle span::after { content: ''; position: absolute; left: 0; }
+.nav-toggle span::before { top: -7px; }
+.nav-toggle span::after { top: 7px; }
+.nav-toggle[aria-expanded="true"] span { background: transparent; }
+.nav-toggle[aria-expanded="true"] span::before { transform: translateY(7px) rotate(45deg); }
+.nav-toggle[aria-expanded="true"] span::after { transform: translateY(-7px) rotate(-45deg); }
+
+/* ---------- hero ---------- */
+.hero { position: relative; min-height: 100svh; display: flex; align-items: center; padding-top: 72px; padding-bottom: 96px; overflow: hidden; }
+.hero-canvas { position: absolute; inset: 0; z-index: -1; }
+.hero-canvas canvas { width: 100%; height: 100%; }
+.hero-canvas::after { content: ''; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(to bottom, rgba(3, 7, 18, 0.88), transparent 22%), radial-gradient(60% 70% at 26% 52%, rgba(3, 7, 18, 0.82), transparent 70%); }
+.hero .stat, .hero .term { background: rgba(8, 13, 24, 0.90); }
+.hero-copy { position: relative; z-index: 1; }
+.hero-fade {
+  position: absolute; inset: auto 0 0 0; height: 220px; z-index: 0; pointer-events: none;
+  background: linear-gradient(to bottom, transparent, var(--bg));
+}
+.hero .container { position: relative; z-index: 1; display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr); gap: 40px; align-items: center; }
+.hero-copy .eyebrow { margin-bottom: 18px; }
+.hero-copy h1 { margin-bottom: 12px; }
+.hero-copy h1 .name { display: block; }
+.hero-line { font-family: var(--font-display); font-size: clamp(1.15rem, 2.2vw, 1.6rem); font-weight: 600; min-height: 1.5em; margin-bottom: 18px; }
+.hero-line .typed-cursor { color: var(--cyan); }
+.hero-copy .lead { max-width: 560px; margin-bottom: 28px; }
+.hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 40px; }
+.hero-side { position: relative; }
+.hero-stats { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+.scroll-cue {
+  position: absolute; left: 50%; bottom: 26px; transform: translateX(-50%); z-index: 1;
+  display: flex; flex-direction: column; align-items: center; gap: 8px; color: var(--faint); font-size: 0.72rem; letter-spacing: 0.16em; text-transform: uppercase;
+}
+.scroll-cue i { width: 1px; height: 38px; background: linear-gradient(to bottom, var(--cyan), transparent); }
+
+/* ---------- about ---------- */
+.about-grid { display: grid; grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); gap: clamp(28px, 5vw, 64px); align-items: center; }
+.about-copy p { color: var(--text-2); }
+.about-copy .lead-chips { margin-top: 18px; }
+
+/* ---------- product ---------- */
+.product-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(28px, 5vw, 64px); align-items: center; }
+.product-grid.is-flipped .product-visual { order: -1; }
+.product-list { display: grid; gap: 14px; margin-top: 22px; }
+
+/* ---------- services ---------- */
+.services-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
+
+/* ---------- case studies ---------- */
+.cases { display: grid; gap: clamp(28px, 4vw, 48px); }
+
+/* ---------- skills ---------- */
+.skills-groups { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
+
+/* ---------- open source ---------- */
+.oss-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; }
+
+/* ---------- contact ---------- */
+.contact-grid { display: grid; grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); gap: clamp(28px, 5vw, 64px); align-items: start; }
+
+/* ---------- footer ---------- */
+.footer { border-top: 1px solid var(--border); padding: 28px 0 36px; color: var(--muted); font-size: 0.9rem; }
+.footer .container { display: flex; flex-wrap: wrap; gap: 14px 24px; align-items: center; justify-content: space-between; padding-right: 72px; }
+.footer-links { display: flex; gap: 16px; }
+.footer-links a { display: inline-block; padding: 8px 0; }
+.footer-links a:hover { color: var(--text); }
+
+/* ==========================================================================
+   responsive
+   ========================================================================== */
+@media (max-width: 1080px) {
+  .oss-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 960px) {
+  .hero .container { grid-template-columns: 1fr; gap: 28px; }
+  .hero-side { max-width: 560px; }
+  .services-grid { grid-template-columns: 1fr; max-width: 640px; }
+  .about-grid, .product-grid, .contact-grid { grid-template-columns: 1fr; }
+  .product-grid.is-flipped .product-visual { order: 0; }
+  .skills-groups { grid-template-columns: 1fr; }
+}
+@media (max-width: 1100px) {
+  .nav-links {
+    position: fixed; top: 72px; left: 0; right: 0; height: calc(100svh - 72px); max-height: calc(100dvh - 72px); flex-direction: column; visibility: hidden; gap: 4px; padding: 12px var(--gutter) 18px; overflow-y: auto;
+    background: rgba(7, 10, 18, 0.985); border-bottom: 1px solid var(--border);
+    transform: translateY(-8px); opacity: 0; pointer-events: none; transition: transform var(--med) var(--ease), opacity var(--med), visibility 0s linear var(--med);
+  }
+  .nav-links.is-open { transform: none; opacity: 1; pointer-events: auto; visibility: visible; transition-delay: 0s; }
+  .nav-links a { padding: 12px 14px; font-size: 1rem; }
+  .nav-cta { margin-left: auto; margin-right: 12px; }
+  .nav-toggle { display: inline-flex; }
+}
+@media (max-height: 760px) { .scroll-cue { display: none; } }
+@media (max-width: 600px) {
+  .hero { min-height: auto; padding-top: 110px; padding-bottom: 96px; }
+  .hero-stats { grid-template-columns: 1fr 1fr; gap: 10px; }
+  .oss-grid { grid-template-columns: 1fr; }
+  .scroll-cue { display: none; }
+}

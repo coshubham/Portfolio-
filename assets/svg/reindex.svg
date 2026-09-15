@@ -1,0 +1,84 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 400" role="img" aria-labelledby="t">
+  <title id="t">Reindex pipeline: frozen client backend through a TLS + SigV4 shim into self-hosted OpenSearch; 255,350 products reindexed with 0 errors in 1 h 52 min</title>
+  <defs>
+    <linearGradient id="reindex-g" x1="0" y1="0" x2="1" y2="0">
+      <stop stop-color="#c084fc"/>
+      <stop offset="1" stop-color="#8b5cf6"/>
+    </linearGradient>
+    <filter id="reindex-glow-bar" x="-5%" y="-300%" width="110%" height="700%">
+      <feGaussianBlur stdDeviation="6"/>
+    </filter>
+    <filter id="reindex-glow-dot" x="-100%" y="-100%" width="300%" height="300%">
+      <feGaussianBlur stdDeviation="6"/>
+    </filter>
+  </defs>
+
+  <rect x="0" y="0" width="640" height="400" rx="18" fill="#090710"/>
+
+  <g font-family="Inter, system-ui, sans-serif">
+
+    <!-- header -->
+    <text x="20" y="31" font-size="12" fill="#a9a2c3" letter-spacing="1.2">MARKETPLACE SEARCH</text>
+    <circle class="blink" cx="546" cy="27" r="3.5" fill="#34d399"/>
+    <text x="620" y="31" font-size="12" fill="#34d399" text-anchor="end">search live</text>
+
+    <!-- step 1: client backend (frozen) -->
+    <rect x="20" y="52" width="186" height="84" rx="10" fill="#120e1f" stroke="rgba(148,163,184,0.18)"/>
+    <text x="34" y="76" font-size="12" fill="#797294" letter-spacing="1">01</text>
+    <rect x="178" y="70" width="14" height="10" rx="2" fill="#fbbf24"/>
+    <path d="M181.5 70 V67 a3.5 3.5 0 0 1 7 0 V70" fill="none" stroke="#fbbf24" stroke-width="1.8" stroke-linecap="round"/>
+    <text x="34" y="101" font-size="13" font-weight="600" fill="#ede9fe">Client backend</text>
+    <text x="34" y="122" font-size="12" fill="#a9a2c3"><tspan fill="#fbbf24">frozen</tspan> · no changes allowed</text>
+
+    <!-- step 2: shim (violet) -->
+    <rect x="242" y="52" width="156" height="84" rx="10" fill="#120e1f" stroke="#8b5cf6" stroke-opacity="0.6"/>
+    <text x="256" y="76" font-size="12" fill="#797294" letter-spacing="1">02</text>
+    <path d="M384 63 L390 65.5 V71 C390 75 386 78 384 79 C382 78 378 75 378 71 V65.5 Z" fill="#8b5cf6"/>
+    <path d="M381.5 71 L383.5 73 L387 69" fill="none" stroke="#090710" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+    <text x="256" y="101" font-size="13" font-weight="600" fill="#ede9fe">TLS + SigV4 shim</text>
+    <text x="256" y="122" font-size="12" fill="#a9a2c3">drop-in proxy</text>
+
+    <!-- step 3: opensearch (cyan) -->
+    <rect x="434" y="52" width="186" height="84" rx="10" fill="#120e1f" stroke="#c084fc" stroke-opacity="0.6"/>
+    <text x="448" y="76" font-size="12" fill="#797294" letter-spacing="1">03</text>
+    <ellipse cx="600" cy="66" rx="6.5" ry="2.6" fill="none" stroke="#c084fc" stroke-width="1.6"/>
+    <path d="M593.5 66 V77 a6.5 2.6 0 0 0 13 0 V66 M593.5 71.5 a6.5 2.6 0 0 0 13 0" fill="none" stroke="#c084fc" stroke-width="1.6" stroke-linecap="round"/>
+    <text x="448" y="101" font-size="13" font-weight="600" fill="#ede9fe">Self-hosted OpenSearch</text>
+    <text x="448" y="122" font-size="12" fill="#a9a2c3">search cluster</text>
+
+    <!-- connectors (animated) -->
+    <g class="draw" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path class="d1" d="M206 94 H240 M234 89 L240 94 L234 99" stroke="#8b5cf6"/>
+      <path class="d2" d="M398 94 H432 M426 89 L432 94 L426 99" stroke="#c084fc"/>
+    </g>
+
+    <!-- progress -->
+    <text x="20" y="190" font-size="13" font-weight="600" fill="#ede9fe">Reindex progress</text>
+    <text x="584" y="190" font-size="13" font-weight="600" fill="#c084fc" text-anchor="end">100%</text>
+
+    <rect x="20" y="208" width="564" height="14" rx="7" fill="url(#reindex-g)" opacity="0.5" filter="url(#reindex-glow-bar)"/>
+    <rect x="20" y="204" width="564" height="14" rx="7" fill="#181329" stroke="rgba(148,163,184,0.18)"/>
+    <rect x="20" y="204" width="564" height="14" rx="7" fill="url(#reindex-g)"/>
+
+    <circle cx="606" cy="211" r="12" fill="#34d399" opacity="0.55" filter="url(#reindex-glow-dot)"/>
+    <circle cx="606" cy="211" r="13" fill="#34d399"/>
+    <path d="M600 211.5 L604.5 216 L612.5 206.5" fill="none" stroke="#090710" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+
+    <!-- stat tiles -->
+    <rect x="20" y="256" width="190" height="118" rx="10" fill="#120e1f" stroke="rgba(148,163,184,0.18)"/>
+    <rect x="38" y="285" width="24" height="3" rx="1.5" fill="#c084fc"/>
+    <text x="38" y="314" font-size="24" font-weight="600" fill="#ede9fe">255,350</text>
+    <text x="38" y="340" font-size="12" fill="#a9a2c3">products</text>
+
+    <rect x="225" y="256" width="190" height="118" rx="10" fill="#120e1f" stroke="rgba(148,163,184,0.18)"/>
+    <rect x="243" y="285" width="24" height="3" rx="1.5" fill="#34d399"/>
+    <text x="243" y="314" font-size="24" font-weight="600" fill="#34d399">0</text>
+    <text x="243" y="340" font-size="12" fill="#a9a2c3">errors</text>
+
+    <rect x="430" y="256" width="190" height="118" rx="10" fill="#120e1f" stroke="rgba(148,163,184,0.18)"/>
+    <rect x="448" y="285" width="24" height="3" rx="1.5" fill="#8b5cf6"/>
+    <text x="448" y="314" font-size="24" font-weight="600" fill="#ede9fe">1 h 52 min</text>
+    <text x="448" y="340" font-size="12" fill="#a9a2c3">elapsed</text>
+
+  </g>
+</svg>

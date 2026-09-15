@@ -1,0 +1,131 @@
+/* ==========================================================================
+   base.css — design tokens, reset, typography
+   Dark mode only. Two accents (cyan + violet), one success colour, one warm.
+   ========================================================================== */
+
+:root {
+  /* surfaces - deep obsidian background (70% dark) */
+  --bg: #030712;
+  --bg-2: #0b0f19;
+  
+  /* light frosted panels (30% light mood) */
+  --surface: rgba(255, 255, 255, 0.08);
+  --surface-2: rgba(255, 255, 255, 0.12);
+  --surface-3: rgba(255, 255, 255, 0.18);
+  
+  /* crisp borders */
+  --border: rgba(255, 255, 255, 0.15);
+  --border-strong: rgba(6, 182, 212, 0.4); /* Cyan border */
+
+  /* text - crisp high-contrast for readability */
+  --text: #ffffff;
+  --text-2: #cbd5e1;
+  --muted: #94a3b8;
+  --faint: #64748b;
+
+  /* accents - Terminal Cyan / Coder Matrix vibe */
+  --purple: #06b6d4; /* Hijacking purple variables to be cyan so we don't have to rewrite the whole codebase */
+  --purple-2: #22d3ee;
+  --purple-3: #67e8f9;
+  --cyan: #06b6d4;
+  --cyan-2: #22d3ee;
+  --violet: #0ea5e9;
+  --violet-2: #38bdf8;
+  --green: #10b981;
+  --amber: #f59e0b;
+  --rose: #f43f5e;
+
+  --grad: linear-gradient(135deg, #22d3ee 0%, #06b6d4 50%, #0ea5e9 100%);
+  --grad-soft: linear-gradient(135deg, rgba(34, 211, 238, 0.15), rgba(6, 182, 212, 0.15));
+  --glow-cyan: 0 4px 22px rgba(6, 182, 212, 0.4);
+  --glow-violet: 0 4px 22px rgba(14, 165, 233, 0.3);
+
+  /* type */
+  --font-display: 'Sora', 'Inter', system-ui, -apple-system, sans-serif;
+  --font-body: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  /* rhythm */
+  --container: 1520px;
+  --gutter: clamp(18px, 4vw, 56px);
+  --section-y: clamp(72px, 10vw, 128px);
+  --radius: 18px;
+  --radius-sm: 12px;
+  --radius-pill: 999px;
+
+  /* motion */
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --fast: 180ms;
+  --med: 360ms;
+  --slow: 700ms;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  color-scheme: dark;
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+@media (min-width: 1600px) { html { font-size: 17px; } }
+@media (min-width: 2000px) { html { font-size: 18px; } }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+img, svg, video, canvas { display: block; max-width: 100%; }
+img { height: auto; }
+
+a { color: inherit; text-decoration: none; }
+button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; }
+ul, ol { margin: 0; padding: 0; list-style: none; }
+p { margin: 0 0 1em; }
+h1, h2, h3, h4 { margin: 0; font-family: var(--font-display); line-height: 1.12; letter-spacing: -0.02em; }
+
+h1 { font-size: clamp(2.4rem, 6.2vw, 4.6rem); font-weight: 800; }
+h2 { font-size: clamp(1.8rem, 3.6vw, 2.7rem); font-weight: 700; }
+h3 { font-size: clamp(1.15rem, 1.6vw, 1.35rem); font-weight: 600; }
+
+.lead { font-size: clamp(1.05rem, 1.4vw, 1.2rem); color: var(--text-2); }
+.muted { color: var(--muted); }
+.mono { font-family: var(--font-mono); font-size: 0.85em; letter-spacing: 0.01em; }
+
+.grad-text {
+  background: var(--grad);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+::selection { background: rgba(34, 211, 238, 0.32); color: #ffffff; }
+
+/* thin custom scrollbar */
+::-webkit-scrollbar { width: 10px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--surface-3); border-radius: 10px; border: 2px solid var(--bg); }
+::-webkit-scrollbar-thumb:hover { background: var(--purple-2); }
+
+/* focus — visible, on brand */
+:focus-visible { outline: 2px solid var(--purple-2); outline-offset: 3px; border-radius: 6px; }
+
+.sr-only {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
+}
+
+/* skip link */
+.skip-link {
+  position: absolute; left: 12px; top: -60px; z-index: 1000;
+  padding: 10px 14px; background: var(--surface-2); border: 1px solid var(--border-strong);
+  border-radius: 10px; transition: top var(--fast) var(--ease);
+}
+.skip-link:focus { top: 12px; }

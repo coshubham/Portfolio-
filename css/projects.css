@@ -1,0 +1,29 @@
+/* ==========================================================================
+   projects.css — the full project catalogue: filters, grid, cards
+   ========================================================================== */
+.proj-toolbar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; margin: -8px 0 22px; }
+.proj-filters { display: flex; flex-wrap: wrap; gap: 8px; }
+.proj-filters button { padding: 8px 14px; border-radius: 999px; font-size: 0.86rem; font-weight: 500; color: var(--text-2); border: 1px solid var(--border); background: rgba(255, 255, 255, 0.03); transition: all var(--fast); }
+.proj-filters button:hover { border-color: var(--border-strong); color: var(--text); }
+.proj-filters button[aria-pressed="true"] { color: #030712; background: var(--grad); border-color: transparent; box-shadow: var(--glow-cyan); }
+.proj-count { font-family: var(--font-mono); font-size: 0.78rem; color: var(--muted); }
+.proj-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 18px; }
+.proj { padding: 0; overflow: hidden; display: flex; flex-direction: column; }
+.proj[hidden] { display: none; }
+.proj-media { position: relative; display: block; aspect-ratio: 16 / 10; overflow: hidden; background: var(--bg-2); border-bottom: 1px solid var(--border); }
+.proj-media img, .proj-media svg { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.6s var(--ease); }
+.proj:hover .proj-media img, .proj:hover .proj-media svg { transform: scale(1.04); }
+.proj-media::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to top, rgba(8, 6, 13, 0.65), transparent 55%); pointer-events: none; }
+.proj-body { display: flex; flex-direction: column; gap: 8px; padding: 18px 18px 20px; flex: 1; }
+.proj-top { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.proj-year { margin-left: auto; font-family: var(--font-mono); font-size: 0.74rem; color: var(--faint); }
+.proj h3 { font-size: 1.08rem; margin-top: 2px; }
+.proj .tagline { color: var(--text-2); font-size: 0.93rem; margin: 0; }
+.proj .summary { color: var(--muted); font-size: 0.88rem; margin: 0; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+.proj .chips { margin-top: 4px; }
+.proj .chips .chip { font-size: 0.74rem; padding: 4px 9px; }
+.proj .links { display: flex; flex-wrap: wrap; gap: 8px; margin-top: auto; padding-top: 10px; }
+.proj-more { margin: 22px auto 0; display: flex; }
+.proj-more[hidden] { display: none; }
+@media (min-width: 1400px) { .proj-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+@media (max-width: 600px) { .proj-grid { grid-template-columns: 1fr; } .proj-toolbar { margin-bottom: 16px; } }
