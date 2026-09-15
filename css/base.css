@@ -129,3 +129,8 @@ h3 { font-size: clamp(1.15rem, 1.6vw, 1.35rem); font-weight: 600; }
   border-radius: 10px; transition: top var(--fast) var(--ease);
 }
 .skip-link:focus { top: 12px; }
+
+/* ---------- never wider than the screen ----------
+   clip (not hidden) on both html and body: nothing can push the page wider than the phone,
+   and neither element becomes a scroll container, so window scrolling and position: sticky keep working */
+@supports (overflow: clip) { html, body { overflow-x: clip; } }

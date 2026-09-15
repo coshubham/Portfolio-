@@ -115,6 +115,7 @@
   padding: clamp(22px, 3vw, 36px);
 }
 .case:nth-child(even) .case-visual { order: -1; }
+.case { scroll-margin-top: 88px; }
 .case-visual { border-radius: var(--radius-sm); overflow: hidden; border: 1px solid var(--border); background: var(--bg-2); }
 .case-visual svg { width: 100%; height: auto; }
 .case-num { font-family: var(--font-mono); color: var(--cyan); font-size: 0.8rem; letter-spacing: 0.14em; margin-bottom: 8px; }
@@ -211,4 +212,29 @@
 @media (hover: hover) and (pointer: fine) {
   .btn, .magnetic { will-change: transform; }
   .tilt:hover, .case:hover .case-visual svg { will-change: transform; }
+}
+
+@media (max-width: 600px) {
+  .contact-info .row a { display: inline-block; padding-block: 10px; }
+}
+
+/* ---------- tablets and phones ---------- */
+@media (max-width: 1100px) {
+  .case { grid-template-columns: minmax(0, 1fr); justify-items: center; }
+  .case:nth-child(even) .case-visual { order: 0; }
+  .case-body, .case-visual { width: 100%; max-width: 720px; }
+  .case h3, .proj h3 { text-wrap: balance; }
+  .case .result-line, .proj .tagline { text-wrap: pretty; }
+  .contact-info .row .ico svg { width: 20px; height: 20px; }
+  .form > .btn { justify-content: center; }
+  .portrait .badge { left: 8px; }                               /* never past the screen edge */
+}
+@media (max-width: 1100px) and (hover: none) {
+  .to-top { display: none; }                                    /* on touch tablets it covered the FAQ toggles and the form */
+}
+@media (max-width: 600px) {
+  /* diagrams keep readable text: they scroll sideways inside their frame */
+  .product-visual .frame { overflow-x: auto; overflow-y: hidden; overscroll-behavior-x: contain; scrollbar-width: thin; }
+  .product-visual svg { width: max(100%, 560px); max-width: none; border-radius: 0; }
+  .product-visual::after { content: "Swipe to see the whole diagram \2192"; display: block; margin-top: 8px; text-align: right; font-family: var(--font-mono); font-size: 0.74rem; color: var(--muted); }
 }

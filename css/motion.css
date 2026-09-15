@@ -3,29 +3,102 @@
    ambient parallax, word-by-word headings, case depth
    ========================================================================== */
 
-/* ---------- intro sequence (first visit per session) ---------- */
+/* ---------- the loader: a signature SK monogram ----------
+   The SK ligature is sketched, then drawn as brushed metal while it turns face-on in 3D (stacked copies give
+   it real thickness), the name and role settle in below, a hairline counts to 100 (held at 96% until the page
+   has really loaded), and the hairline becomes a seam that glides to the centre and opens the screen like two
+   doors. Big and centred, no animation behind it, nothing around the mark. motion.js runs the sequence. */
 body.is-loading { overflow: hidden; }
-.intro { position: fixed; inset: 0; z-index: 200; display: grid; place-items: center; background: var(--bg); transition: transform 0.9s var(--ease), opacity 0.9s var(--ease); }
-.intro::before { content: ''; position: absolute; inset: 0; background: radial-gradient(60vw 60vw at 70% 20%, rgba(14, 165, 233, 0.12), transparent 60%), radial-gradient(50vw 50vw at 20% 80%, rgba(34, 211, 238, 0.08), transparent 60%); }
-.intro.is-done { transform: translateY(-100%); opacity: 0; pointer-events: none; }
-/* pure-CSS auto-dismiss so the overlay can never trap a visitor if scripts are slow or blocked */
-.intro { animation: introAway 0.9s var(--ease) 3.2s forwards; }
-@keyframes introAway { to { transform: translateY(-100%); opacity: 0; visibility: hidden; pointer-events: none; } }
-.intro-name:not(:has(span)) { animation: introFade 0.6s ease 0.15s both; }
-.intro-inner { position: relative; text-align: center; }
-.intro-name { font-family: var(--font-display); font-weight: 800; font-size: clamp(2rem, 7vw, 4.6rem); letter-spacing: -0.03em; line-height: 1; display: flex; gap: 0.02em; align-items: baseline; justify-content: center; flex-wrap: wrap; }
-.intro-name span { display: inline-block; opacity: 0; transform: translateY(0.6em) rotateX(-60deg); animation: introLetter 0.7s var(--ease) forwards; animation-delay: calc(var(--i) * 45ms + 120ms); transform-origin: bottom; }
-.intro-name span.sp { width: 0.35em; }
-.intro-name span.accent { background: none; color: #a5f3fc; font-family: 'Instrument Serif', Georgia, serif; font-style: italic; font-weight: 400; font-size: 1.12em; letter-spacing: 0; }
-/* while the display fonts load: the progress line keeps running, the name and tag wait (no fallback-font flash) */
-.intro.is-wait .intro-name, .intro.is-wait .intro-tag { visibility: hidden; }
-.intro.is-wait .intro-name, .intro.is-wait .intro-name *, .intro.is-wait .intro-tag { animation-play-state: paused; }
-@keyframes introLetter { to { opacity: 1; transform: none; } }
-.intro-line { width: min(60vw, 320px); height: 2px; margin: 26px auto 14px; background: rgba(148, 163, 184, 0.14); border-radius: 2px; overflow: hidden; }
-.intro-line i { display: block; height: 100%; width: 100%; background: var(--grad); transform-origin: left; transform: scaleX(0); animation: introLine 1.15s var(--ease) 0.25s forwards; }
-@keyframes introLine { to { transform: scaleX(1); } }
-.intro-tag { font-family: var(--font-mono); font-size: 0.78rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--purple-2); opacity: 0; animation: introFade 0.6s ease 0.9s forwards; }
-@keyframes introFade { to { opacity: 1; } }
+.intro { position: fixed; inset: 0; z-index: 200; display: grid; place-items: center; overflow: hidden; background: #030712;
+  --line: 50%; --rule: clamp(180px, 22vw, 320px); --m: clamp(150px, min(34vh, 54vw), 290px); }
+.intro { animation: introAway 0.8s ease 4s forwards; }            /* fallback if scripts never run */
+@keyframes introAway { to { opacity: 0; visibility: hidden; pointer-events: none; } }
+.intro.is-open { background: transparent; pointer-events: none; }
+.intro::before, .intro::after { content: ''; position: absolute; left: 0; right: 0; background-color: #030712; background-repeat: no-repeat; background-size: 100% 1px; will-change: transform; }
+.intro::before { top: 0; height: calc(50% + 1px); background-position: 50% 100%; }
+.intro::after { top: 50%; bottom: 0; background-position: 50% 0; }
+.intro.is-open::before, .intro.is-open::after { background-image: linear-gradient(90deg, transparent, rgba(125, 211, 252, 0.18) 22%, rgba(165, 243, 252, 0.75) 50%, rgba(125, 211, 252, 0.18) 78%, transparent); }
+.intro.is-open::before { transform: translate3d(0, calc(-100% - 2px), 0); transition: transform 0.95s cubic-bezier(0.66, 0, 0.2, 1); }
+.intro.is-open::after { transform: translate3d(0, calc(100% + 2px), 0); transition: transform 0.95s cubic-bezier(0.66, 0, 0.2, 1); }
+
+/* static ground: vignette and a whisper of grain */
+.lx-bg { position: absolute; inset: 0; z-index: 1; pointer-events: none; background: radial-gradient(120% 90% at 50% 50%, transparent 55%, rgba(0, 0, 0, 0.55) 100%); }
+.lx-bg::after { content: ''; position: absolute; inset: 0; opacity: 0.06; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .6 0 0 0 0 .7 0 0 0 0 .8 0 0 0 .55 0'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)'/%3E%3C/svg%3E"); }
+.intro.is-open .lx-bg { opacity: 0; transition: opacity 0.25s linear; }
+.lx-in { position: relative; z-index: 2; display: flex; flex-direction: column; align-items: center; text-align: center; width: 100%; padding-inline: 16px; }
+
+/* the monogram */
+.lx-stage { width: var(--m); height: var(--m); perspective: 1000px; perspective-origin: 50% 45%; margin-bottom: clamp(18px, 4vh, 38px); }
+.lx-tilt { position: relative; width: 100%; height: 100%; transform-style: preserve-3d; transition: transform 0.9s cubic-bezier(0.16, 1, 0.3, 1); }
+.lx-mark { position: relative; width: 100%; height: 100%; transform-style: preserve-3d; transform: translateZ(-80px) rotateX(12deg) rotateY(-30deg) rotateZ(-3deg); }
+.lx-svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.lx-svg path { fill: none; stroke-linejoin: miter; stroke-miterlimit: 6; stroke-linecap: butt; stroke-dasharray: 1 1; stroke-dashoffset: 1; }
+.lx-svg .guide { stroke: #7dd3fc; stroke-width: 0.5; opacity: 0; }
+.lx-svg .sketch { stroke: #e0f2fe; stroke-width: 0.9; }
+.lx-svg .body { stroke: url(#lxMetal); stroke-width: 9; }
+.lx-svg .shade { stroke: #075985; stroke-width: 4.4; opacity: 0.3; stroke-linejoin: round; }
+.lx-svg .cut { stroke: #030712; stroke-width: 0.8; opacity: 0.9; stroke-linejoin: round; }
+.lx-depth .body { stroke: var(--dc); }
+.intro .lx-svg mask path, .intro.is-playing .lx-svg mask path { stroke-dasharray: none; stroke-dashoffset: 0; animation: none; }
+
+/* name and role */
+.lx-lock { display: flex; flex-direction: column; align-items: center; }
+.lx-name-w { overflow: hidden; padding-block: 2px; }
+.lx-name { display: block; font: 300 clamp(11px, 0.55vw + 7px, 15px) / 1.3 var(--font-display); letter-spacing: 0.5em; margin-right: -0.5em; color: #e2e8f0; text-transform: uppercase; white-space: nowrap; transform: translateY(115%); opacity: 0; }
+.lx-role { display: flex; align-items: center; gap: clamp(10px, 1.2vw, 16px); margin-top: clamp(8px, 1.4vh, 14px); opacity: 0; transform: translateY(8px); }
+.lx-role span { font: italic 400 clamp(19px, 0.8vw + 12px, 27px) / 1.2 'Instrument Serif', Georgia, serif; color: #cbd5e1; letter-spacing: 0.01em; white-space: nowrap; }
+.lx-role i { display: block; flex: none; width: clamp(20px, 2.6vw, 38px); height: 1px; background: linear-gradient(90deg, transparent, rgba(125, 211, 252, 0.85)); transform: scaleX(0); transform-origin: 100% 50%; }
+.lx-role i:last-child { background: linear-gradient(270deg, transparent, rgba(125, 211, 252, 0.85)); transform-origin: 0 50%; }
+
+/* progress: a counter and a hairline (a spacer on the right keeps the hairline centred) */
+.lx-prog { display: flex; align-items: center; gap: 14px; margin-top: clamp(24px, 5vh, 50px); opacity: 0; font: 500 12px / 1 var(--font-mono); letter-spacing: 0.14em; font-variant-numeric: tabular-nums; }
+.lx-prog::after { content: ''; width: 3.6ch; }
+.lx-count { font-weight: 500; color: #e2e8f0; width: 3.6ch; text-align: right; transition: color 0.25s ease; }
+.lx-rule { position: relative; width: var(--rule); height: 1px; background: rgba(148, 163, 184, 0.18); overflow: hidden; }
+.lx-rule i { position: absolute; inset: 0; background: linear-gradient(90deg, #0ea5e9, #22d3ee 60%, #a5f3fc); transform: scaleX(0); transform-origin: 0 50%; }
+.intro.is-seal .lx-count { color: #22d3ee; }
+.lx-seam { position: absolute; left: 0; right: 0; top: var(--line); height: 1px; z-index: 3; pointer-events: none; opacity: 0; background: linear-gradient(90deg, transparent, rgba(125, 211, 252, 0.18) 22%, rgba(165, 243, 252, 0.75) 50%, rgba(125, 211, 252, 0.18) 78%, transparent); transform-origin: 50% 50%; }
+
+/* timeline */
+.intro.is-playing .lx-mark { animation: lxTurn 2100ms cubic-bezier(0.4, 0.06, 0.18, 1) both; }
+.intro.is-playing .lx-svg path { animation: lxDraw var(--dur) cubic-bezier(0.55, 0.05, 0.25, 1) var(--del) both; }
+.intro.is-playing .lx-svg .guide { animation: lxDraw 700ms cubic-bezier(0.6, 0, 0.2, 1) 0ms both, lxGuide 1600ms ease 0ms both; }
+.intro.is-playing .lx-svg .sketch { animation: lxDraw var(--dur) cubic-bezier(0.55, 0.05, 0.25, 1) var(--del) both, lxFadeOut 500ms ease calc(var(--del) + var(--dur) + 200ms) both; }
+.intro.is-playing .lx-prog { animation: lxFade 600ms ease 40ms both; }
+.intro.is-playing .lx-tilt { animation: lxSettle 1800ms ease-in-out 2050ms both; }
+.intro.lk-go .lx-name { animation: lxRise 950ms cubic-bezier(0.2, 0.75, 0.15, 1) var(--lk, 0ms) both; }
+.intro.lk-go .lx-role { animation: lxUp 850ms cubic-bezier(0.2, 0.75, 0.15, 1) calc(var(--lk, 0ms) + 220ms) both; }
+.intro.lk-go .lx-role i { animation: lxLine 800ms cubic-bezier(0.6, 0, 0.2, 1) calc(var(--lk, 0ms) + 420ms) both; }
+@keyframes lxTurn { 0% { transform: translateZ(-80px) rotateX(12deg) rotateY(-30deg) rotateZ(-3deg); } 100% { transform: none; } }
+@keyframes lxSettle { 0%, 100% { rotate: y 0deg; } 50% { rotate: y 5deg; } }
+@keyframes lxDraw { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
+@keyframes lxGuide { 0% { opacity: 0; } 15% { opacity: 0.4; } 60% { opacity: 0.4; } 100% { opacity: 0; } }
+@keyframes lxFadeOut { to { opacity: 0; } }
+@keyframes lxFade { from { opacity: 0; } to { opacity: 1; } }
+@keyframes lxRise { from { transform: translateY(115%); opacity: 0; } to { transform: none; opacity: 1; } }
+@keyframes lxUp { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+@keyframes lxLine { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+
+/* exit: everything fades fast (nothing is ever clipped), the hairline grows into a seam, glides to the centre, the doors open */
+.intro.is-done .lx-stage, .intro.is-done .lx-lock { opacity: 0; transform: translate3d(0, -14px, 0); transition: opacity 0.32s ease, transform 0.5s cubic-bezier(0.3, 0, 0.2, 1); }
+.intro.is-done .lx-count { opacity: 0; transition: opacity 0.25s ease 0.08s; }
+.intro.is-done .lx-rule { background: transparent; }
+.intro.is-done .lx-rule i { opacity: 0; }
+.intro.is-done .lx-seam { opacity: 1; top: 50%; transition: top 0.42s cubic-bezier(0.65, 0, 0.35, 1); animation: lxSeam 420ms cubic-bezier(0.65, 0, 0.35, 1) both; }
+.intro.is-open .lx-seam { opacity: 0; transition: opacity 0.2s ease; }
+@keyframes lxSeam { from { transform: scaleX(var(--rs, 0.2)); } to { transform: scaleX(1); } }
+
+@media (max-width: 420px) {
+  .lx-prog { gap: 10px; font-size: 11px; }
+  .lx-name { letter-spacing: 0.36em; margin-right: -0.36em; }
+}
+@media (max-width: 340px) { .lx-name { letter-spacing: 0.28em; margin-right: -0.28em; font-size: 10.5px; } }
+@media (max-height: 560px) {
+  .intro { --m: min(30vh, 54vw); }
+  .lx-stage { margin-bottom: 10px; }
+  .lx-role { margin-top: 4px; }
+  .lx-prog { margin-top: 16px; }
+}
 
 /* ---------- timeline draws with scroll ---------- */
 .timeline::before { transform: scaleY(var(--tl, 0)); transform-origin: top; transition: transform 0.15s linear; }

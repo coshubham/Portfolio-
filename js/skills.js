@@ -56,6 +56,7 @@
     if ((narrow ? 3 : 2) !== count) buildRings(narrow ? 3 : 2);
     const half = (cards[0].offsetWidth || 180) / 2;
     R = narrow ? Math.max(90, (W / 2 - half - 10) / 1.08) : Math.max(160, Math.min(W * 0.37, 470));
+    if (narrow) { const tilt = Math.max(0.2, Math.asin(Math.min(0.41, 50 / R))); rings.forEach(ring => { ring.tilt = tilt; }); }   // small stages: open the rings up so tiles do not bunch
     rings.forEach((ring, k) => {
       const p = paths[k]; if (!p) return;
       p.style.width = p.style.height = (2 * R) + 'px';

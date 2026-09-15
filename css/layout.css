@@ -163,12 +163,12 @@
 @media (max-width: 960px) {
   .hero .container { grid-template-columns: 1fr; gap: 28px; }
   .hero-side { max-width: 560px; }
-  .services-grid { grid-template-columns: 1fr; max-width: 640px; }
+  .services-grid { grid-template-columns: 1fr; }
   .about-grid, .product-grid, .contact-grid { grid-template-columns: 1fr; }
-  .product-grid.is-flipped .product-visual { order: 0; }
   .skills-groups { grid-template-columns: 1fr; }
 }
 @media (max-width: 1100px) {
+  .product-grid { grid-template-columns: 1fr; }
   .nav-links {
     position: fixed; top: 72px; left: 0; right: 0; height: calc(100svh - 72px); max-height: calc(100dvh - 72px); flex-direction: column; visibility: hidden; gap: 4px; padding: 12px var(--gutter) 18px; overflow-y: auto;
     background: rgba(7, 10, 18, 0.985); border-bottom: 1px solid var(--border);
@@ -185,4 +185,38 @@
   .hero-stats { grid-template-columns: 1fr 1fr; gap: 10px; }
   .oss-grid { grid-template-columns: 1fr; }
   .scroll-cue { display: none; }
+}
+
+/* ---------- small screens: comfortable tap targets and a nav that always fits ---------- */
+@media (max-width: 600px) {
+  .brand { padding-block: 8px; }
+  .footer-links { flex-wrap: wrap; gap: 4px 18px; }
+  .footer-links a { padding: 10px 0; }
+}
+@media (max-width: 380px) {
+  .nav .container { gap: 8px; }
+  .brand { font-size: 1.02rem; }
+  .nav-cta { padding: 8px 12px; margin-right: 6px; }
+  .nav-cta svg { display: none; }
+}
+
+/* ---------- anchors land below the fixed nav (menu links, Hire me, footer links, case study buttons) ---------- */
+html { scroll-padding-top: 88px; }
+
+/* ---------- tablets and phones ---------- */
+@media (min-width: 761px) and (max-width: 1100px) {
+  .product-list { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px 28px; }
+}
+@media (min-width: 601px) and (max-width: 1100px) and (min-height: 600px) {
+  .nav-links { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-rows: repeat(4, auto); grid-auto-flow: column; align-content: start; gap: 0 48px; padding-top: 28px; }
+  .nav-links a { font-family: var(--font-display); font-size: 1.5rem; font-weight: 600; letter-spacing: -0.01em; padding: 18px 4px; border-radius: 0; border-bottom: 1px solid rgba(255, 255, 255, 0.07); }
+  .nav-links a:hover, .nav-links a.is-active { background: none; color: var(--cyan-2); }
+}
+@media (max-width: 1100px) {
+  html:has(#nav-links.is-open) { overflow: hidden; scrollbar-gutter: stable; }   /* the page does not scroll behind the open menu */
+  .section-head h2 { text-wrap: balance; }                                        /* no single word left alone on a heading's last line */
+}
+@media (max-width: 600px) {
+  .footer .container { padding-right: 0; }                                        /* the back-to-top button is hidden on phones */
+  .footer-links { gap: 4px 14px; }
 }

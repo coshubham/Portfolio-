@@ -163,7 +163,7 @@
   .hero-x .container.hx-grid { gap: 44px; }
 }
 /* small laptops and landscape tablets: text and editor side by side, editor above the fold */
-@media (min-width: 1000px) and (max-width: 1079px) {
+@media (min-width: 1000px) and (max-width: 1079px) and (orientation: landscape) {
   .hero-x { padding: 96px 0 48px; }
   .hero-x .container.hx-grid { grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr); gap: 32px; }
   .hx-actions { gap: 10px; }
@@ -211,4 +211,25 @@
   .js .hx-title .word, .js .hx-content [data-anim] { opacity: 1; transform: none; }
   .js .hx-win { opacity: 1; translate: none; }   /* keep each window's translateZ depth */
   .js .hx-stack-enter { transform: none; }
+}
+
+/* phones: the small mono labels stay readable */
+@media (max-width: 600px) {
+  .hx-eyebrow { font-size: 0.7rem; letter-spacing: 0.08em; }
+  .hx-stats .stat-label { font-size: 0.7rem; letter-spacing: 0.08em; }
+}
+@media (max-width: 359px) { .hx-eyebrow { font-size: 0.66rem; letter-spacing: 0.05em; } }
+
+/* ---------- portrait tablets (iPad mini to iPad Pro): a real tablet layout, not a stretched phone ---------- */
+@media (min-width: 761px) and (max-width: 1079px) and (orientation: portrait) {
+  .hero-x { min-height: auto; }
+}
+@media (min-width: 601px) and (max-width: 1079px) and (orientation: portrait) {
+  .hx-content { max-width: 760px; }
+  .hx-title { font-size: clamp(3.4rem, 7.4vw, 4.6rem); }
+  .hx-sub { max-width: 640px; font-size: 1.08rem; }
+  .hx-eyebrow, .hx-stats .stat-label { font-size: 0.72rem; }
+  .hx-stats .stat-value { font-size: clamp(1.6rem, 4vw, 2rem); }
+  .hx-editor { max-width: 760px; }
+  .hx-body { font-size: 0.74rem; }
 }

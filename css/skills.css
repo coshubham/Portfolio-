@@ -84,6 +84,14 @@
 @keyframes skSwap { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
 
 @media (max-width: 1080px) { .sk.is-3d .sk-stage { height: 560px; } }
+/* tablets up to 960px: logo tiles, the readout names the one in front (named pills piled up here) */
+@media (max-width: 960px) {
+  .sk.is-3d .sk-card { width: 62px; height: 62px; margin: -31px 0 0 -31px; }
+  .sk.is-3d .sk-card .sk-in { padding: 6px; gap: 0; border-radius: 16px; justify-content: center; }
+  .sk.is-3d .sk-card .sk-txt { display: none; }
+  .sk.is-3d .sk-card .sk-logo { flex-basis: 48px; width: 48px; height: 48px; border-radius: 13px; }
+  .sk.is-3d .sk-card .sk-logo img { width: 28px; height: 28px; }
+}
 @media (max-width: 760px) {
   .sk-bar { margin-bottom: 8px; }
   .sk-filters { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; margin-inline: calc(-1 * var(--gutter)); padding: 2px var(--gutter); -webkit-mask-image: linear-gradient(90deg, transparent, #000 14px, #000 calc(100% - 28px), transparent); mask-image: linear-gradient(90deg, transparent, #000 14px, #000 calc(100% - 28px), transparent); }
@@ -103,11 +111,16 @@
   .sk.is-3d .sk-card .sk-logo img { width: 24px; height: 24px; }
   .sk.is-3d .sk-core { width: 130px; height: 130px; margin: -65px 0 0 -65px; }
   .sk-core-txt b { font-size: 1.8rem; }
-  .sk-core-txt span { font-size: 0.52rem; }
+  .sk-core-txt span { font-size: 0.62rem; letter-spacing: 0.08em; line-height: 1.35; max-width: 76px; margin-inline: auto; }
   .sk.is-3d .sk-hud { padding: 12px 14px; gap: 12px; }
   .sk-hud p { font-size: 0.84rem; }
   .sk-hud-idx { display: none; }
 }
 @media (prefers-reduced-motion: reduce) {
   .sk-core::before, .sk-core .c1, .sk-core .c2 { animation: none; }
+}
+
+@media (min-width: 761px) and (max-width: 960px) {
+  .sk-filters { gap: 6px; }
+  .sk-filters button { padding: 7px 11px; gap: 6px; font-size: 0.8rem; }
 }

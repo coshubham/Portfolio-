@@ -14,7 +14,7 @@
     const buttons = $$('.proj-filters button');
     const more = $('.proj-more');
     const count = $('.proj-count');
-    const LIMIT = 12;
+    const LIMIT = window.matchMedia('(max-width: 600px)').matches ? 7 : 12;   // phones: the seven featured projects, then 'Show all'
     let filter = 'all', expanded = false;
     const matches = c => filter === 'all' || c.getAttribute('data-cat') === filter;
     const apply = () => {

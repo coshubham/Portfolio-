@@ -127,6 +127,10 @@
 .nf h1 { font-size: clamp(4rem, 14vw, 9rem); line-height: 1; }
 .nf p { color: var(--muted); max-width: 520px; margin: 14px auto 26px; }
 
+@media (max-width: 1100px) {
+  .process { grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: 34px; }
+  .process::before { display: none; }
+}
 @media (max-width: 960px) {
   .stepper { grid-template-columns: 1fr; }
   .step-tabs { grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 6px; }
@@ -185,3 +189,23 @@ body.has-pointer.cursor-on input, body.has-pointer.cursor-on textarea, body.has-
 .counters .stat-value { font-size: clamp(2rem, 3.6vw, 2.9rem); }
 @media (max-width: 960px) { .counters { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (max-width: 420px) { .counters { grid-template-columns: 1fr; } }
+
+/* ---------- small screens: readable labels, 40px+ tap targets ---------- */
+@media (max-width: 600px) {
+  .step-auto { min-height: 40px; }
+  .faq-facts dt { font-size: 0.72rem; }
+  .copy-btn { min-height: 40px; padding: 8px 12px; }
+}
+
+/* ---------- phone and tablet polish ---------- */
+@media (max-width: 600px) {
+  .pstep .n { left: 20px; }
+  .band .actions .btn { flex: 1 1 130px; justify-content: center; padding-inline: 14px; }
+  .tl-side > .card { padding: 20px 16px; }
+  .tl-side .metrics { gap: 8px; }
+  .tl-side .stat { padding: 14px 12px; }
+  .faq-facts { grid-template-columns: 1fr; }
+}
+@media (min-width: 961px) and (max-width: 1100px) {
+  .faq-facts { grid-template-columns: 1fr; gap: 14px; }
+}

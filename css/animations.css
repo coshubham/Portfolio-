@@ -65,3 +65,8 @@
   .draw path, .draw line, .draw polyline, .draw circle.ring { stroke-dasharray: none; stroke-dashoffset: 0; }
   .marquee-track { animation: none; }
 }
+
+/* phones and tablets: slide-ins come from below, never from the sides (a sideways start pushed the page wider than the screen) */
+@media (max-width: 960px) {
+  .js .reveal-left:not(.is-in), .js .reveal-right:not(.is-in) { transform: translateY(24px); }
+}
