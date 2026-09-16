@@ -28,7 +28,7 @@ function init(THREE, mount) {
   const isMobile = mqMobile.matches;
   const small = matchMedia('(max-width: 600px)').matches;
   const dprCap = isMobile ? 1 : 1.25;
-  const BG = 0x030712, A = 0x22d3ee, B = 0x7dd3fc, W = 0xe8eefb;
+  const BG = 0x0b1120, A = 0x22d3ee, B = 0x7dd3fc, W = 0xe8eefb;
 
   const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, powerPreference: 'default' });
   renderer.setPixelRatio(Math.min(devicePixelRatio || 1, dprCap));
@@ -198,7 +198,7 @@ function init(THREE, mount) {
   /* ---- start: compile shaders and upload textures behind the intro, then fade in and dolly ---- */
   const warm = renderer.compileAsync ? renderer.compileAsync(scene, camera) : Promise.resolve(renderer.compile(scene, camera));
   warm.catch(() => {}).then(function go() {
-    if (document.body.classList.contains('is-loading') && performance.now() - born < 3200) { setTimeout(go, 120); return; }
+    if (document.body.classList.contains('is-loading') && performance.now() - born < 8000) { setTimeout(go, 120); return; }
     textures.forEach(tx => renderer.initTexture(tx));
     void mount.offsetWidth;
     mount.style.transition = reduceMotion ? 'none' : 'opacity 1.6s ease';

@@ -9,9 +9,10 @@
   const $ = (s, r) => (r || document).querySelector(s);
   const $$ = (s, r) => Array.from((r || document).querySelectorAll(s));
 
-  /* ---------- the loader: the SK monogram sequence ----------
-     Every load shows it (a quicker run on repeat visits in the same session). The counter holds at 96% until
-     the page has loaded, it never runs past ~3 s, and a click or any key skips straight to the exit. */
+  /* ---------- the loader: the SKY monogram sequence ----------
+     Every load plays the full sequence at the pace set by --lx-time in motion.css. The counter reaches 100 as the
+     name and role finish settling (it holds at 96% until the page has loaded, with a cap for slow networks),
+     and a click or any key skips straight to the exit. */
   const intro = $('.intro');
   if (intro) {
     let late = false;
@@ -21,8 +22,6 @@
     } else {
       document.body.classList.add('is-loading');
       intro.style.animation = 'none';   // JS owns the sequence now; the CSS auto-dismiss is the no-JS fallback
-      let repeat = false;
-      try { repeat = sessionStorage.getItem('introShown') === '1'; } catch (e) {}
       const mark = $('.lx-mark', intro), front = $('.lx-front', intro), tilt = $('.lx-tilt', intro);
       const countEl = $('.lx-count', intro), fill = $('.lx-rule i', intro), rule = $('.lx-rule', intro);
 
@@ -34,16 +33,23 @@
         const bodies = front.querySelectorAll('.body');
         for (let i = layers; i >= 1; i--) {
           const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-          svg.setAttribute('class', 'lx-svg lx-depth'); svg.setAttribute('viewBox', '30 30 140 140'); svg.setAttribute('aria-hidden', 'true');
+          svg.setAttribute('class', 'lx-svg lx-depth'); svg.setAttribute('viewBox', '30 30 220 140'); svg.setAttribute('aria-hidden', 'true');
           svg.style.setProperty('--dc', `hsl(196 60% ${Math.round(30 - (i / layers) * 20)}%)`);
           svg.style.transform = `translateZ(${(-i * step).toFixed(2)}px)`;
-          const g = document.createElementNS('http://www.w3.org/2000/svg', 'g'); g.setAttribute('transform', 'translate(-3 0)');
+          const g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
           bodies.forEach(b => g.appendChild(b.cloneNode(false)));
           svg.appendChild(g); mark.insertBefore(svg, front); depth.push(svg);
         }
       }
 
-      const LOAD = repeat ? 900 : 2000, START = 60, LOCK_AT = repeat ? 200 : 1050, LOCK_SEEN = repeat ? 450 : 800, MAX = 3000;
+      let T = 1, E = 1;
+      try {
+        const cs = getComputedStyle(intro), pace = (name, d) => Math.min(3, Math.max(0.5, parseFloat(cs.getPropertyValue(name)) || d));
+        T = pace('--lx-time', 1); E = pace('--lx-exit', 1);
+      } catch (e) {}
+      // lockup starts after the mark is drawn; it is 'seen' once the role hairlines finish plus a still beat,
+      // and the counter is paced to land on 100 at that same moment
+      const START = 60 * T, LOCK_AT = 1050 * T, LOCK_SEEN = 1220 * T + 100, LOAD = LOCK_AT + LOCK_SEEN - START, MAX = LOCK_AT + LOCK_SEEN + 600;
       let t0 = 0, last = -1, done = false, lockStart = 0, raf = 0;
       let loaded = document.readyState === 'complete';
       addEventListener('load', () => { loaded = true; }, { once: true });
@@ -74,7 +80,7 @@
 
       // a gentle 3D follow of the pointer once the mark faces front (mouse only)
       const onPointer = e => {
-        if (!tilt || e.pointerType !== 'mouse' || performance.now() - t0 < 2100) return;
+        if (!tilt || e.pointerType !== 'mouse' || performance.now() - t0 < 2100 * T) return;
         const px = e.clientX / innerWidth - 0.5, py = e.clientY / innerHeight - 0.5;
         tilt.style.transform = `rotateX(${(-py * 8).toFixed(2)}deg) rotateY(${(px * 10).toFixed(2)}deg)`;
       };
@@ -94,10 +100,9 @@
         setTimeout(() => {
           intro.classList.add('is-done');                          // the seam grows and glides to the centre
           document.body.classList.remove('is-loading');            // the hero entrance starts as the doors open
-          try { sessionStorage.setItem('introShown', '1'); } catch (e) {}
-          setTimeout(() => intro.classList.add('is-open'), 440);
-          setTimeout(() => intro.remove(), 1700);
-        }, 220);
+          setTimeout(() => intro.classList.add('is-open'), Math.round(440 * E));
+          setTimeout(() => intro.remove(), Math.round(1390 * E + 250));
+        }, Math.round(220 * E));
       };
 
       const tick = now => {
@@ -116,8 +121,8 @@
         whenFonts(startLockup);
         raf = requestAnimationFrame(tick);
       });
-      if (small) setTimeout(() => depth.forEach(d => { d.style.display = 'none'; }), 2300);   // phones: drop the thickness once it faces front
-      setTimeout(finish, 4200);                                     // never trap a visitor
+      if (small) setTimeout(() => depth.forEach(d => { d.style.display = 'none'; }), Math.round(2100 * T + 200));   // phones: drop the thickness once it faces front
+      setTimeout(finish, MAX + 1200);                               // never trap a visitor
       window.__introFinish = finish;
       intro.addEventListener('click', finish);
       addEventListener('keydown', finish, { once: true });
@@ -138,7 +143,6 @@
     ticking = false;
     if (amb) {
       if (!reduceMotion) amb.style.setProperty('--sp', Math.min(1, scrollY / ambMax).toFixed(4));
-      amb.style.opacity = Math.min(1, 0.6 + (scrollY / Math.max(1, innerHeight)) * 0.4).toFixed(3);
     }
     if (tl && tlNear) {
       const vh = innerHeight * 0.7, r = tl.getBoundingClientRect();

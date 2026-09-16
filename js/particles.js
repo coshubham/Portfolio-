@@ -112,7 +112,7 @@
         const k = phase < 0.12 ? Math.sin((phase / 0.12) * Math.PI) : 0;   // a short flare, then rest
         if (k > 0.01) {
           s.moved = false;
-          star4(s.x * W, ((s.y * H - sy * 0.02) % H + H) % H, s.size * (0.6 + k * 0.6), k);
+          star4(s.x * W, ((s.y * H - sy * 0.02) % H + H) % H, s.size * (0.6 + k * 0.6), k * 0.7);   // flares at 70%
         } else if (!s.moved) { s.x = Math.random(); s.y = Math.random(); s.moved = true; }   // move only once it has gone dark
       }
       if (!meteor && now > nextMeteor) {
@@ -125,7 +125,7 @@
         const len = 0.16, tx = meteor.x - meteor.vx * len, ty = meteor.y - meteor.vy * len;
         const g = ctx.createLinearGradient(meteor.x, meteor.y, tx, ty);
         g.addColorStop(0, 'rgba(236,254,255,0.9)'); g.addColorStop(0.25, 'rgba(34,211,238,0.35)'); g.addColorStop(1, 'rgba(34,211,238,0)');
-        ctx.globalAlpha = k; ctx.strokeStyle = g; ctx.lineWidth = 1.6; ctx.lineCap = 'round';
+        ctx.globalAlpha = k * 0.7; ctx.strokeStyle = g; ctx.lineWidth = 1.6; ctx.lineCap = 'round';
         ctx.beginPath(); ctx.moveTo(meteor.x, meteor.y); ctx.lineTo(tx, ty); ctx.stroke();
         ctx.drawImage(SPR[3], meteor.x - 6, meteor.y - 6, 12, 12);
         if (meteor.life > meteor.max) { meteor = null; nextMeteor = now + rand(5000, 11000); }

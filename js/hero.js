@@ -231,7 +231,7 @@
   };
   // wait for the intro overlay (motion.js) so the two never fight
   const introUp = () => document.body.classList.contains('is-loading') || (document.querySelector('.intro') && !document.querySelector('.intro.is-done'));
-  const go = () => { if (introUp() && performance.now() - born < 3200) { setTimeout(go, 120); return; } requestAnimationFrame(() => requestAnimationFrame(showAll)); };
+  const go = () => { if (introUp() && performance.now() - born < 8000) { setTimeout(go, 120); return; } requestAnimationFrame(() => requestAnimationFrame(showAll)); };
   go();
-  setTimeout(showAll, 4800);   // failsafe: nothing stays hidden
+  setTimeout(function f() { if (introUp() && performance.now() - born < 8000) { setTimeout(f, 150); return; } showAll(); }, 4800);   // failsafe: nothing stays hidden, but never behind the loader
 })();

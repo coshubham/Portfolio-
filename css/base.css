@@ -5,7 +5,7 @@
 
 :root {
   /* surfaces - deep obsidian background (70% dark) */
-  --bg: #030712;
+  --bg: #0b1120;   /* deep navy-charcoal: dark, but not pure black */
   --bg-2: #0b0f19;
   
   /* light frosted panels (30% light mood) */
