@@ -1,0 +1,431 @@
+/* =========================================================================
+   "How would you like to reach me?" — the contact chooser
+   A native <dialog> (top layer, focus trap, Esc) dressed as a floating 3D
+   glass card. Entry and exit use @starting-style + allow-discrete; motion is
+   transform/opacity only, and reduced-motion users get a plain fade.
+   ========================================================================= */
+
+.reach {
+  --reach-dur: 620ms;
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  max-width: none;
+  height: 100%;
+  max-height: none;
+  margin: 0;
+  padding: 16px;
+  border: 0;
+  background: transparent;
+  color: var(--text);
+  overflow: hidden;
+  display: none;
+  place-items: center;
+  perspective: 1400px;
+  opacity: 0;
+  transition-property: opacity, display, overlay;
+  transition-duration: 380ms;
+  transition-timing-function: var(--ease);
+  transition-behavior: allow-discrete;
+}
+.reach[open] {
+  display: grid;
+  opacity: 1;
+  @starting-style { opacity: 0; }
+}
+
+.reach::backdrop {
+  background-color: rgba(5, 9, 20, 0);
+  backdrop-filter: blur(0px);
+  transition:
+    display 380ms allow-discrete,
+    overlay 380ms allow-discrete,
+    background-color 380ms ease-out,
+    backdrop-filter 380ms ease-out;
+}
+.reach[open]::backdrop {
+  background-color: rgba(5, 9, 20, 0.72);
+  backdrop-filter: blur(10px) saturate(120%);
+  @starting-style { background-color: rgba(5, 9, 20, 0); backdrop-filter: blur(0px); }
+}
+
+/* the site hides the system cursor for its custom dot; the dot sits under the top layer */
+body:has(.reach[open]) #cursor-dot,
+body:has(.reach[open]) #cursor-ring { opacity: 0 !important; }
+.reach, .reach * { cursor: auto; }
+.reach button, .reach a, .reach label, .reach .reach-chip { cursor: pointer; }
+.reach input, .reach textarea { cursor: text; }
+html:has(.reach[open]) { overflow: hidden; }
+
+/* ---------- the scene behind the card: drifting light + a portal ring ---------- */
+.reach-scene { position: absolute; inset: 0; pointer-events: none; transform-style: preserve-3d; }
+.reach-orb {
+  position: absolute;
+  width: 46vmax;
+  height: 46vmax;
+  border-radius: 50%;
+  filter: blur(60px);
+  opacity: 0.55;
+  mix-blend-mode: screen;
+  animation: reach-drift 16s var(--ease) infinite alternate;
+}
+.reach-orb.o1 { left: -12vmax; top: -14vmax; background: radial-gradient(circle, rgba(34, 211, 238, 0.55), transparent 62%); }
+.reach-orb.o2 { right: -16vmax; bottom: -18vmax; background: radial-gradient(circle, rgba(14, 165, 233, 0.5), transparent 62%); animation-duration: 19s; animation-delay: -6s; }
+.reach-orb.o3 { left: 40%; top: 55%; width: 30vmax; height: 30vmax; background: radial-gradient(circle, rgba(16, 185, 129, 0.35), transparent 65%); animation-duration: 23s; animation-delay: -11s; }
+@keyframes reach-drift {
+  from { transform: translate3d(0, 0, 0) scale(1); }
+  to   { transform: translate3d(6vmax, 4vmax, 0) scale(1.18); }
+}
+.reach-ring {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: min(92vmin, 880px);
+  aspect-ratio: 1;
+  translate: -50% -50%;
+  border-radius: 50%;
+  background:
+    conic-gradient(from 0deg, transparent 0 20%, rgba(34, 211, 238, 0.55) 30%, transparent 42% 70%, rgba(14, 165, 233, 0.45) 80%, transparent 92%);
+  mask: radial-gradient(circle, transparent 61.5%, #000 62.5%, #000 65%, transparent 66%);
+  transform: rotateX(72deg);
+  animation: reach-spin 14s linear infinite;
+  filter: drop-shadow(0 0 12px rgba(34, 211, 238, 0.7));
+  opacity: 1;
+}
+.reach-ring.r2 {
+  width: min(70vmin, 660px);
+  animation-duration: 22s;
+  animation-direction: reverse;
+  opacity: 0.75;
+}
+@keyframes reach-spin { to { transform: rotateX(72deg) rotateZ(360deg); } }
+
+/* ---------- the glass card ---------- */
+.reach-tilt {
+  position: relative;
+  width: min(700px, 100%);
+  transform-style: preserve-3d;
+  transform: rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
+  transition: transform 160ms ease-out;
+}
+.reach-card {
+  position: relative;
+  max-height: calc(100dvh - 32px);
+  overflow: auto;
+  overscroll-behavior: contain;
+  padding: clamp(22px, 4.2vw, 38px);
+  border-radius: 26px;
+  background:
+    linear-gradient(150deg, rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0.04) 46%, rgba(255, 255, 255, 0.07)),
+    rgba(11, 17, 32, 0.55);
+  backdrop-filter: blur(22px) saturate(160%);
+  -webkit-backdrop-filter: blur(22px) saturate(160%);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.22) inset,
+    0 -1px 0 rgba(0, 0, 0, 0.3) inset,
+    0 40px 90px -20px rgba(0, 0, 0, 0.75),
+    0 0 0 1px rgba(6, 182, 212, 0.08),
+    0 18px 60px -12px rgba(6, 182, 212, 0.35);
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
+
+  /* exit pose (and where the entry starts from) */
+  opacity: 0;
+  transform: translate3d(0, 70px, -180px) rotateX(26deg) rotateY(-12deg) scale(0.9);
+  filter: blur(6px);
+  transition:
+    opacity 360ms var(--ease),
+    transform var(--reach-dur) var(--ease),
+    filter 420ms var(--ease);
+}
+.reach[open] .reach-card {
+  opacity: 1;
+  transform: none;
+  filter: none;
+  @starting-style {
+    opacity: 0;
+    transform: translate3d(0, 70px, -180px) rotateX(26deg) rotateY(-12deg) scale(0.9);
+    filter: blur(6px);
+  }
+}
+/* gradient edge */
+.reach-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  padding: 1px;
+  border-radius: inherit;
+  background: linear-gradient(135deg, rgba(103, 232, 249, 0.75), rgba(255, 255, 255, 0.05) 38%, rgba(14, 165, 233, 0.55));
+  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  mask-composite: exclude;
+  -webkit-mask-composite: xor;
+  pointer-events: none;
+}
+/* light that sweeps across the glass */
+.reach-sheen {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  overflow: hidden;
+  pointer-events: none;
+}
+.reach-sheen::after {
+  content: "";
+  position: absolute;
+  top: -40%;
+  bottom: -40%;
+  width: 38%;
+  left: -60%;
+  background: linear-gradient(100deg, transparent, rgba(255, 255, 255, 0.13) 45%, rgba(255, 255, 255, 0.02) 60%, transparent);
+  transform: rotate(8deg);
+  animation: reach-sweep 7s ease-in-out infinite;
+  animation-delay: 900ms;
+}
+@keyframes reach-sweep {
+  0%, 62% { left: -60%; }
+  100% { left: 130%; }
+}
+
+.reach-close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  width: 38px;
+  height: 38px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--text-2);
+  transition: background var(--fast), color var(--fast), transform var(--fast);
+  z-index: 2;
+}
+.reach-close:hover { background: rgba(255, 255, 255, 0.14); color: var(--text); transform: rotate(90deg); }
+.reach-close svg { width: 18px; height: 18px; }
+
+.reach-eyebrow {
+  margin: 0 0 8px;
+  font: 600 12px/1 var(--font-mono);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--cyan-2);
+}
+.reach h2 {
+  margin: 0 44px 8px 0;
+  font: 700 clamp(22px, 3.4vw, 30px)/1.15 var(--font-display);
+  letter-spacing: -0.01em;
+  outline: none;
+}
+.reach-sub { margin: 0 0 22px; color: var(--text-2); font-size: 15px; line-height: 1.55; }
+
+/* ---------- step 1: the channel tiles ---------- */
+.reach-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+  perspective: 900px;
+}
+.reach-opt {
+  --tone: 34, 211, 238;
+  position: relative;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-template-rows: auto auto;
+  column-gap: 14px;
+  row-gap: 3px;
+  align-items: center;
+  padding: 16px 36px 16px 14px;
+  text-align: left;
+  border-radius: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: linear-gradient(160deg, rgba(255, 255, 255, 0.09), rgba(255, 255, 255, 0.02));
+  color: var(--text);
+  font: inherit;
+  transform-style: preserve-3d;
+  transition:
+    transform 320ms var(--ease),
+    border-color 220ms,
+    box-shadow 320ms var(--ease),
+    background 220ms;
+}
+.reach-opt[data-channel="whatsapp"] { --tone: 37, 211, 102; }
+.reach-opt[data-channel="email"]    { --tone: 34, 211, 238; }
+.reach-opt[data-channel="linkedin"] { --tone: 56, 142, 255; }
+.reach-opt[data-channel="form"]     { --tone: 167, 139, 250; }
+.reach-opt:hover,
+.reach-opt:focus-visible {
+  transform: translateZ(26px) translateY(-3px);
+  border-color: rgba(var(--tone), 0.6);
+  background: linear-gradient(160deg, rgba(var(--tone), 0.16), rgba(255, 255, 255, 0.03));
+  box-shadow: 0 18px 40px -16px rgba(var(--tone), 0.55), 0 0 0 1px rgba(var(--tone), 0.25) inset;
+  outline: none;
+}
+.reach-opt:active { transform: translateZ(10px) scale(0.985); }
+.reach-ico {
+  grid-row: 1 / span 2;
+  width: 48px;
+  height: 48px;
+  display: grid;
+  place-items: center;
+  border-radius: 14px;
+  color: rgb(var(--tone));
+  background: radial-gradient(120% 120% at 30% 20%, rgba(var(--tone), 0.35), rgba(var(--tone), 0.08) 60%);
+  border: 1px solid rgba(var(--tone), 0.35);
+  box-shadow: 0 8px 22px -8px rgba(var(--tone), 0.7), 0 1px 0 rgba(255, 255, 255, 0.25) inset;
+  transform: translateZ(18px);
+  transition: transform 320ms var(--ease);
+}
+.reach-opt:hover .reach-ico, .reach-opt:focus-visible .reach-ico { transform: translateZ(34px) rotateY(-14deg); }
+.reach-ico svg { width: 24px; height: 24px; }
+.reach-name { font: 600 16px/1.2 var(--font-display); }
+.reach-hint { font-size: 13px; color: var(--muted); line-height: 1.35; overflow-wrap: break-word; }
+.reach-go {
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  width: 18px;
+  height: 18px;
+  translate: 0 -50%;
+  color: rgba(var(--tone), 0.9);
+  opacity: 0;
+  transition: opacity 220ms, translate 320ms var(--ease);
+}
+.reach-opt:hover .reach-go, .reach-opt:focus-visible .reach-go { opacity: 1; translate: 4px -50%; }
+
+/* tiles rise in one after another (fill "backwards" so hover transforms still work after) */
+.reach-opt:nth-child(1) { --n: 0; }
+.reach-opt:nth-child(2) { --n: 1; }
+.reach-opt:nth-child(3) { --n: 2; }
+.reach-opt:nth-child(4) { --n: 3; }
+.reach[open] .reach-opt { animation: reach-tile-in 640ms var(--ease) backwards; animation-delay: calc(160ms + var(--n) * 80ms); }
+@keyframes reach-tile-in {
+  from { opacity: 0; transform: translateY(28px) translateZ(-70px) rotateX(20deg); }
+  to   { opacity: 1; transform: none; }
+}
+
+.reach-foot {
+  margin: 18px 0 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: var(--muted);
+}
+.reach-foot .dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--green);
+  box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.6);
+  animation: reach-pulse 2.2s ease-out infinite;
+}
+@keyframes reach-pulse { to { box-shadow: 0 0 0 10px rgba(16, 185, 129, 0); } }
+
+/* ---------- step 2: the ready-written message ---------- */
+.reach-step[hidden] { display: none; }
+.reach-step.is-entering { animation: reach-step-in 520ms var(--ease) both; }
+@keyframes reach-step-in {
+  from { opacity: 0; transform: translate3d(40px, 0, -60px) rotateY(-14deg); }
+  to   { opacity: 1; transform: none; }
+}
+.reach-step.is-back { animation: reach-step-back 520ms var(--ease) both; }
+@keyframes reach-step-back {
+  from { opacity: 0; transform: translate3d(-40px, 0, -60px) rotateY(14deg); }
+  to   { opacity: 1; transform: none; }
+}
+.reach-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin: 0 0 14px;
+  padding: 6px 12px 6px 8px;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--border);
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text-2);
+  font: 500 13px/1 var(--font-body);
+}
+.reach-back:hover { color: var(--text); background: rgba(255, 255, 255, 0.1); }
+.reach-back svg { width: 16px; height: 16px; }
+
+.reach-topics { display: flex; flex-wrap: wrap; gap: 8px; margin: 4px 0 16px; border: 0; padding: 0; }
+.reach-topics legend { font-size: 13px; color: var(--muted); margin-bottom: 8px; padding: 0; }
+.reach-chip { position: relative; }
+.reach-chip input { position: absolute; opacity: 0; inset: 0; margin: 0; }
+.reach-chip span {
+  display: inline-block;
+  padding: 8px 13px;
+  border-radius: var(--radius-pill);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text-2);
+  font-size: 13.5px;
+  transition: background var(--fast), border-color var(--fast), color var(--fast), transform var(--fast);
+}
+.reach-chip:hover span { border-color: rgba(34, 211, 238, 0.45); color: var(--text); }
+.reach-chip input:checked + span {
+  background: rgba(34, 211, 238, 0.16);
+  border-color: rgba(34, 211, 238, 0.7);
+  color: #fff;
+  box-shadow: 0 0 18px -6px rgba(34, 211, 238, 0.8);
+}
+.reach-chip input:focus-visible + span { outline: 2px solid var(--cyan-2); outline-offset: 2px; }
+
+.reach-field { display: grid; gap: 6px; margin-bottom: 12px; }
+.reach-field label { font-size: 13px; color: var(--muted); }
+.reach-field input,
+.reach-field textarea {
+  width: 100%;
+  padding: 11px 13px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(3, 7, 18, 0.45);
+  color: var(--text);
+  font: 15px/1.5 var(--font-body);
+  transition: border-color var(--fast), box-shadow var(--fast);
+}
+.reach-field textarea { min-height: 150px; resize: vertical; }
+.reach-field input:focus,
+.reach-field textarea:focus {
+  outline: none;
+  border-color: rgba(34, 211, 238, 0.7);
+  box-shadow: 0 0 0 3px rgba(34, 211, 238, 0.18);
+}
+.reach [data-only][hidden] { display: none; }
+
+.reach-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; margin-top: 6px; }
+.reach-actions .btn { min-width: 0; }
+.reach-link {
+  border: 0;
+  background: none;
+  padding: 4px 2px;
+  color: var(--cyan-2);
+  font: 500 14px/1.2 var(--font-body);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.reach-link:hover { color: #fff; }
+.reach-status { min-height: 1.4em; margin: 14px 0 0; font-size: 14px; color: var(--text-2); }
+.reach-status.is-ok { color: var(--green); }
+.reach-privacy { margin: 10px 0 0; font-size: 12.5px; color: var(--faint); }
+
+@media (max-width: 560px) {
+  .reach { padding: 10px; align-items: end; }
+  .reach-grid { grid-template-columns: 1fr; gap: 10px; }
+  .reach-card { border-radius: 22px; max-height: calc(100dvh - 20px); }
+  .reach-field textarea { min-height: 140px; }
+  .reach-ring { width: 130vmin; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reach-card,
+  .reach[open] .reach-card { transform: none; filter: none; transition-duration: 120ms; }
+  .reach-orb, .reach-ring, .reach-sheen::after, .reach-foot .dot { animation: none; }
+  .reach-tilt { transform: none; }
+  .reach-step.is-entering, .reach-step.is-back, .reach[open] .reach-opt { animation: none; }
+  @starting-style {
+    .reach[open] .reach-card { transform: none; filter: none; }
+  }
+}

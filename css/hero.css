@@ -233,3 +233,7 @@
   .hx-editor { max-width: 760px; }
   .hx-body { font-size: 0.74rem; }
 }
+
+/* icon-only button in the hero row (GitHub) */
+.hx-actions .btn-icon { flex: 0 0 auto; width: 54px; min-width: 0; padding-inline: 0; justify-content: center; }
+.hx-actions .btn-icon svg { margin: 0; }
