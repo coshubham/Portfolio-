@@ -237,3 +237,17 @@
 /* icon-only button in the hero row (GitHub) */
 .hx-actions .btn-icon { flex: 0 0 auto; width: 54px; min-width: 0; padding-inline: 0; justify-content: center; }
 .hx-actions .btn-icon svg { margin: 0; }
+
+/* "I'm an AI-native / full-stack engineer / shipping real AI." — keep it on 3 lines beside the 3D stack */
+@media (min-width: 1080px) {
+  .hx-title.hx-title--long { font-size: clamp(2.4rem, min(4.75vw, 8.6svh), 4.4rem); }
+}
+/* laptops 1080-1380px: keep the four hero buttons on one row */
+@media (min-width: 1080px) and (max-width: 1380px) {
+  .hx-actions { gap: 10px; }
+  .hx-actions .btn:not(.btn-icon) { padding-left: 18px; padding-right: 18px; }
+}
+@media (min-width: 1080px) and (max-width: 1300px) {
+  .hx-actions .btn:not(.btn-icon) { padding-left: 15px; padding-right: 15px; font-size: 0.9rem; gap: 8px; }
+  .hx-actions .btn-icon { width: 50px; }
+}
