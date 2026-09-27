@@ -123,6 +123,58 @@ html.reach-open .ambient, html.reach-open .hero-x canvas, html.reach-open #curso
   to   { opacity: 1; transform: none; }
 }
 
+/* ---------- glass in the corridor: frosted panes and glass cubes ----------
+   They drift from the vanishing point toward the viewer and turn slowly, so the
+   bright edges catch the light. Glass is faked with gradients, edge highlights
+   and a moving specular band (no backdrop-filter), so it stays smooth on phones.
+   Cubes: the wrapper moves and spins (keeps preserve-3d), the faces fade —
+   opacity on the wrapper itself would flatten the cube. */
+.reach-glass { position: absolute; left: 50%; top: 50%; width: 0; height: 0; transform-style: preserve-3d; }
+
+.reach-pane, .reach-cube s {
+  position: absolute; border-radius: 14px; overflow: hidden;
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.22) 0%, rgba(255, 255, 255, 0.05) 42%, rgba(165, 243, 252, 0.10) 70%, rgba(255, 255, 255, 0.16) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.38);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.55),
+    inset 0 -1px 0 rgba(34, 211, 238, 0.25),
+    0 18px 40px -22px rgba(0, 0, 0, 0.7);
+}
+.reach-pane::after, .reach-cube s::after {           /* the specular band that sweeps across the glass */
+  content: ""; position: absolute; top: -40%; bottom: -40%; left: -60%; width: 40%;
+  background: linear-gradient(100deg, transparent, rgba(255, 255, 255, 0.35) 45%, rgba(255, 255, 255, 0.05) 60%, transparent);
+  transform: rotate(12deg) translateX(0);
+}
+.reach-pane { width: var(--w); height: var(--h); margin: calc(var(--h) / -2) 0 0 calc(var(--w) / -2); opacity: 0; will-change: transform, opacity; }
+
+.reach-cube { position: absolute; width: var(--c); height: var(--c); margin: calc(var(--c) / -2) 0 0 calc(var(--c) / -2);
+  transform-style: preserve-3d; will-change: transform; }
+.reach-cube s { inset: 0; border-radius: 10px; opacity: 0; }
+.reach-cube s:nth-child(1) { transform: translateZ(calc(var(--c) / 2)); }
+.reach-cube s:nth-child(2) { transform: rotateY(180deg) translateZ(calc(var(--c) / 2)); }
+.reach-cube s:nth-child(3) { transform: rotateY(90deg) translateZ(calc(var(--c) / 2)); background-color: rgba(34, 211, 238, 0.05); }
+.reach-cube s:nth-child(4) { transform: rotateY(-90deg) translateZ(calc(var(--c) / 2)); background-color: rgba(34, 211, 238, 0.05); }
+.reach-cube s:nth-child(5) { transform: rotateX(90deg) translateZ(calc(var(--c) / 2)); background-color: rgba(255, 255, 255, 0.06); }
+.reach-cube s:nth-child(6) { transform: rotateX(-90deg) translateZ(calc(var(--c) / 2)); }
+
+.reach[open] .reach-pane   { animation: reach-pane-fly var(--s) linear infinite, reach-fade var(--s) linear infinite; animation-delay: var(--d), var(--d); }
+.reach[open] .reach-cube   { animation: reach-cube-fly var(--s) linear infinite; animation-delay: var(--d); }
+.reach[open] .reach-cube s { animation: reach-fade var(--s) linear infinite; animation-delay: var(--d); }
+.reach[open] .reach-pane::after { animation: reach-glint 3.6s ease-in-out infinite; animation-delay: var(--g, 0s); }
+.reach-cube s::after { display: none; }   /* cube faces: no sweeping glint (18 extra animations) */
+
+@keyframes reach-pane-fly {
+  from { transform: translate3d(var(--x), var(--y), -1700px) rotateY(var(--ry0)) rotateX(var(--rx0)); }
+  to   { transform: translate3d(var(--x), var(--y), 320px) rotateY(var(--ry1)) rotateX(var(--rx1)); }
+}
+@keyframes reach-cube-fly {
+  from { transform: translate3d(var(--x), var(--y), -1700px) rotateX(0deg) rotateY(0deg); }
+  to   { transform: translate3d(var(--x), var(--y), 320px) rotateX(var(--rx1)) rotateY(var(--ry1)); }
+}
+@keyframes reach-fade { 0% { opacity: 0; } 14% { opacity: 1; } 84% { opacity: 1; } 100% { opacity: 0; } }
+@keyframes reach-glint { 0%, 55% { transform: rotate(12deg) translateX(0); } 100% { transform: rotate(12deg) translateX(460%); } }
+
 /* ---------- the glass card ---------- */
 .reach-tilt {
   position: relative;
@@ -444,6 +496,7 @@ html.reach-open .ambient, html.reach-open .hero-x canvas, html.reach-open #curso
   .reach[open]::backdrop { background-color: rgba(5, 9, 20, 0.8); }
   .reach-scene { perspective: 420px; }
   .reach-warp i:nth-child(n+17) { display: none; }          /* 16 streaks on phones */
+  .reach-pane:nth-of-type(n+5), .reach-cube:nth-of-type(n+2) { display: none; }   /* 4 panes + 1 cube on phones */
   .reach-card { backdrop-filter: none !important; -webkit-backdrop-filter: none !important; background: rgba(11, 17, 32, 0.9) !important; }
   .reach-sheen::after { animation: none; }
   .reach-grid { grid-template-columns: 1fr; gap: 10px; }
@@ -459,7 +512,7 @@ html.reach-open .ambient, html.reach-open .hero-x canvas, html.reach-open #curso
   .reach[open] .reach-card { transform: none; filter: none; transition-duration: 120ms; }
   .reach-sheen::after, .reach-foot .dot { animation: none; }
   .reach[open] .reach-plane i, .reach[open] .reach-glow, .reach[open] .reach-scene { animation: none; }
-  .reach-warp { display: none; }
+  .reach-warp, .reach-glass { display: none; }
   .reach-tilt { transform: none; }
   .reach-step.is-entering, .reach-step.is-back, .reach[open] .reach-opt { animation: none; }
   @starting-style {

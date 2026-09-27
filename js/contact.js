@@ -52,6 +52,49 @@
     }
   })();
 
+  // glass panes + glass cubes drifting through the corridor (fixed layout, so every visit matches)
+  (function buildGlass() {
+    var box = $('.reach-glass');
+    if (!box || box.childElementCount) return;
+    var seed = 11;
+    function rnd() { seed = (seed * 16807) % 2147483647; return seed / 2147483647; }
+    function place(el, rMin, rMax, sMin, sMax, k, total) {
+      var ang = (k / total) * Math.PI * 2 + rnd() * 0.6;            // spread evenly around the card
+      var r = rMin + rnd() * (rMax - rMin);
+      var dur = sMin + rnd() * (sMax - sMin);
+      el.style.setProperty('--x', Math.round(Math.cos(ang) * r * 1.25) + 'px');
+      el.style.setProperty('--y', Math.round(Math.sin(ang) * r * 0.8) + 'px');
+      el.style.setProperty('--s', dur.toFixed(2) + 's');
+      el.style.setProperty('--d', (-(k / total) * dur - rnd()).toFixed(2) + 's');
+      el.style.setProperty('--g', (rnd() * 3).toFixed(2) + 's');
+    }
+    var panes = 5;
+    for (var p = 0; p < panes; p++) {
+      var pane = document.createElement('i');
+      pane.className = 'reach-pane';
+      var wide = rnd() > 0.5;
+      pane.style.setProperty('--w', Math.round(wide ? 150 + rnd() * 60 : 90 + rnd() * 40) + 'px');
+      pane.style.setProperty('--h', Math.round(wide ? 90 + rnd() * 30 : 130 + rnd() * 50) + 'px');
+      pane.style.setProperty('--ry0', Math.round(-40 + rnd() * 80) + 'deg');
+      pane.style.setProperty('--rx0', Math.round(-20 + rnd() * 40) + 'deg');
+      pane.style.setProperty('--ry1', Math.round(-120 + rnd() * 240) + 'deg');
+      pane.style.setProperty('--rx1', Math.round(-40 + rnd() * 80) + 'deg');
+      place(pane, 260, 560, 9, 13, p, panes);
+      box.appendChild(pane);
+    }
+    var cubes = 2;
+    for (var c = 0; c < cubes; c++) {
+      var cube = document.createElement('i');
+      cube.className = 'reach-cube';
+      cube.innerHTML = '<s></s><s></s><s></s><s></s><s></s><s></s>';
+      cube.style.setProperty('--c', Math.round(56 + rnd() * 34) + 'px');
+      cube.style.setProperty('--rx1', Math.round(200 + rnd() * 160) + 'deg');
+      cube.style.setProperty('--ry1', Math.round(260 + rnd() * 200) + 'deg');
+      place(cube, 300, 520, 11, 15, c + 0.5, cubes);
+      box.appendChild(cube);
+    }
+  })();
+
   var tilt = $('.reach-tilt');
   var steps = $$('.reach-step');
   var nameEl = $('#r-name');
