@@ -35,6 +35,23 @@
   var $ = function (sel, root) { return (root || dlg).querySelector(sel); };
   var $$ = function (sel, root) { return Array.prototype.slice.call((root || dlg).querySelectorAll(sel)); };
 
+  // 3D warp corridor: light streaks spread around the vanishing point (fixed layout, so every visit matches)
+  (function buildWarp() {
+    var warp = $('.reach-warp');
+    if (!warp || warp.childElementCount) return;
+    var seed = 7;
+    function rnd() { seed = (seed * 16807) % 2147483647; return seed / 2147483647; }
+    for (var n = 0; n < 32; n++) {
+      var i = document.createElement('i');
+      var dur = 1.6 + rnd() * 1.4;
+      i.style.setProperty('--a', Math.round(rnd() * 360) + 'deg');
+      i.style.setProperty('--r', Math.round(240 + rnd() * 460) + 'px');   // outside the card, so they are seen
+      i.style.setProperty('--s', dur.toFixed(2) + 's');
+      i.style.setProperty('--d', (-rnd() * dur).toFixed(2) + 's');
+      warp.appendChild(i);
+    }
+  })();
+
   var tilt = $('.reach-tilt');
   var steps = $$('.reach-step');
   var nameEl = $('#r-name');

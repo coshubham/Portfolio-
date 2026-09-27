@@ -61,48 +61,67 @@ html:has(.reach[open]), html.reach-open { overflow: hidden; scrollbar-gutter: st
 /* the animated page background keeps painting under the blur: hide it while the chooser is open */
 html.reach-open .ambient, html.reach-open .hero-x canvas, html.reach-open #cursor-dot, html.reach-open #cursor-ring { visibility: hidden; }
 
-/* ---------- the scene behind the card: drifting light + a portal ring ---------- */
-.reach-scene { position: absolute; inset: 0; pointer-events: none; transform-style: preserve-3d; }
-.reach-orb {
-  position: absolute;
-  width: 46vmax;
-  height: 46vmax;
-  border-radius: 50%;
-  filter: blur(60px);
-  opacity: 0.55;
-  mix-blend-mode: screen;
-  animation: reach-drift 16s var(--ease) infinite alternate;
-}
-.reach-orb.o1 { left: -12vmax; top: -14vmax; background: radial-gradient(circle, rgba(34, 211, 238, 0.55), transparent 62%); }
-.reach-orb.o2 { right: -16vmax; bottom: -18vmax; background: radial-gradient(circle, rgba(14, 165, 233, 0.5), transparent 62%); animation-duration: 19s; animation-delay: -6s; }
-.reach-orb.o3 { left: 40%; top: 55%; width: 30vmax; height: 30vmax; background: radial-gradient(circle, rgba(16, 185, 129, 0.35), transparent 65%); animation-duration: 23s; animation-delay: -11s; }
-@keyframes reach-drift {
-  from { transform: translate3d(0, 0, 0) scale(1); }
-  to   { transform: translate3d(6vmax, 4vmax, 0) scale(1.18); }
-}
-.reach-ring {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  width: min(92vmin, 880px);
-  aspect-ratio: 1;
-  translate: -50% -50%;
-  border-radius: 50%;
+/* ---------- the scene behind the card: a 3D warp corridor ----------
+   Floor and ceiling grids rush toward the viewer, light streaks fly out of
+   the vanishing point, the card floats in the middle. Transform/opacity only,
+   no filters, and it only runs while the dialog is open. */
+.reach-scene {
+  position: absolute; inset: 0; overflow: hidden; pointer-events: none;
+  perspective: 560px; perspective-origin: 50% 50%;
   background:
-    conic-gradient(from 0deg, transparent 0 20%, rgba(34, 211, 238, 0.55) 30%, transparent 42% 70%, rgba(14, 165, 233, 0.45) 80%, transparent 92%);
-  mask: radial-gradient(circle, transparent 61.5%, #000 62.5%, #000 65%, transparent 66%);
-  transform: rotateX(72deg);
-  animation: reach-spin 14s linear infinite;
-  filter: drop-shadow(0 0 12px rgba(34, 211, 238, 0.7));
-  opacity: 1;
+    radial-gradient(38% 30% at 50% 50%, rgba(34, 211, 238, 0.22), transparent 70%),
+    radial-gradient(70% 60% at 50% 50%, rgba(14, 165, 233, 0.10), transparent 75%);
 }
-.reach-ring.r2 {
-  width: min(70vmin, 660px);
-  animation-duration: 22s;
-  animation-direction: reverse;
-  opacity: 0.75;
+.reach-glow {                                     /* the light at the end of the corridor */
+  position: absolute; left: 50%; top: 50%; width: 46vmin; aspect-ratio: 1; translate: -50% -50%;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(207, 250, 254, 0.7), rgba(34, 211, 238, 0.22) 30%, transparent 66%);
+  opacity: 0.8;
 }
-@keyframes reach-spin { to { transform: rotateX(72deg) rotateZ(360deg); } }
+.reach-plane {                                    /* floor and ceiling */
+  position: absolute; left: -60%; right: -60%; height: 110%; overflow: hidden;
+  -webkit-mask: linear-gradient(var(--fade-dir), transparent 0%, #000 45%, rgba(0, 0, 0, 0.35) 100%);
+          mask: linear-gradient(var(--fade-dir), transparent 0%, #000 45%, rgba(0, 0, 0, 0.35) 100%);
+}
+.reach-plane.floor { top: 50%; transform-origin: 50% 0; transform: rotateX(80deg); --fade-dir: to bottom; }
+.reach-plane.ceil  { bottom: 50%; transform-origin: 50% 100%; transform: rotateX(-80deg); --fade-dir: to top; }
+.reach-plane i {
+  position: absolute; left: 0; right: 0; top: -64px; bottom: -64px;
+  background-image:
+    linear-gradient(rgba(103, 232, 249, 0.42) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(103, 232, 249, 0.26) 1px, transparent 1px);
+  background-size: 64px 64px;
+  will-change: transform;
+}
+.reach-warp { position: absolute; left: 50%; top: 50%; width: 0; height: 0; transform-style: preserve-3d; }
+.reach-warp i {                                   /* one light streak, pointing away from the centre */
+  position: absolute; left: 0; top: 0; width: 46px; height: 2px; margin: -1px 0 0 -23px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, transparent, rgba(165, 243, 252, 0.7) 55%, #fff);
+  box-shadow: 0 0 8px 1px rgba(34, 211, 238, 0.85);
+  opacity: 0;
+  will-change: transform, opacity;
+}
+
+.reach[open] .reach-plane.floor i { animation: reach-run-floor 0.9s linear infinite; }
+.reach[open] .reach-plane.ceil i  { animation: reach-run-ceil 0.9s linear infinite; }
+.reach[open] .reach-warp i        { animation: reach-streak var(--s, 2.2s) linear infinite; animation-delay: var(--d, 0s); }
+.reach[open] .reach-glow          { animation: reach-breathe 4s ease-in-out infinite; }
+.reach[open] .reach-scene         { animation: reach-jump 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) both; }
+
+@keyframes reach-run-floor { from { transform: translateY(-64px); } to { transform: translateY(0); } }
+@keyframes reach-run-ceil  { from { transform: translateY(64px); }  to { transform: translateY(0); } }
+@keyframes reach-streak {
+  0%   { opacity: 0; transform: rotate(var(--a)) translateX(var(--r)) translateZ(-1400px); }
+  18%  { opacity: 1; }
+  85%  { opacity: 1; }
+  100% { opacity: 0; transform: rotate(var(--a)) translateX(var(--r)) translateZ(420px); }
+}
+@keyframes reach-breathe { 0%, 100% { opacity: 0.55; transform: scale(1); } 50% { opacity: 0.85; transform: scale(1.08); } }
+@keyframes reach-jump {                           /* the corridor rushes in when the card opens */
+  from { opacity: 0; transform: scale(1.35); }
+  to   { opacity: 1; transform: none; }
+}
 
 /* ---------- the glass card ---------- */
 .reach-tilt {
@@ -122,8 +141,8 @@ html.reach-open .ambient, html.reach-open .hero-x canvas, html.reach-open #curso
   background:
     linear-gradient(150deg, rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0.04) 46%, rgba(255, 255, 255, 0.07)),
     rgba(11, 17, 32, 0.55);
-  backdrop-filter: blur(22px) saturate(160%);
-  -webkit-backdrop-filter: blur(22px) saturate(160%);
+  backdrop-filter: blur(14px) saturate(150%);
+  -webkit-backdrop-filter: blur(14px) saturate(150%);
   border: 1px solid rgba(255, 255, 255, 0.16);
   box-shadow:
     0 1px 0 rgba(255, 255, 255, 0.22) inset,
@@ -423,8 +442,9 @@ html.reach-open .ambient, html.reach-open .hero-x canvas, html.reach-open #curso
   .reach[open] .reach-card { transform: none; @starting-style { transform: translateY(28px) scale(0.98); filter: none; } }
   .reach::backdrop, .reach[open]::backdrop { backdrop-filter: none; }
   .reach[open]::backdrop { background-color: rgba(5, 9, 20, 0.8); }
-  .reach-orb { filter: blur(30px); animation: none; opacity: 0.4; }
-  .reach-ring { display: none; }
+  .reach-scene { perspective: 420px; }
+  .reach-warp i:nth-child(n+17) { display: none; }          /* 16 streaks on phones */
+  .reach-card { backdrop-filter: none !important; -webkit-backdrop-filter: none !important; background: rgba(11, 17, 32, 0.9) !important; }
   .reach-sheen::after { animation: none; }
   .reach-grid { grid-template-columns: 1fr; gap: 10px; }
   .reach-opt { padding: 13px 34px 13px 12px; }
@@ -437,7 +457,9 @@ html.reach-open .ambient, html.reach-open .hero-x canvas, html.reach-open #curso
 @media (prefers-reduced-motion: reduce) {
   .reach-card,
   .reach[open] .reach-card { transform: none; filter: none; transition-duration: 120ms; }
-  .reach-orb, .reach-ring, .reach-sheen::after, .reach-foot .dot { animation: none; }
+  .reach-sheen::after, .reach-foot .dot { animation: none; }
+  .reach[open] .reach-plane i, .reach[open] .reach-glow, .reach[open] .reach-scene { animation: none; }
+  .reach-warp { display: none; }
   .reach-tilt { transform: none; }
   .reach-step.is-entering, .reach-step.is-back, .reach[open] .reach-opt { animation: none; }
   @starting-style {
