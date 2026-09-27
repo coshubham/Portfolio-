@@ -1,35 +1,33 @@
 /* Case 06 - AI photo search scene: play when on screen, loop while visible,
-   still frame for reduced motion, pointer parallax on desktop.
-   Transform/opacity only; no layout work. */
+   still frame for reduced motion. Transform/opacity only; no layout work. */
 (function () {
   'use strict';
   var scene = document.querySelector('.photo-scene');
   if (!scene) return;
 
   var reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
-  var finePointer = window.matchMedia('(hover: hover) and (pointer: fine)');
   var passMs = 6400;   // must match --ph-t in photo.css
-  var restMs = 3200;   // hold the final frame before replaying
+  var restMs = 3600;   // hold the final frame before replaying
   var timer = 0, onScreen = false, waitingForIntro = !!(document.body && document.body.classList.contains('is-loading'));
 
   function build() {
-    // fingerprint points on the photo (fixed positions, so every visit matches)
+    // fingerprint points on the print (fixed positions, so every visit matches)
     var dots = scene.querySelector('.ph-dots');
-    [[36, 30], [56, 24], [46, 47], [62, 58], [33, 62], [52, 76], [41, 86], [68, 40]].forEach(function (p, i) {
+    [[36, 30], [58, 24], [46, 50], [64, 62], [33, 66], [52, 80]].forEach(function (p, i) {
       var d = document.createElement('i');
-      d.style.left = p[0] + '%'; d.style.top = p[1] + '%'; d.style.setProperty('--d', String(i * 80));
+      d.style.left = p[0] + '%'; d.style.top = p[1] + '%'; d.style.setProperty('--d', String(i * 90));
       dots.appendChild(d);
     });
-    // flying points: from the photo to the catalogue wall
+    // flying points: from the print, through the middle column, into the wall
     var fly = scene.querySelector('.ph-fly');
     var r = scene.getBoundingClientRect(), w = r.width || 640, h = r.height || 400;
-    for (var k = 0; k < 9; k++) {
+    for (var k = 0; k < 6; k++) {
       var f = document.createElement('i');
-      f.style.left = (25 + (k % 3) * 4) + '%';
-      f.style.top = (34 + Math.floor(k / 3) * 11 + (k % 2) * 3) + '%';
-      f.style.setProperty('--tx', Math.round(w * (0.34 + (k % 4) * 0.05)) + 'px');
-      f.style.setProperty('--ty', Math.round(h * (-0.14 + Math.floor(k / 3) * 0.10 + (k % 3) * 0.03)) + 'px');
-      f.style.setProperty('--d', String(k * 50));
+      f.style.left = (20 + (k % 3) * 3) + '%';
+      f.style.top = (36 + Math.floor(k / 3) * 14 + (k % 2) * 4) + '%';
+      f.style.setProperty('--tx', Math.round(w * (0.42 + (k % 3) * 0.06)) + 'px');
+      f.style.setProperty('--ty', Math.round(h * (-0.10 + Math.floor(k / 3) * 0.12 + (k % 2) * 0.04)) + 'px');
+      f.style.setProperty('--d', String(k * 60));
       fly.appendChild(f);
     }
     // tiles: a little depth each, and a ripple delay that spreads out from the match
@@ -38,7 +36,7 @@
     figs.forEach(function (fig, i) {
       var x = i % 4, y = Math.floor(i / 4);
       var dist = Math.sqrt((x - hx) * (x - hx) + (y - hy) * (y - hy));
-      fig.style.setProperty('--z', String(((i * 7) % 5) * 5 - 10));   // -10..10px
+      fig.style.setProperty('--z', String(((i * 7) % 3) * 3 - 3));   // -3..3px: depth without breaking the grid lines
       fig.style.setProperty('--r', String(Math.round(dist * 70)));
     });
   }
@@ -68,21 +66,6 @@
 
   var replay = scene.querySelector('.ph-replay');
   if (replay) replay.addEventListener('click', play);
-
-  // parallax: the whole stage leans a few degrees toward the pointer (desktop only)
-  var stage = scene.querySelector('.ph-stage'), raf = 0;
-  if (finePointer.matches && !reduced.matches && stage) {
-    scene.addEventListener('pointermove', function (e) {
-      if (raf) return;
-      raf = window.requestAnimationFrame(function () {
-        raf = 0;
-        var b = scene.getBoundingClientRect();
-        var px = (e.clientX - b.left) / b.width - 0.5, py = (e.clientY - b.top) / b.height - 0.5;
-        stage.style.transform = 'rotateY(' + (px * 6).toFixed(2) + 'deg) rotateX(' + (-py * 4).toFixed(2) + 'deg)';
-      });
-    });
-    scene.addEventListener('pointerleave', function () { stage.style.transform = ''; });
-  }
 
   if ('IntersectionObserver' in window) {
     new IntersectionObserver(function (entries) {
