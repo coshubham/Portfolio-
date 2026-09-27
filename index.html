@@ -37,6 +37,7 @@
 <link rel="stylesheet" href="css/hero.css">
 <link rel="stylesheet" href="css/skills.css">
 <link rel="stylesheet" href="css/contact.css">
+<link rel="stylesheet" href="css/photo.css">
 <noscript><style>.intro{display:none}</style></noscript>
 <script>if(window.top!==window.self){document.documentElement.style.display="none";try{window.top.location.replace(window.self.location.href)}catch(e){}}(function(){var l=document.getElementById("gfonts");if(!l)return;if(l.sheet){l.media="all"}else{l.addEventListener("load",function(){l.media="all"})}})();document.documentElement.classList.add("js");setTimeout(function(){if(!window.__mainReady)document.documentElement.classList.add("reveal-all")},2500);setTimeout(function f(){if(document.body&&document.body.classList.contains('is-loading')&&performance.now()<9000){setTimeout(f,150);return}var h=document.querySelector('.hero-x');if(h)h.classList.add('hx-ready')},5500);</script>
 <script src="js/vendor/typed.umd.js" defer></script>
@@ -52,6 +53,7 @@
 <script src="js/skills.js" defer></script>
 <script src="js/particles.js" defer></script>
 <script src="js/contact.js" defer></script>
+<script src="js/photo.js" defer></script>
 <script type="application/ld+json">
 { "@context": "https://schema.org", "@type": "Person", "name": "Shubham Kumar Yadav", "jobTitle": "AI-Native Full-Stack Engineer",
   "url": "https://coshubham.github.io/Portfolio-/", "email": "mailto:shubhamky1612@gmail.com", "address": { "@type": "PostalAddress", "addressLocality": "Noida", "addressCountry": "IN" },
@@ -948,7 +950,7 @@
     <path class="d3" d="M112 304 H138" stroke="url(#webhook-gap-g)"/>
     <path class="d4" d="M226 304 H252 M316 304 H334" stroke="#34d399"/>
   </g>
-</svg></div></article></div>
+</svg></div></article><article class="case card reveal-scale" id="case-6"><div class="case-body"><div class="case-num">CASE 06</div><h3>Snap a Photo, Find the Product</h3><div class="result-line">Photo search on the same AI engine: the same product came back #1 for every real photo in a 40-photo live test.</div><dl><div><dt>Problem</dt><dd>Shoppers often have a picture of what they want, not the words for it. A photo of a lipstick, a screenshot from a friend, or a blurry phone shot of a product on a shelf. Typed search cannot help them.</dd></div><div><dt>What I did</dt><dd>I added a fourth way in: upload a photo. A vision model reads it into a strict JSON description (type, brand, name, variant, colours), which becomes a brand-first query for the same search engine, so filters and ranking still apply. In parallel a perceptual image fingerprint matches the photo against the catalogue, with the plain background trimmed first so a lipstick and a mascara are never called the same. Image URLs are fetched behind an SSRF guard that checks every redirect.</dd></div><div><dt>Result</dt><dd>120,000+ product images fingerprinted across two live demo stores. In a 40-photo live battery (originals, blurred, phone shots, screenshots), the same product was #1 every time for real photos, in 2 to 4 seconds, at about $0.002 a photo, with no server errors.</dd></div></dl><div class="chips"><span class="chip">Computer vision</span><span class="chip">GPT-4o mini</span><span class="chip">Image fingerprinting</span><span class="chip">OpenSearch k-NN</span><span class="chip">FastAPI</span><span class="chip">SSRF guard</span></div></div><div class="case-visual"><div class="photo-scene" role="img" aria-label="Animation: a product photo lands on a phone, a scan beam reads it, fingerprint points fly into the catalogue, and the same product comes back as number one."><div class="ph-stage"><div class="ph-phone" aria-hidden="true"><span class="ph-notch"></span><div class="ph-ui"><i></i><i></i></div><div class="ph-photo"><span class="tube"></span><span class="tag">photo.jpg</span></div><div class="ph-beam"></div><div class="ph-dots"></div><div class="ph-label">&#10022; vision model read &middot; fingerprint</div></div><div class="ph-grid" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i class="hit"></i><i></i><i></i><i></i><i></i><i></i><i></i></div><div class="ph-fly" aria-hidden="true"></div><div class="ph-result" aria-hidden="true"><span class="sw"></span><span><b>Matte lipstick, ruby red</b><small>Same product &middot; 0.94 match</small></span><em>#1</em></div><div class="ph-stats" aria-hidden="true"><span><b>120K+</b> images</span><span><b>2&ndash;4 s</b> photo to results</span><span><b>#1</b> on real photos</span></div></div><button class="ph-replay" type="button">&#8635; replay</button></div></div></article></div>
     </div>
   </section>
 

@@ -175,7 +175,7 @@
     if (fName && nameEl.value.trim()) fName.value = nameEl.value.trim();
     if (fMsg) fMsg.value = msgEl.value;
     if (fSubj) fSubj.value = 'Portfolio: ' + TOPICS[topic()].subject;
-    dlg.close();
+    closeReach();
     var contact = document.getElementById('contact');
     if (contact) contact.scrollIntoView({ behavior: reduced.matches ? 'auto' : 'smooth', block: 'start' });
     var next = fName && !fName.value ? fName : document.getElementById('f-email');
@@ -198,7 +198,8 @@
     }
     steps.forEach(function (s) { s.hidden = s.getAttribute('data-step') !== 'pick'; s.classList.remove('is-entering', 'is-back'); });
     say('', false);
-    dlg.showModal();
+    try { dlg.showModal(); } catch (err) { return; }
+    document.documentElement.classList.add('reach-open');
     var first = $('.reach-opt');
     if (first) first.focus({ preventScroll: true });
   }
@@ -217,11 +218,11 @@
   var downOnEmpty = false;
   dlg.addEventListener('pointerdown', function (e) { downOnEmpty = e.target === dlg; });
   dlg.addEventListener('click', function (e) {
-    if (e.target === dlg && downOnEmpty) dlg.close();
+    if (e.target === dlg && downOnEmpty) closeReach();
     downOnEmpty = false;
   });
 
-  $('.reach-close').addEventListener('click', function () { dlg.close(); });
+  $('.reach-close').addEventListener('click', closeReach);
   $$('.reach-opt').forEach(function (b) {
     b.addEventListener('click', function () { choose(b.getAttribute('data-channel')); });
   });
@@ -255,7 +256,13 @@
     });
   });
   dlg.addEventListener('pointerleave', resetTilt);
-  dlg.addEventListener('close', resetTilt);
+  function closeReach() {
+    if (dlg.open) dlg.close();
+    document.documentElement.classList.remove('reach-open');
+    resetTilt();
+  }
+  dlg.addEventListener('close', closeReach);
+  dlg.addEventListener('cancel', function () { document.documentElement.classList.remove('reach-open'); });
 
   refresh();
 })();

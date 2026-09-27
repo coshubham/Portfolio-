@@ -55,7 +55,11 @@ body:has(.reach[open]) #cursor-ring { opacity: 0 !important; }
 .reach, .reach * { cursor: auto; }
 .reach button, .reach a, .reach label, .reach .reach-chip { cursor: pointer; }
 .reach input, .reach textarea { cursor: text; }
-html:has(.reach[open]) { overflow: hidden; }
+html:has(.reach[open]), html.reach-open { overflow: hidden; scrollbar-gutter: stable; }
+.reach { overscroll-behavior: contain; touch-action: none; }
+.reach-card { touch-action: pan-y; }
+/* the animated page background keeps painting under the blur: hide it while the chooser is open */
+html.reach-open .ambient, html.reach-open .hero-x canvas, html.reach-open #cursor-dot, html.reach-open #cursor-ring { visibility: hidden; }
 
 /* ---------- the scene behind the card: drifting light + a portal ring ---------- */
 .reach-scene { position: absolute; inset: 0; pointer-events: none; transform-style: preserve-3d; }
@@ -412,11 +416,22 @@ html:has(.reach[open]) { overflow: hidden; }
 .reach-privacy { margin: 10px 0 0; font-size: 12.5px; color: var(--faint); }
 
 @media (max-width: 560px) {
-  .reach { padding: 10px; align-items: end; }
+  .reach { padding: 12px; place-items: center; }
+  .reach-tilt { width: 100%; transform: none !important; }
+  .reach-card { border-radius: 22px; max-height: calc(100dvh - 24px); padding: 20px 16px 16px; backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); background: rgba(11, 17, 32, 0.86); }
+  .reach-card, .reach[open] .reach-card { filter: none; transform: translateY(28px) scale(0.98); }
+  .reach[open] .reach-card { transform: none; @starting-style { transform: translateY(28px) scale(0.98); filter: none; } }
+  .reach::backdrop, .reach[open]::backdrop { backdrop-filter: none; }
+  .reach[open]::backdrop { background-color: rgba(5, 9, 20, 0.8); }
+  .reach-orb { filter: blur(30px); animation: none; opacity: 0.4; }
+  .reach-ring { display: none; }
+  .reach-sheen::after { animation: none; }
   .reach-grid { grid-template-columns: 1fr; gap: 10px; }
-  .reach-card { border-radius: 22px; max-height: calc(100dvh - 20px); }
-  .reach-field textarea { min-height: 140px; }
-  .reach-ring { width: 130vmin; }
+  .reach-opt { padding: 13px 34px 13px 12px; }
+  .reach-ico { width: 42px; height: 42px; }
+  .reach h2 { font-size: 21px; }
+  .reach-sub { margin-bottom: 16px; font-size: 14px; }
+  .reach-field textarea { min-height: 130px; }
 }
 
 @media (prefers-reduced-motion: reduce) {

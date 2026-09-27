@@ -1,0 +1,283 @@
+/* =========================================================================
+   Case 06 — AI photo search: a realistic 3D scene.
+   A phone tilts in, a product photo lands on it, a scan beam reads it,
+   fingerprint points fly into the catalogue grid, and the same product
+   comes back as #1. Pure CSS 3D (transform/opacity only); the JS just
+   toggles .is-playing and replays it while on screen.
+   ========================================================================= */
+
+.photo-scene {
+  --ph-t: 5.6s;                       /* one full pass */
+  position: relative;
+  aspect-ratio: 640 / 400;
+  width: 100%;
+  overflow: hidden;
+  perspective: 1100px;
+  perspective-origin: 55% 45%;
+  background:
+    radial-gradient(60% 70% at 78% 30%, rgba(34, 211, 238, 0.16), transparent 70%),
+    radial-gradient(40% 50% at 18% 85%, rgba(14, 165, 233, 0.14), transparent 70%),
+    var(--bg-2);
+  font-family: var(--font-body);
+  color: var(--text);
+  isolation: isolate;
+}
+.photo-scene::before {                /* floor grid, receding */
+  content: "";
+  position: absolute;
+  left: -20%; right: -20%; bottom: -10%; height: 70%;
+  background-image:
+    linear-gradient(rgba(103, 232, 249, 0.10) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(103, 232, 249, 0.10) 1px, transparent 1px);
+  background-size: 34px 34px;
+  transform: perspective(500px) rotateX(64deg);
+  transform-origin: 50% 100%;
+  mask: linear-gradient(transparent, #000 45%, #000 80%, transparent);
+  pointer-events: none;
+}
+.photo-scene * { box-sizing: border-box; }
+.ph-stage { position: absolute; inset: 0; transform-style: preserve-3d; }
+
+/* ---------- the phone ---------- */
+.ph-phone {
+  position: absolute;
+  left: 8%; top: 9%;
+  width: 34%;
+  aspect-ratio: 9 / 18.6;
+  border-radius: 8.5% / 4.2%;
+  background: linear-gradient(160deg, #1f2a44, #0d1526 55%, #16213a);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.25) inset,
+    0 -1px 0 rgba(0, 0, 0, 0.5) inset,
+    0 40px 70px -24px rgba(0, 0, 0, 0.85),
+    0 0 0 4px rgba(6, 12, 24, 0.9),
+    0 0 60px -14px rgba(34, 211, 238, 0.45);
+  transform-style: preserve-3d;
+  transform: rotateY(-38deg) rotateX(10deg) translateZ(-140px);
+  opacity: 0;
+}
+.ph-phone::before {                   /* screen */
+  content: "";
+  position: absolute; inset: 3.5%;
+  border-radius: 6% / 3%;
+  background: linear-gradient(180deg, #0a1122, #0b1120 60%, #0f1a30);
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.06) inset;
+}
+.ph-phone::after {                    /* screen glare */
+  content: "";
+  position: absolute; inset: 3.5%;
+  border-radius: 6% / 3%;
+  background: linear-gradient(115deg, rgba(255, 255, 255, 0.10), transparent 38%, transparent 62%, rgba(255, 255, 255, 0.04));
+  pointer-events: none;
+}
+.ph-notch { position: absolute; left: 50%; top: 5%; width: 26%; height: 2.6%; translate: -50% 0; border-radius: 999px; background: #05080f; }
+.ph-ui { position: absolute; left: 9%; right: 9%; top: 11%; display: flex; align-items: center; gap: 6px; }
+.ph-ui i { display: block; height: 7px; border-radius: 4px; background: rgba(255, 255, 255, 0.14); }
+.ph-ui i:nth-child(1) { width: 34%; }
+.ph-ui i:nth-child(2) { width: 18%; margin-left: auto; background: rgba(34, 211, 238, 0.5); }
+.ph-label {
+  position: absolute; left: 9%; bottom: 8%;
+  font: 600 clamp(8px, 1.15vw, 12px)/1.2 var(--font-mono);
+  letter-spacing: 0.08em; color: var(--cyan-2);
+  opacity: 0;
+}
+
+/* the product photo that lands on the screen */
+.ph-photo {
+  position: absolute; left: 12%; right: 12%; top: 19%;
+  aspect-ratio: 1;
+  border-radius: 9px;
+  overflow: hidden;
+  background: linear-gradient(145deg, #fecdd3, #fb7185 55%, #be123c);
+  box-shadow: 0 18px 30px -12px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(255, 255, 255, 0.35) inset;
+  transform: translateZ(180px) translateY(-60%) rotateX(35deg) scale(0.6);
+  opacity: 0;
+}
+.ph-photo .tube { position: absolute; left: 36%; top: 22%; width: 28%; height: 62%; border-radius: 22% 22% 12% 12% / 8% 8% 6% 6%; background: linear-gradient(90deg, #4c0519, #9f1239 40%, #4c0519); box-shadow: 0 8px 14px -6px rgba(0, 0, 0, 0.6); }
+.ph-photo .tube::before { content: ""; position: absolute; left: 18%; top: -22%; width: 64%; height: 30%; border-radius: 40% 40% 8% 8%; background: linear-gradient(90deg, #be123c, #fb7185 50%, #be123c); }
+.ph-photo .tube::after { content: ""; position: absolute; left: 30%; top: 8%; width: 10%; height: 70%; border-radius: 999px; background: rgba(255, 255, 255, 0.35); filter: blur(1px); }
+.ph-photo .tag { position: absolute; right: 6%; bottom: 6%; padding: 3px 7px; border-radius: 6px; background: rgba(255, 255, 255, 0.92); font: 700 clamp(7px, 0.95vw, 10px)/1 var(--font-mono); color: #be123c; }
+
+/* scan beam + fingerprint points on the photo */
+.ph-beam {
+  position: absolute; left: 12%; right: 12%; top: 19%;
+  aspect-ratio: 1; border-radius: 9px; overflow: hidden;
+  pointer-events: none; opacity: 0;
+}
+.ph-beam::before {
+  content: "";
+  position: absolute; left: -10%; right: -10%; top: -12%; height: 12%;
+  background: linear-gradient(180deg, transparent, rgba(103, 232, 249, 0.85), transparent);
+  box-shadow: 0 0 22px 6px rgba(34, 211, 238, 0.55);
+}
+.ph-dots { position: absolute; left: 12%; right: 12%; top: 19%; aspect-ratio: 1; pointer-events: none; }
+.ph-dots i {
+  position: absolute; width: 7%; aspect-ratio: 1; border-radius: 50%;
+  background: #a5f3fc; box-shadow: 0 0 10px 2px rgba(34, 211, 238, 0.9);
+  opacity: 0; transform: scale(0.2);
+}
+
+/* ---------- the catalogue: a 3D grid of product tiles ---------- */
+.ph-grid {
+  position: absolute; right: 6%; top: 10%;
+  width: 46%;
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 5%;
+  transform-style: preserve-3d;
+  transform: rotateY(-26deg) rotateX(8deg) translateZ(-60px);
+  transform-origin: 0 50%;
+  opacity: 0;
+}
+.ph-grid i {
+  display: block; aspect-ratio: 1; border-radius: 12%;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 10px 18px -12px rgba(0, 0, 0, 0.8);
+  transform: translateZ(0);
+}
+.ph-grid i:nth-child(3n) { background: rgba(34, 211, 238, 0.10); }
+.ph-grid i:nth-child(7n) { background: rgba(244, 63, 94, 0.14); }
+.ph-grid i.hit {
+  background: linear-gradient(145deg, #9f1239, #4c0519);
+  border-color: rgba(251, 113, 133, 0.9);
+  box-shadow: 0 0 0 2px rgba(251, 113, 133, 0.55), 0 0 30px 4px rgba(244, 63, 94, 0.55);
+}
+
+/* flying fingerprint points, phone -> grid */
+.ph-fly { position: absolute; inset: 0; pointer-events: none; }
+.ph-fly i {
+  position: absolute; left: 30%; top: 44%;
+  width: 6px; height: 6px; border-radius: 50%;
+  background: #67e8f9; box-shadow: 0 0 10px 2px rgba(34, 211, 238, 0.9);
+  opacity: 0;
+}
+
+/* result card that pops out in front */
+.ph-result {
+  position: absolute; right: 8%; bottom: 8%;
+  width: 40%;
+  padding: 10px 12px;
+  border-radius: 14px;
+  background: linear-gradient(150deg, rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0.05)), rgba(11, 17, 32, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 30px 50px -20px rgba(0, 0, 0, 0.85), 0 0 40px -10px rgba(34, 211, 238, 0.5);
+  display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 10px;
+  transform: translateZ(120px) translateY(30px) rotateX(-25deg) scale(0.85);
+  opacity: 0;
+}
+.ph-result .sw { width: 34px; height: 34px; border-radius: 9px; background: linear-gradient(145deg, #9f1239, #4c0519); box-shadow: 0 6px 12px -6px rgba(0, 0, 0, 0.8); }
+.ph-result b { display: block; font: 600 clamp(10px, 1.2vw, 13px)/1.2 var(--font-body); color: #fff; }
+.ph-result small { display: block; margin-top: 2px; font: 500 clamp(8px, 1vw, 11px)/1.2 var(--font-body); color: var(--muted); }
+.ph-result em { font: 700 clamp(9px, 1.05vw, 12px)/1 var(--font-mono); font-style: normal; color: #05202a; padding: 5px 8px; border-radius: 999px; background: linear-gradient(135deg, #67e8f9, #22d3ee); box-shadow: 0 0 14px rgba(34, 211, 238, 0.7); }
+
+/* stats strip */
+.ph-stats {
+  position: absolute; left: 6%; bottom: 7%;
+  display: flex; gap: 8px;
+  opacity: 0; transform: translate3d(0, 12px, 70px);   /* in front of the phone's near edge */
+}
+.ph-stats span {
+  padding: 6px 9px; border-radius: 999px;
+  background: rgba(255, 255, 255, 0.07); border: 1px solid rgba(255, 255, 255, 0.14);
+  font: 600 clamp(8px, 1vw, 11px)/1 var(--font-mono); color: var(--text-2); white-space: nowrap;
+}
+.ph-stats span b { color: var(--cyan-2); font-weight: 700; }
+
+/* ---------- the timeline ---------- */
+.photo-scene.is-playing .ph-phone   { animation: ph-phone var(--ph-t) var(--ease) both; }
+.photo-scene.is-playing .ph-photo   { animation: ph-photo var(--ph-t) var(--ease) both; }
+.photo-scene.is-playing .ph-beam    { animation: ph-beam var(--ph-t) linear both; }
+.photo-scene.is-playing .ph-beam::before { animation: ph-beam-sweep var(--ph-t) ease-in-out both; }
+.photo-scene.is-playing .ph-label   { animation: ph-label var(--ph-t) ease both; }
+.photo-scene.is-playing .ph-dots i  { animation: ph-dot var(--ph-t) var(--ease) both; animation-delay: calc(var(--d) * 1ms); }
+.photo-scene.is-playing .ph-grid    { animation: ph-grid var(--ph-t) var(--ease) both; }
+.photo-scene.is-playing .ph-fly i   { animation: ph-fly var(--ph-t) cubic-bezier(0.3, 0, 0.2, 1) both; animation-delay: calc(var(--d) * 1ms); }
+.photo-scene.is-playing .ph-grid i.hit { animation: ph-hit var(--ph-t) var(--ease) both; }
+.photo-scene.is-playing .ph-result  { animation: ph-result var(--ph-t) var(--ease) both; }
+.photo-scene.is-playing .ph-stats   { animation: ph-stats var(--ph-t) var(--ease) both; }
+
+@keyframes ph-phone {
+  0%   { opacity: 0; transform: rotateY(-38deg) rotateX(10deg) translateZ(-140px) translateY(20px); }
+  10%  { opacity: 1; transform: rotateY(-22deg) rotateX(6deg) translateZ(0); }
+  70%  { transform: rotateY(-20deg) rotateX(5deg) translateZ(0); }
+  100% { opacity: 1; transform: rotateY(-24deg) rotateX(6deg) translateZ(-10px); }
+}
+@keyframes ph-photo {
+  0%, 9%  { opacity: 0; transform: translateZ(180px) translateY(-60%) rotateX(35deg) scale(0.6); }
+  22% { opacity: 1; transform: translateZ(4px) translateY(0) rotateX(0) scale(1.02); }
+  25% { transform: translateZ(0) scale(1); }
+  100% { opacity: 1; transform: translateZ(0) scale(1); }
+}
+@keyframes ph-beam { 0%, 24% { opacity: 0; } 27%, 42% { opacity: 1; } 46%, 100% { opacity: 0; } }
+@keyframes ph-beam-sweep { 0%, 26% { top: -12%; } 44% { top: 100%; } 100% { top: 100%; } }
+@keyframes ph-label { 0%, 26% { opacity: 0; } 30%, 100% { opacity: 1; } }
+@keyframes ph-dot {
+  0%, 30%  { opacity: 0; transform: scale(0.2); }
+  36%      { opacity: 1; transform: scale(1.25); }
+  40%      { transform: scale(1); }
+  52%      { opacity: 1; }
+  58%, 100% { opacity: 0; transform: scale(0.4); }
+}
+@keyframes ph-grid {
+  0%, 12% { opacity: 0; transform: rotateY(-40deg) rotateX(12deg) translateZ(-160px) translateX(60px); }
+  26%     { opacity: 1; transform: rotateY(-26deg) rotateX(8deg) translateZ(-60px); }
+  100%    { opacity: 1; transform: rotateY(-28deg) rotateX(8deg) translateZ(-70px); }
+}
+@keyframes ph-fly {
+  0%, 50%  { opacity: 0; transform: translate(0, 0) scale(0.6); }
+  53%      { opacity: 1; }
+  66%      { opacity: 1; transform: translate(var(--tx), var(--ty)) scale(1); }
+  70%, 100% { opacity: 0; transform: translate(var(--tx), var(--ty)) scale(0.2); }
+}
+@keyframes ph-hit {
+  0%, 64% { background: rgba(255, 255, 255, 0.06); border-color: rgba(255, 255, 255, 0.12); box-shadow: 0 10px 18px -12px rgba(0, 0, 0, 0.8); transform: translateZ(0); }
+  70%     { transform: translateZ(40px) scale(1.12); }
+  76%, 100% { background: linear-gradient(145deg, #9f1239, #4c0519); border-color: rgba(251, 113, 133, 0.9); box-shadow: 0 0 0 2px rgba(251, 113, 133, 0.55), 0 0 30px 4px rgba(244, 63, 94, 0.55); transform: translateZ(28px) scale(1.06); }
+}
+@keyframes ph-result {
+  0%, 72%  { opacity: 0; transform: translateZ(120px) translateY(30px) rotateX(-25deg) scale(0.85); }
+  84%      { opacity: 1; transform: translateZ(60px) translateY(-4px) rotateX(0) scale(1.02); }
+  90%, 100% { opacity: 1; transform: translateZ(50px) translateY(0) rotateX(0) scale(1); }
+}
+@keyframes ph-stats { 0%, 78% { opacity: 0; transform: translate3d(0, 12px, 70px); } 88%, 100% { opacity: 1; transform: translateZ(70px); } }
+
+/* finished / reduced motion: show the final frame */
+.photo-scene.is-done .ph-phone, .photo-scene.is-still .ph-phone { opacity: 1; transform: rotateY(-24deg) rotateX(6deg) translateZ(-10px); }
+.photo-scene.is-done .ph-photo, .photo-scene.is-still .ph-photo { opacity: 1; transform: none; }
+.photo-scene.is-done .ph-label, .photo-scene.is-still .ph-label { opacity: 1; }
+.photo-scene.is-done .ph-grid, .photo-scene.is-still .ph-grid { opacity: 1; transform: rotateY(-28deg) rotateX(8deg) translateZ(-70px); }
+.photo-scene.is-done .ph-grid i.hit, .photo-scene.is-still .ph-grid i.hit { transform: translateZ(28px) scale(1.06); }
+.photo-scene.is-done .ph-result, .photo-scene.is-still .ph-result { opacity: 1; transform: translateZ(50px); }
+.photo-scene.is-done .ph-stats, .photo-scene.is-still .ph-stats { opacity: 1; transform: translateZ(70px); }
+
+.ph-replay {
+  position: absolute; right: 10px; top: 10px; z-index: 2;
+  padding: 6px 10px; border-radius: 999px;
+  border: 1px solid var(--border); background: rgba(11, 17, 32, 0.6);
+  color: var(--text-2); font: 600 11px/1 var(--font-mono);
+  opacity: 0; transition: opacity var(--fast), color var(--fast), border-color var(--fast);
+}
+.photo-scene.is-done .ph-replay { opacity: 1; }
+.ph-replay:hover { color: var(--text); border-color: var(--border-strong); }
+
+@media (prefers-reduced-motion: reduce) {
+  .photo-scene::before { display: none; }
+  .ph-replay { display: none; }
+}
+
+/* phones: a taller stage so the result card and the grid have room */
+@media (max-width: 560px) {
+  .photo-scene { aspect-ratio: 640 / 470; }
+  .ph-phone { width: 36%; }
+  .ph-grid { top: 7%; width: 44%; }
+  .ph-result { width: 56%; right: 4%; bottom: 5%; padding: 8px 9px; gap: 7px; border-radius: 11px; }
+  .ph-result .sw { width: 26px; height: 26px; border-radius: 7px; }
+  .ph-result em { padding: 4px 6px; }
+  .ph-stats { gap: 6px; }
+  .ph-stats span { padding: 5px 7px; }
+  .ph-stats span:nth-child(3) { display: none; }
+  .ph-label { display: none; }                    /* the stats strip sits there on phones */
+  .ph-stats { left: 4%; bottom: 5%; }
+  .ph-replay { display: none; }
+}
