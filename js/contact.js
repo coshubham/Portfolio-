@@ -35,65 +35,162 @@
   var $ = function (sel, root) { return (root || dlg).querySelector(sel); };
   var $$ = function (sel, root) { return Array.prototype.slice.call((root || dlg).querySelectorAll(sel)); };
 
-  // 3D warp corridor: light streaks spread around the vanishing point (fixed layout, so every visit matches)
-  (function buildWarp() {
-    var warp = $('.reach-warp');
-    if (!warp || warp.childElementCount) return;
-    var seed = 7;
-    function rnd() { seed = (seed * 16807) % 2147483647; return seed / 2147483647; }
-    for (var n = 0; n < 32; n++) {
-      var i = document.createElement('i');
-      var dur = 1.6 + rnd() * 1.4;
-      i.style.setProperty('--a', Math.round(rnd() * 360) + 'deg');
-      i.style.setProperty('--r', Math.round(240 + rnd() * 460) + 'px');   // outside the card, so they are seen
-      i.style.setProperty('--s', dur.toFixed(2) + 's');
-      i.style.setProperty('--d', (-rnd() * dur).toFixed(2) + 's');
-      warp.appendChild(i);
-    }
-  })();
+  // background: colourful 3D glass (spheres, rings) and flowing lines, all drawn on ONE canvas.
+  // One layer to composite, so phones never run short of graphics memory (that made the card blink).
+  var lines = (function () {
+    var cv = $('.reach-lines');
+    if (!cv || !cv.getContext) return { start: function () {}, stop: function () {}, resize: function () {}, warm: function () {} };
+    var ctx = cv.getContext('2d');
+    var still = window.matchMedia('(prefers-reduced-motion: reduce)');
+    var COLOURS = [[34, 211, 238], [59, 130, 246], [167, 139, 250], [244, 114, 182], [251, 191, 36]];
+    var S = 256, TAU = 6.2832;
+    var raf = 0, w = 1, h = 1, waves = [], pulses = [], things = [], sprites = null, glow = null;
+    var card = null, frame = 0, seed = 5;
 
-  // glass panes + glass cubes drifting through the corridor (fixed layout, so every visit matches)
-  (function buildGlass() {
-    var box = $('.reach-glass');
-    if (!box || box.childElementCount) return;
-    var seed = 11;
     function rnd() { seed = (seed * 16807) % 2147483647; return seed / 2147483647; }
-    function place(el, rMin, rMax, sMin, sMax, k, total) {
-      var ang = (k / total) * Math.PI * 2 + rnd() * 0.6;            // spread evenly around the card
-      var r = rMin + rnd() * (rMax - rMin);
-      var dur = sMin + rnd() * (sMax - sMin);
-      el.style.setProperty('--x', Math.round(Math.cos(ang) * r * 1.25) + 'px');
-      el.style.setProperty('--y', Math.round(Math.sin(ang) * r * 0.8) + 'px');
-      el.style.setProperty('--s', dur.toFixed(2) + 's');
-      el.style.setProperty('--d', (-(k / total) * dur - rnd()).toFixed(2) + 's');
-      el.style.setProperty('--g', (rnd() * 3).toFixed(2) + 's');
+    function rgba(c, a) { return 'rgba(' + c[0] + ',' + c[1] + ',' + c[2] + ',' + a + ')'; }
+    function blank(size) { var c = document.createElement('canvas'); c.width = c.height = size; return c; }
+    function soften(src) {                       // out-of-focus copy: many faint offset copies = a smooth blur
+      var big = blank(S), g = big.getContext('2d'), k, n = 0, pts = [];
+      for (k = 0; k < 12; k++) pts.push([Math.cos(k / 12 * TAU) * 9, Math.sin(k / 12 * TAU) * 9]);
+      for (k = 0; k < 8; k++) pts.push([Math.cos(k / 8 * TAU) * 4.5, Math.sin(k / 8 * TAU) * 4.5]);
+      pts.push([0, 0]);
+      g.globalAlpha = 1 / pts.length * 1.6;
+      for (n = 0; n < pts.length; n++) g.drawImage(src, 10 + pts[n][0], 10 + pts[n][1], S - 20, S - 20);
+      return big;
     }
-    var panes = 5;
-    for (var p = 0; p < panes; p++) {
-      var pane = document.createElement('i');
-      pane.className = 'reach-pane';
-      var wide = rnd() > 0.5;
-      pane.style.setProperty('--w', Math.round(wide ? 150 + rnd() * 60 : 90 + rnd() * 40) + 'px');
-      pane.style.setProperty('--h', Math.round(wide ? 90 + rnd() * 30 : 130 + rnd() * 50) + 'px');
-      pane.style.setProperty('--ry0', Math.round(-40 + rnd() * 80) + 'deg');
-      pane.style.setProperty('--rx0', Math.round(-20 + rnd() * 40) + 'deg');
-      pane.style.setProperty('--ry1', Math.round(-120 + rnd() * 240) + 'deg');
-      pane.style.setProperty('--rx1', Math.round(-40 + rnd() * 80) + 'deg');
-      place(pane, 260, 560, 9, 13, p, panes);
-      box.appendChild(pane);
+    function ball(c) {                           // a glass sphere: thin middle, dense rim, caustic, highlight
+      var el = blank(S), g = el.getContext('2d'), r = S / 2 - 4, cx = S / 2, cy = S / 2, grd;
+      g.save();
+      g.beginPath(); g.arc(cx, cy, r, 0, TAU); g.clip();
+      grd = g.createRadialGradient(cx, cy + r * 0.08, r * 0.1, cx, cy, r);
+      grd.addColorStop(0, rgba(c, 0.10)); grd.addColorStop(0.62, rgba(c, 0.26));
+      grd.addColorStop(0.9, rgba(c, 0.62)); grd.addColorStop(1, rgba(c, 0.92));
+      g.fillStyle = grd; g.fillRect(0, 0, S, S);
+      grd = g.createRadialGradient(cx + r * 0.34, cy + r * 0.42, 0, cx + r * 0.34, cy + r * 0.42, r * 0.72);
+      grd.addColorStop(0, 'rgba(255,255,255,0.6)'); grd.addColorStop(0.35, rgba(c, 0.38)); grd.addColorStop(1, rgba(c, 0));
+      g.fillStyle = grd; g.fillRect(0, 0, S, S);
+      g.translate(cx - r * 0.36, cy - r * 0.46); g.rotate(-0.6); g.scale(1, 0.55);
+      grd = g.createRadialGradient(0, 0, 0, 0, 0, r * 0.42);
+      grd.addColorStop(0, 'rgba(255,255,255,0.95)'); grd.addColorStop(0.5, 'rgba(255,255,255,0.35)'); grd.addColorStop(1, 'rgba(255,255,255,0)');
+      g.fillStyle = grd; g.beginPath(); g.arc(0, 0, r * 0.42, 0, TAU); g.fill();
+      g.restore();
+      grd = g.createLinearGradient(cx - r, cy - r, cx + r, cy + r);
+      grd.addColorStop(0, 'rgba(255,255,255,0.9)'); grd.addColorStop(0.45, 'rgba(255,255,255,0.08)'); grd.addColorStop(1, rgba(c, 0.75));
+      g.lineWidth = 2.5; g.strokeStyle = grd; g.beginPath(); g.arc(cx, cy, r - 1.5, 0, TAU); g.stroke();
+      return el;
     }
-    var cubes = 2;
-    for (var c = 0; c < cubes; c++) {
-      var cube = document.createElement('i');
-      cube.className = 'reach-cube';
-      cube.innerHTML = '<s></s><s></s><s></s><s></s><s></s><s></s>';
-      cube.style.setProperty('--c', Math.round(56 + rnd() * 34) + 'px');
-      cube.style.setProperty('--rx1', Math.round(200 + rnd() * 160) + 'deg');
-      cube.style.setProperty('--ry1', Math.round(260 + rnd() * 200) + 'deg');
-      place(cube, 300, 520, 11, 15, c + 0.5, cubes);
-      box.appendChild(cube);
+    function ring(c) {                           // a glass ring (torus seen face-on; tilted when drawn)
+      var el = blank(S), g = el.getContext('2d'), cx = S / 2, cy = S / 2, R = S * 0.34, grd;
+      grd = g.createLinearGradient(cx - R, cy - R, cx + R, cy + R);
+      grd.addColorStop(0, rgba(c, 0.9)); grd.addColorStop(0.5, rgba(c, 0.22)); grd.addColorStop(1, rgba(c, 0.75));
+      g.lineWidth = S * 0.13; g.strokeStyle = grd; g.beginPath(); g.arc(cx, cy, R, 0, TAU); g.stroke();
+      g.lineCap = 'round';
+      g.lineWidth = 3.5; g.strokeStyle = 'rgba(255,255,255,0.85)'; g.beginPath(); g.arc(cx, cy, R + S * 0.04, 3.5, 4.9); g.stroke();
+      g.lineWidth = 2; g.strokeStyle = 'rgba(255,255,255,0.4)'; g.beginPath(); g.arc(cx, cy, R - S * 0.038, 0.4, 1.7); g.stroke();
+      return el;
     }
+    function makeSprites() {
+      sprites = COLOURS.map(function (c) {
+        var b = ball(c), r = ring(c);
+        return { ball: b, ballSoft: soften(b), ring: r, ringSoft: soften(r) };
+      });
+      glow = blank(64);
+      var g = glow.getContext('2d'), rg = g.createRadialGradient(32, 32, 0, 32, 32, 32);
+      rg.addColorStop(0, 'rgba(255,255,255,0.95)'); rg.addColorStop(0.22, 'rgba(165,243,252,0.55)'); rg.addColorStop(1, 'rgba(34,211,238,0)');
+      g.fillStyle = rg; g.fillRect(0, 0, 64, 64);
+    }
+    function measureCard() {
+      var c = $('.reach-card'), r = c && c.getBoundingClientRect(), o = cv.getBoundingClientRect();
+      card = r ? { l: r.left - o.left, t: r.top - o.top, r: r.right - o.left, b: r.bottom - o.top } : null;
+    }
+    function size() {
+      var r = cv.getBoundingClientRect(), phone = r.width < 600, i;
+      w = Math.max(1, Math.round(r.width)); h = Math.max(1, Math.round(r.height));
+      var dpr = Math.min(window.devicePixelRatio || 1, phone ? 1.5 : 2);
+      cv.width = Math.round(w * dpr); cv.height = Math.round(h * dpr);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      if (!sprites) makeSprites();
+      seed = 5; waves = []; pulses = []; things = [];
+      var n = phone ? 6 : 9;
+      for (i = 0; i < n; i++) {
+        var a = COLOURS[i % 5], b = COLOURS[(i + 2) % 5], c = COLOURS[(i + 3) % 5], g = ctx.createLinearGradient(0, 0, w, 0);
+        g.addColorStop(0, rgba(a, 0)); g.addColorStop(0.18, rgba(a, 0.6)); g.addColorStop(0.5, rgba(b, 0.6));
+        g.addColorStop(0.82, rgba(c, 0.6)); g.addColorStop(1, rgba(c, 0));
+        waves.push({ y: (i + 0.5) / n, a: 16 + rnd() * 30, k: 0.004 + rnd() * 0.006, k2: 0.011 + rnd() * 0.01,
+                     s: 0.25 + rnd() * 0.45, p: rnd() * TAU, g: g });
+      }
+      for (i = 0; i < (phone ? 3 : 6); i++) pulses.push({ line: Math.floor(rnd() * n), x: rnd(), v: 0.07 + rnd() * 0.1 });
+      var m = phone ? 8 : 12, base = phone ? 58 : 84;
+      for (i = 0; i < m; i++) {
+        things.push({ ring: i % 4 === 3, c: i % 5, size: base + rnd() * base,
+                      ax: 0.30 + rnd() * 0.22, ay: 0.30 + rnd() * 0.20,
+                      fx: 0.030 + rnd() * 0.035, fy: 0.026 + rnd() * 0.034, fz: 0.040 + rnd() * 0.04,
+                      px: rnd() * TAU, py: rnd() * TAU, pz: rnd() * TAU,
+                      spin: rnd() * TAU, vs: (rnd() - 0.5) * 0.5, squash: 0.42 + rnd() * 0.4, x: 0, y: 0, z: 0 });
+      }
+      measureCard();
+    }
+    function yAt(wv, x, t) {
+      return wv.y * h + Math.sin(x * wv.k + t * wv.s + wv.p) * wv.a + Math.sin(x * wv.k2 - t * wv.s * 0.7) * wv.a * 0.35;
+    }
+    function draw(ms) {
+      var t = ms / 1000, i, x;
+      if (++frame % 30 === 0) measureCard();     // the card changes height between the two steps
+      ctx.clearRect(0, 0, w, h);
+      for (i = 0; i < waves.length; i++) {       // the lines
+        var wv = waves[i];
+        ctx.beginPath();
+        ctx.moveTo(-20, yAt(wv, -20, t));
+        for (x = -8; x <= w + 20; x += 12) ctx.lineTo(x, yAt(wv, x, t));
+        ctx.strokeStyle = wv.g;
+        ctx.globalAlpha = 0.16; ctx.lineWidth = 6; ctx.stroke();
+        ctx.globalAlpha = 1; ctx.lineWidth = 1.3; ctx.stroke();
+      }
+      for (i = 0; i < pulses.length; i++) {      // light running along the lines
+        var p = pulses[i], px = (((p.x + t * p.v) % 1.2) - 0.1) * w;
+        ctx.drawImage(glow, px - 26, yAt(waves[p.line], px, t) - 26, 52, 52);
+      }
+      for (i = 0; i < things.length; i++) {      // where every piece of glass is, in 3D
+        var o = things[i];
+        o.z = Math.sin(t * o.fz * TAU + o.pz);   // -1 near .. +1 far
+        var sc = 1 / (1 + o.z * 0.36);
+        o.x = w / 2 + Math.sin(t * o.fx * TAU + o.px) * o.ax * w * sc;
+        o.y = h / 2 + Math.sin(t * o.fy * TAU + o.py) * o.ay * h * sc;
+        o.d = o.size * sc;
+      }
+      things.sort(function (a, b) { return b.z - a.z; });   // far first
+      for (i = 0; i < things.length; i++) {
+        var q = things[i], set = sprites[q.c], half = q.d / 2;
+        var under = card && q.x > card.l - half * 0.4 && q.x < card.r + half * 0.4 && q.y > card.t - half * 0.4 && q.y < card.b + half * 0.4;
+        var soft = under || q.z < -0.5 || q.z > 0.7;         // behind the frosted card, or out of focus
+        var img = q.ring ? (soft ? set.ringSoft : set.ring) : (soft ? set.ballSoft : set.ball);
+        ctx.globalAlpha = (under ? 0.62 : 0.96) - Math.max(0, q.z) * 0.3;
+        if (q.ring) {
+          ctx.save();
+          ctx.translate(q.x, q.y); ctx.rotate(q.spin + t * q.vs); ctx.scale(1, q.squash + Math.sin(t * 0.6 + q.px) * 0.18);
+          ctx.drawImage(img, -half, -half, q.d, q.d);
+          ctx.restore();
+        } else {
+          ctx.drawImage(img, q.x - half, q.y - half, q.d, q.d);
+        }
+      }
+      ctx.globalAlpha = 1;
+    }
+    function loop(ms) { draw(ms); raf = window.requestAnimationFrame(loop); }
+    return {
+      start: function () {
+        size(); window.cancelAnimationFrame(raf); raf = 0;
+        if (still.matches) draw(4000); else raf = window.requestAnimationFrame(loop);
+      },
+      stop: function () { window.cancelAnimationFrame(raf); raf = 0; },
+      warm: function () { if (!sprites) makeSprites(); },
+      resize: function () { if (dlg.open) { size(); if (still.matches) draw(4000); } }
+    };
   })();
+  window.addEventListener('resize', lines.resize);
+  // draw the glass once while the page is idle, so opening the chooser is instant
+  if ('requestIdleCallback' in window) window.requestIdleCallback(lines.warm, { timeout: 5000 }); else window.setTimeout(lines.warm, 3000);
 
   var tilt = $('.reach-tilt');
   var steps = $$('.reach-step');
@@ -260,6 +357,7 @@
     say('', false);
     try { dlg.showModal(); } catch (err) { return; }
     document.documentElement.classList.add('reach-open');
+    lines.start();
     var first = $('.reach-opt');
     if (first) first.focus({ preventScroll: true });
   }
@@ -318,11 +416,11 @@
   dlg.addEventListener('pointerleave', resetTilt);
   function closeReach() {
     if (dlg.open) dlg.close();
-    document.documentElement.classList.remove('reach-open');
+    document.documentElement.classList.remove('reach-open'); lines.stop();
     resetTilt();
   }
   dlg.addEventListener('close', closeReach);
-  dlg.addEventListener('cancel', function () { document.documentElement.classList.remove('reach-open'); });
+  dlg.addEventListener('cancel', function () { document.documentElement.classList.remove('reach-open'); lines.stop(); });
 
   refresh();
 })();
