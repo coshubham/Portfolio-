@@ -34,7 +34,7 @@
 
 /* ---------- the 3D orbit (js/skills.js adds .is-3d) ---------- */
 .sk.is-3d .sk-hint { display: inline-flex; }
-.sk.is-3d .sk-stage { height: 600px; perspective: 2000px; perspective-origin: 50% 50%; touch-action: pan-y; cursor: grab; user-select: none; -webkit-user-select: none; }
+.sk.is-3d .sk-stage { height: 700px; perspective: 2000px; perspective-origin: 50% 50%; touch-action: pan-y; cursor: grab; user-select: none; -webkit-user-select: none; }
 .sk.is-3d .sk-stage.is-drag { cursor: grabbing; }
 .sk.is-3d .sk-scene { position: absolute; inset: 0; transform-style: preserve-3d; will-change: transform; }
 .sk.is-3d .sk-cards { display: block; position: absolute; inset: 0; transform-style: preserve-3d; }
@@ -83,7 +83,7 @@
 .sk-hud.is-swap .sk-hud-main, .sk-hud.is-swap .sk-logo { animation: skSwap 0.45s var(--ease); }
 @keyframes skSwap { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
 
-@media (max-width: 1080px) { .sk.is-3d .sk-stage { height: 560px; } }
+@media (max-width: 1080px) { .sk.is-3d .sk-stage { height: 660px; } }
 /* tablets up to 960px: logo tiles, the readout names the one in front (named pills piled up here) */
 @media (max-width: 960px) {
   .sk.is-3d .sk-card { width: 62px; height: 62px; margin: -31px 0 0 -31px; }
@@ -102,7 +102,7 @@
   .sk-logo { flex-basis: 36px; width: 36px; height: 36px; border-radius: 10px; }
   .sk-logo img { width: 22px; height: 22px; }
   .sk-txt small { display: none; }
-  .sk.is-3d .sk-stage { height: 540px; perspective: 1400px; }
+  .sk.is-3d .sk-stage { height: 600px; perspective: 1400px; }
   /* phones: logo tiles only; the readout under the orbit names the one in front */
   .sk.is-3d .sk-card { width: 50px; height: 50px; margin: -25px 0 0 -25px; }
   .sk.is-3d .sk-card .sk-in { padding: 4px; gap: 0; border-radius: 14px; justify-content: center; }

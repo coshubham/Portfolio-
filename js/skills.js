@@ -1,6 +1,6 @@
 /* ==========================================================================
    skills.js — turns the skills grid into a 3D orbit: tilted rings of glass
-   cards (two on wide screens, three on phones) around a glowing core. It
+   cards (three on wide screens, four on phones) around a glowing core. It
    auto-rotates, pauses on hover or focus, drag or swipe to spin (with inertia),
    the pointer tilts the scene, filters dim other areas and spin the first match
    to the front, and a readout shows the card in front with its proof line.
@@ -34,8 +34,10 @@
 
   const TAU = Math.PI * 2, ZS = 0.6;          // ZS flattens the depth so the front cards stay sharp
   const LAYOUTS = {
-    2: [{ speed: 0.12, tilt: 0.15, y: -0.28 }, { speed: -0.09, tilt: 0.14, y: 0.26 }],
-    3: [{ speed: 0.13, tilt: 0.2, y: -0.3 }, { speed: -0.1, tilt: 0.2, y: 0.02 }, { speed: 0.11, tilt: 0.2, y: 0.32 }],
+    // wide: the middle ring tilts more, so its front cards pass below the core instead of across its label
+    3: [{ speed: 0.1, tilt: 0.12, y: -0.27 }, { speed: -0.08, tilt: 0.22, y: 0 }, { speed: 0.09, tilt: 0.12, y: 0.27 }],
+    // phones: the two upper rings tilt the other way (flip), so bright front tiles stay clear of the core
+    4: [{ speed: 0.13, tilt: 0.2, y: -0.36, flip: true }, { speed: -0.1, tilt: 0.2, y: -0.13, flip: true }, { speed: 0.11, tilt: 0.2, y: 0.13 }, { speed: -0.12, tilt: 0.2, y: 0.36 }],
   };
   let rings = [], count = 0;
   const indexOf = new Map(cards.map((c, i) => [c, i]));
@@ -53,10 +55,10 @@
   const measure = () => {
     W = stage.clientWidth; H = stage.clientHeight;
     const narrow = W < 700;
-    if ((narrow ? 3 : 2) !== count) buildRings(narrow ? 3 : 2);
+    if ((narrow ? 4 : 3) !== count) buildRings(narrow ? 4 : 3);
     const half = (cards[0].offsetWidth || 180) / 2;
-    R = narrow ? Math.max(90, (W / 2 - half - 10) / 1.08) : Math.max(160, Math.min(W * 0.37, 470));
-    if (narrow) { const tilt = Math.max(0.2, Math.asin(Math.min(0.41, 50 / R))); rings.forEach(ring => { ring.tilt = tilt; }); }   // small stages: open the rings up so tiles do not bunch
+    R = narrow ? Math.max(90, (W / 2 - half - 10) / 1.08) : Math.max(160, Math.min(W * 0.42, 560));
+    if (narrow) { const tilt = Math.max(0.2, Math.asin(Math.min(0.41, 50 / R))); rings.forEach(ring => { ring.tilt = ring.flip ? -tilt : tilt; }); }   // small stages: open the rings up so tiles do not bunch
     rings.forEach((ring, k) => {
       const p = paths[k]; if (!p) return;
       p.style.width = p.style.height = (2 * R) + 'px';
@@ -122,7 +124,7 @@
     seek = { ring, to: ring.rot + diff, until: performance.now() + 4500 };
     vel = 0;
   }
-  orbit = { seekFirst: cat => { const m = x => cat === 'all' || x.dataset.cat === cat; const c = rings[count === 3 ? 1 : 0].cards.find(m) || cards.find(m); if (c) { seekTo(c); showHud(c); lastFront = performance.now() + 700; } } };
+  orbit = { seekFirst: cat => { const m = x => cat === 'all' || x.dataset.cat === cat; const c = rings[1].cards.find(m) || cards.find(m); if (c) { seekTo(c); showHud(c); lastFront = performance.now() + 700; } } };
 
   /* ---- readout ---- */
   let hudCard = null;
@@ -165,7 +167,7 @@
     scene.style.transform = `rotateX(${tiltX.toFixed(2)}deg) rotateY(${tiltY.toFixed(2)}deg)`;
 
     const r = R * (0.3 + 0.7 * unfold), t = now / 1000;
-    const readRing = rings[count === 3 ? 1 : 0];
+    const readRing = rings[1];
     let front = null, frontC = -2;
     rings.forEach(ring => {
       const n = ring.cards.length, sinT = Math.sin(ring.tilt), cosT = Math.cos(ring.tilt), yb = ring.y * H;
