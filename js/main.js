@@ -154,7 +154,7 @@
       card.addEventListener('pointerleave', reset);
     });
 
-    // custom cursor: the dot IS the pointer (no lag); the ring follows and sleeps once it has caught up
+    // cursor aura: the system pointer stays visible; a soft ring trails it and sleeps once it has caught up
     const dot = $('#cursor-dot');
     const ring = $('#cursor-ring');
     if (dot && ring && !matchMedia('(forced-colors: active)').matches) {
@@ -162,16 +162,15 @@
       let tx = -100, ty = -100, rx = tx, ry = ty, raf = 0, last = 0;
       const follow = now => {
         const dt = last ? Math.min((now - last) / 1000, 0.05) : 1 / 60; last = now;
-        const k = 1 - Math.pow(0.8, dt * 60);               // same feel at 60 and 120 Hz
+        const k = 1 - Math.pow(0.72, dt * 60);              // same feel at 60 and 120 Hz
         rx += (tx - rx) * k; ry += (ty - ry) * k;
-        ring.style.translate = `${rx.toFixed(1)}px ${ry.toFixed(1)}px`;
+        ring.style.translate = `${rx}px ${ry}px`;
         if (Math.abs(tx - rx) + Math.abs(ty - ry) > 0.3) raf = requestAnimationFrame(follow); else { raf = 0; last = 0; }
       };
       window.addEventListener('pointermove', e => {
         if (e.pointerType !== 'mouse') return;
         tx = e.clientX; ty = e.clientY;
         if (!document.body.classList.contains('cursor-on')) { rx = tx; ry = ty; ring.style.translate = `${tx}px ${ty}px`; document.body.classList.add('cursor-on'); }
-        dot.style.translate = `${tx}px ${ty}px`;
         if (!raf) raf = requestAnimationFrame(follow);
       }, { passive: true });
       document.documentElement.addEventListener('pointerleave', () => document.body.classList.remove('cursor-on'));

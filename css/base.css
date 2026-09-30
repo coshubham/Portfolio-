@@ -5,40 +5,40 @@
 
 :root {
   /* surfaces - deep obsidian background (70% dark) */
-  --bg: #0b1120;   /* deep navy-charcoal: dark, but not pure black */
-  --bg-2: #0b0f19;
+  --bg: #0e1016;   /* warm ink: dark, but not pure black */
+  --bg-2: #090b10;
   
   /* light frosted panels (30% light mood) */
-  --surface: rgba(255, 255, 255, 0.08);
-  --surface-2: rgba(255, 255, 255, 0.12);
-  --surface-3: rgba(255, 255, 255, 0.18);
+  --surface: rgba(255, 246, 230, 0.08);
+  --surface-2: rgba(255, 246, 230, 0.12);
+  --surface-3: rgba(255, 246, 230, 0.18);
   
   /* crisp borders */
-  --border: rgba(255, 255, 255, 0.15);
-  --border-strong: rgba(6, 182, 212, 0.4); /* Cyan border */
+  --border: rgba(255, 246, 230, 0.15);
+  --border-strong: rgba(184, 150, 79, 0.4); /* gold border */
 
   /* text - crisp high-contrast for readability */
-  --text: #ffffff;
-  --text-2: #cbd5e1;
-  --muted: #94a3b8;
-  --faint: #64748b;
+  --text: #f3eee4;
+  --text-2: #cfc8bb;
+  --muted: #9a9484;
+  --faint: #6d6960;
 
   /* accents - Terminal Cyan / Coder Matrix vibe */
-  --purple: #06b6d4; /* Hijacking purple variables to be cyan so we don't have to rewrite the whole codebase */
-  --purple-2: #22d3ee;
-  --purple-3: #67e8f9;
-  --cyan: #06b6d4;
-  --cyan-2: #22d3ee;
-  --violet: #0ea5e9;
-  --violet-2: #38bdf8;
-  --green: #10b981;
-  --amber: #f59e0b;
-  --rose: #f43f5e;
+  --purple: #b8964f; /* accent = champagne gold */
+  --purple-2: #c9a961;
+  --purple-3: #e6d3a0;
+  --cyan: #b8964f;
+  --cyan-2: #c9a961;
+  --violet: #8fa9c9;
+  --violet-2: #d4b573;
+  --green: #7fa585;
+  --amber: #c9922e;
+  --rose: #b86b6b;
 
-  --grad: linear-gradient(135deg, #22d3ee 0%, #06b6d4 50%, #0ea5e9 100%);
-  --grad-soft: linear-gradient(135deg, rgba(34, 211, 238, 0.15), rgba(6, 182, 212, 0.15));
-  --glow-cyan: 0 4px 22px rgba(6, 182, 212, 0.4);
-  --glow-violet: 0 4px 22px rgba(14, 165, 233, 0.3);
+  --grad: linear-gradient(135deg, #e3c98a 0%, #c9a961 50%, #a98a4a 100%);
+  --grad-soft: linear-gradient(135deg, rgba(227, 201, 138, 0.14), rgba(201, 169, 97, 0.14));
+  --glow-cyan: 0 4px 22px rgba(184, 150, 79, 0.4);
+  --glow-violet: 0 4px 22px rgba(143, 169, 201, 0.3);
 
   /* type */
   --font-display: 'Sora', 'Inter', system-ui, -apple-system, sans-serif;
@@ -106,7 +106,7 @@ h3 { font-size: clamp(1.15rem, 1.6vw, 1.35rem); font-weight: 600; }
   color: transparent;
 }
 
-::selection { background: rgba(34, 211, 238, 0.32); color: #ffffff; }
+::selection { background: rgba(201, 169, 97, 0.32); color: #f3eee4; }
 
 /* thin custom scrollbar */
 ::-webkit-scrollbar { width: 10px; }

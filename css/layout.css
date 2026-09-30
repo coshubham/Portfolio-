@@ -21,19 +21,19 @@
 .ambient {
   position: fixed; inset: 0; z-index: -2; pointer-events: none; overflow: hidden;
   background:
-    radial-gradient(70vw 55vw at 88% -8%, rgba(14, 165, 233, 0.10), transparent 62%),
-    radial-gradient(60vw 50vw at -8% 48%, rgba(34, 211, 238, 0.06), transparent 62%),
-    linear-gradient(180deg, #0b1120 0%, #0f1a2e 50%, #0b1120 100%);
+    radial-gradient(70vw 55vw at 88% -8%, rgba(143, 169, 201, 0.10), transparent 62%),
+    radial-gradient(60vw 50vw at -8% 48%, rgba(201, 169, 97, 0.06), transparent 62%),
+    linear-gradient(180deg, #0e1016 0%, #0f1a2e 50%, #0e1016 100%);
 }
 .ambient::after { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 120% 90% at 50% 45%, transparent 60%, rgba(6, 10, 22, 0.3) 100%); }
 .ambient > * { position: absolute; display: block; pointer-events: none; }
 
 .amb-orbs { inset: -12vh 0; transform: translate3d(0, calc(var(--sp, 0) * -10vh), 0); }
 .amb-orb { position: absolute; display: block; border-radius: 50%; }
-.amb-orb.o1 { width: 60vmax; height: 60vmax; left: -16vmax; top: -14vmax; background: radial-gradient(closest-side, rgba(34, 211, 238, 0.21), rgba(34, 211, 238, 0.06) 55%, transparent); animation: ambA 42s ease-in-out infinite alternate; }
-.amb-orb.o2 { width: 66vmax; height: 66vmax; right: -24vmax; top: 18vh; background: radial-gradient(closest-side, rgba(14, 165, 233, 0.2), rgba(14, 165, 233, 0.055) 55%, transparent); animation: ambB 50s ease-in-out infinite alternate; }
-.amb-orb.o3 { width: 54vmax; height: 54vmax; left: 12vw; bottom: -22vmax; background: radial-gradient(closest-side, rgba(20, 184, 166, 0.16), rgba(20, 184, 166, 0.045) 55%, transparent); animation: ambC 58s ease-in-out infinite alternate; }
-.amb-orb.o4 { width: 42vmax; height: 42vmax; left: 40vw; top: 30vh; background: radial-gradient(closest-side, rgba(37, 99, 235, 0.17), transparent); animation: ambD 66s ease-in-out infinite alternate; }
+.amb-orb.o1 { width: 60vmax; height: 60vmax; left: -16vmax; top: -14vmax; background: radial-gradient(closest-side, rgba(201, 169, 97, 0.21), rgba(201, 169, 97, 0.06) 55%, transparent); animation: ambA 42s ease-in-out infinite alternate; }
+.amb-orb.o2 { width: 66vmax; height: 66vmax; right: -24vmax; top: 18vh; background: radial-gradient(closest-side, rgba(143, 169, 201, 0.2), rgba(143, 169, 201, 0.055) 55%, transparent); animation: ambB 50s ease-in-out infinite alternate; }
+.amb-orb.o3 { width: 54vmax; height: 54vmax; left: 12vw; bottom: -22vmax; background: radial-gradient(closest-side, rgba(156, 184, 155, 0.16), rgba(156, 184, 155, 0.045) 55%, transparent); animation: ambC 58s ease-in-out infinite alternate; }
+.amb-orb.o4 { width: 42vmax; height: 42vmax; left: 40vw; top: 30vh; background: radial-gradient(closest-side, rgba(143, 169, 201, 0.17), transparent); animation: ambD 66s ease-in-out infinite alternate; }
 @keyframes ambA { 0% { transform: translate3d(0, 0, 0) scale(1); } 50% { transform: translate3d(22vw, 14vh, 0) scale(1.12); } 100% { transform: translate3d(8vw, 34vh, 0) scale(0.94); } }
 @keyframes ambB { 0% { transform: translate3d(0, 0, 0) scale(1.05); } 50% { transform: translate3d(-18vw, 20vh, 0) scale(0.92); } 100% { transform: translate3d(-6vw, -12vh, 0) scale(1.1); } }
 @keyframes ambC { 0% { transform: translate3d(0, 0, 0) scale(0.95); } 50% { transform: translate3d(26vw, -18vh, 0) scale(1.1); } 100% { transform: translate3d(46vw, -4vh, 0) scale(1); } }
@@ -41,7 +41,7 @@
 
 /* the grid: masked by a still parent, so the endless pan never shows a seam */
 .amb-grid { inset: 0; overflow: hidden; -webkit-mask-image: radial-gradient(ellipse 75% 65% at 50% 42%, #000 15%, transparent 78%); mask-image: radial-gradient(ellipse 75% 65% at 50% 42%, #000 15%, transparent 78%); }
-.amb-grid i { position: absolute; display: block; inset: -56px; background-image: linear-gradient(rgba(56, 189, 248, 0.055) 1px, transparent 1px), linear-gradient(90deg, rgba(56, 189, 248, 0.055) 1px, transparent 1px); background-size: 56px 56px; animation: ambGrid 26s linear infinite; }
+.amb-grid i { position: absolute; display: block; inset: -56px; background-image: linear-gradient(rgba(212, 181, 115, 0.055) 1px, transparent 1px), linear-gradient(90deg, rgba(212, 181, 115, 0.055) 1px, transparent 1px); background-size: 56px 56px; animation: ambGrid 26s linear infinite; }
 @keyframes ambGrid { to { transform: translate3d(56px, 56px, 0); } }
 
 /* shining particles: js/particles.js draws them on this canvas */
@@ -49,7 +49,7 @@
 .amb-3d { inset: 0; width: 100%; height: 100%; }   /* bg3d.js: the ocean of light */
 
 /* a soft diagonal light sweep, once every 14 s */
-.amb-beam { top: -30vh; bottom: -30vh; left: 0; width: 38vw; background: linear-gradient(90deg, transparent, rgba(125, 211, 252, 0.035) 45%, rgba(165, 243, 252, 0.06) 50%, rgba(125, 211, 252, 0.035) 55%, transparent); transform: translate3d(-60vw, 0, 0) rotate(18deg); animation: ambBeam 14s cubic-bezier(0.45, 0, 0.25, 1) 3s infinite; }
+.amb-beam { top: -30vh; bottom: -30vh; left: 0; width: 38vw; background: linear-gradient(90deg, transparent, rgba(224, 203, 147, 0.035) 45%, rgba(233, 215, 166, 0.06) 50%, rgba(224, 203, 147, 0.035) 55%, transparent); transform: translate3d(-60vw, 0, 0) rotate(18deg); animation: ambBeam 14s cubic-bezier(0.45, 0, 0.25, 1) 3s infinite; }
 @keyframes ambBeam { 0% { transform: translate3d(-60vw, 0, 0) rotate(18deg); } 45%, 100% { transform: translate3d(170vw, 0, 0) rotate(18deg); } }
 
 @media (max-width: 760px) {
@@ -70,10 +70,10 @@
   border-bottom: 1px solid transparent;
 }
 .nav.is-scrolled {
-  background: rgba(11, 17, 32, 0.6);
+  background: rgba(14, 16, 22, 0.6);
   backdrop-filter: blur(24px) saturate(140%);
   -webkit-backdrop-filter: blur(24px) saturate(140%);
-  border-bottom-color: rgba(255, 255, 255, 0.07);
+  border-bottom-color: rgba(255, 246, 230, 0.07);
 }
 .nav .container { display: flex; align-items: center; justify-content: space-between; height: 72px; }
 .brand { display: inline-flex; align-items: center; gap: 0; font-family: var(--font-display); font-weight: 700; font-size: 1.15rem; letter-spacing: -0.02em; }
@@ -82,7 +82,7 @@
   white-space: nowrap; position: relative; padding: 8px 12px; border-radius: 10px; font-size: 0.93rem; color: var(--text-2);
   transition: color var(--fast), background var(--fast);
 }
-.nav-links a:hover, .nav-links a.is-active { color: var(--text); background: rgba(255, 255, 255, 0.05); }
+.nav-links a:hover, .nav-links a.is-active { color: var(--text); background: rgba(255, 246, 230, 0.05); }
 .nav-cta { display: inline-flex; white-space: nowrap; }
 .nav-toggle { display: none; width: 44px; height: 44px; border-radius: 10px; align-items: center; justify-content: center; }
 .nav-toggle span, .nav-toggle span::before, .nav-toggle span::after {
@@ -100,8 +100,8 @@
 .hero { position: relative; min-height: 100svh; display: flex; align-items: center; padding-top: 72px; padding-bottom: 96px; overflow: hidden; }
 .hero-canvas { position: absolute; inset: 0; z-index: -1; }
 .hero-canvas canvas { width: 100%; height: 100%; }
-.hero-canvas::after { content: ''; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(to bottom, rgba(11, 17, 32, 0.88), transparent 22%), radial-gradient(60% 70% at 26% 52%, rgba(3, 7, 18, 0.82), transparent 70%); }
-.hero .stat, .hero .term { background: rgba(8, 13, 24, 0.90); }
+.hero-canvas::after { content: ''; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(to bottom, rgba(14, 16, 22, 0.88), transparent 22%), radial-gradient(60% 70% at 26% 52%, rgba(5, 6, 10, 0.82), transparent 70%); }
+.hero .stat, .hero .term { background: rgba(12, 13, 18, 0.90); }
 .hero-copy { position: relative; z-index: 1; }
 .hero-fade {
   position: absolute; inset: auto 0 0 0; height: 220px; z-index: 0; pointer-events: none;
@@ -210,7 +210,7 @@ html { scroll-padding-top: 88px; }
 }
 @media (min-width: 601px) and (max-width: 1100px) and (min-height: 600px) {
   .nav-links { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-rows: repeat(4, auto); grid-auto-flow: column; align-content: start; gap: 0 48px; padding-top: 28px; }
-  .nav-links a { font-family: var(--font-display); font-size: 1.5rem; font-weight: 600; letter-spacing: -0.01em; padding: 18px 4px; border-radius: 0; border-bottom: 1px solid rgba(255, 255, 255, 0.07); }
+  .nav-links a { font-family: var(--font-display); font-size: 1.5rem; font-weight: 600; letter-spacing: -0.01em; padding: 18px 4px; border-radius: 0; border-bottom: 1px solid rgba(255, 246, 230, 0.07); }
   .nav-links a:hover, .nav-links a.is-active { background: none; color: var(--cyan-2); }
 }
 @media (max-width: 1100px) {
