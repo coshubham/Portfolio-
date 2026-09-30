@@ -19,9 +19,9 @@
 
   /* text - crisp high-contrast for readability */
   --text: #ffffff;
-  --text-2: #e2ddff;
-  --muted: #b8b0e0;
-  --faint: #7e77a6;
+  --text-2: #f1edff;
+  --muted: #d6cffa;
+  --faint: #a89fd6;
 
   /* accents - Terminal Cyan / Coder Matrix vibe */
   --purple: #7c3aed; /* accent = violet */

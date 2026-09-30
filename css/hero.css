@@ -256,3 +256,35 @@
 .hx-title .serif { text-shadow: 0 0 30px rgba(196, 181, 253, 0.55), 0 0 2px rgba(233, 213, 255, 0.6); }
 .hx-sub { color: var(--text-2); }
 .hx-title { text-shadow: 0 0 40px rgba(167, 139, 250, 0.25); }
+
+/* ---------- BIG + SHINE (2026-09-30): larger hero on wide screens, more light everywhere ---------- */
+.hx-vig { background: radial-gradient(ellipse 120% 100% at 62% 45%, transparent 38%, rgba(17, 13, 43, 0.88) 100%), radial-gradient(60% 55% at 22% 42%, rgba(124, 58, 237, 0.30), transparent 70%), radial-gradient(42% 42% at 78% 38%, rgba(249, 168, 212, 0.16), transparent 70%); }
+.hx-title { text-shadow: 0 0 46px rgba(196, 181, 253, 0.42), 0 0 2px rgba(255, 255, 255, 0.35); }
+.hx-title .serif { background: linear-gradient(100deg, #e9d5ff 0%, #ffffff 28%, #c4b5fd 52%, #f9a8d4 78%, #e9d5ff 100%); background-size: 220% 100%; -webkit-background-clip: text; background-clip: text; color: transparent; -webkit-text-fill-color: transparent; text-shadow: none; filter: drop-shadow(0 0 22px rgba(196, 181, 253, 0.6)); animation: hxShine 7s linear infinite; }
+@keyframes hxShine { to { background-position: -220% 0; } }
+.hx-win { border-color: rgba(196, 181, 253, 0.30); box-shadow: 0 60px 100px -40px rgba(0, 0, 0, 0.95), 0 0 0 1px rgba(196, 181, 253, 0.12), 0 0 80px -12px rgba(124, 58, 237, 0.6); }
+.hx-win::after { content: ''; position: absolute; inset: 0; border-radius: inherit; background: linear-gradient(118deg, rgba(255, 255, 255, 0.11), transparent 38%); pointer-events: none; }
+.hx-actions .btn-primary { box-shadow: 0 0 36px rgba(196, 181, 253, 0.5), 0 10px 26px -10px rgba(0, 0, 0, 0.7); }
+.hx-actions .btn:not(.btn-primary) { border-color: rgba(196, 181, 253, 0.5); box-shadow: 0 0 26px -6px rgba(167, 139, 250, 0.55), 0 0 0 1px rgba(196, 181, 253, 0.08) inset; }
+.hx-stats .stat-value { text-shadow: 0 0 26px rgba(196, 181, 253, 0.5); }
+.hx-stats .stat { border-left-color: rgba(196, 181, 253, 0.55); }
+.hx-avail i { box-shadow: 0 0 14px 3px rgba(167, 139, 250, 0.55); }
+@media (min-width: 1500px) {
+  .hx-content { max-width: 840px; }
+  .hx-eyebrow { font-size: 0.8rem; margin-bottom: 30px; }
+  .hx-title { font-size: clamp(5.1rem, 5.9vw, 6.5rem); margin-bottom: 34px; }
+  .hx-sub { font-size: 1.32rem; line-height: 1.65; max-width: 680px; margin-bottom: 26px; }
+  .hx-role { font-size: 1.08rem; margin-bottom: 40px; }
+  .hx-actions .btn:not(.btn-icon) { font-size: 1.06rem; padding: 17px 26px; }
+  .hx-actions .btn-icon { width: 58px; height: 58px; }
+  .hx-stats { flex-wrap: nowrap; gap: 40px; }
+  .hx-stats .stat-value { font-size: 2.35rem; }
+  .hx-stats .stat-label { font-size: 0.74rem; margin-top: 9px; }
+  .hx-stack { height: 740px; }
+  .hx-body { font-size: 0.86rem; min-height: 360px; }
+  .hx-tabs { font-size: 0.82rem; } .hx-bar-t { font-size: 0.76rem; } .hx-bar-r { font-size: 0.7rem; } .hx-status { font-size: 0.72rem; }
+  .hx-term-body { font-size: 0.78rem; min-height: 150px; }
+  .hx-tests { font-size: 0.78rem; width: 50%; }
+  .hx-term { width: 68%; right: -4%; }
+}
+@media (prefers-reduced-motion: reduce) { .hx-title .serif { animation: none; } }

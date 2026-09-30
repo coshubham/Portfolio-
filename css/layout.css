@@ -221,3 +221,9 @@ html { scroll-padding-top: 88px; }
   .footer .container { padding-right: 0; }                                        /* the back-to-top button is hidden on phones */
   .footer-links { gap: 4px 14px; }
 }
+
+/* SHINE-TEXT: headings glow softly, body text reads light */
+h1, h2, h3, .section-title { text-shadow: 0 0 28px rgba(196, 181, 253, 0.35); }
+h2 { color: #ffffff; }
+p, li, .lead { color: var(--text-2); }
+.eyebrow, .sub, .muted { color: var(--muted); }

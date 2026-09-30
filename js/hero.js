@@ -37,7 +37,7 @@
     `        body${K('op', '=')}${K('punc', '{')}${K('str', '"query"')}${K('punc', ':')} ${K('punc', '{')}${K('str', '"knn"')}${K('punc', ':')} ${K('punc', '{')}${K('str', '"vec"')}${K('punc', ':')} knn${K('punc', '}}},')} size${K('op', '=')}${K('num', '24')}${K('punc', ')')}`,
     `    ${K('kw', 'return')} SearchOut${K('punc', '.')}${K('fn', 'from_hits')}${K('punc', '(')}res${K('punc', '[')}${K('str', '"hits"')}${K('punc', '][')}${K('str', '"hits"')}${K('punc', '])')}`,
   ];
-  const PREFILL = 10;                       // imports, router, decorator and signature: the file is already open
+  const PREFILL = 12;                       // imports, router, decorator and signature: the file is already open
   const RETURN_LINE = codeLines.length - 1;
 
   // split each line into tags + characters so the typing never breaks a tag
@@ -92,8 +92,8 @@
     const step = () => {
       const now = performance.now();
       while (due <= now) {
-        if (si < stops.length) { shown = stops[si++]; due += si < stops.length && stops[si] - shown > 1 ? 90 + Math.random() * 60 : 14 + Math.random() * 18; }
-        else if (li < plans.length - 1) { showLine(li, shown, false); li++; si = 0; shown = 0; stops = stopsFor(plans[li]); due += 160; if (li === RETURN_LINE && onReturnLine) onReturnLine(); }
+        if (si < stops.length) { shown = stops[si++]; due += si < stops.length && stops[si] - shown > 1 ? 40 + Math.random() * 30 : 8 + Math.random() * 10; }
+        else if (li < plans.length - 1) { showLine(li, shown, false); li++; si = 0; shown = 0; stops = stopsFor(plans[li]); due += 90; if (li === RETURN_LINE && onReturnLine) onReturnLine(); }
         else { showLine(li, shown, true); setCursor(li, shown); if (onDone) onDone(); return; }
       }
       showLine(li, shown, true); setCursor(li, shown);
