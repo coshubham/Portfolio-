@@ -46,8 +46,8 @@
   --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
 
   /* rhythm */
-  --container: 1520px;
-  --gutter: clamp(18px, 4vw, 56px);
+  --container: 1880px;   /* fills wide screens, only a slim gutter at the sides */
+  --gutter: clamp(18px, 2vw, 40px);
   --section-y: clamp(72px, 10vw, 128px);
   --radius: 18px;
   --radius-sm: 12px;

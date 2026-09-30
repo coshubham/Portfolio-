@@ -223,8 +223,7 @@ html { scroll-padding-top: 88px; }
 }
 
 /* SHINE-TEXT: headings glow softly, body text reads light */
-h1, h2, .section-title { text-shadow: 0 1px 0 rgba(255, 255, 255, 0.28), 0 2px 0 #cfc3ff, 0 3px 0 #9d8ad9, 0 4px 0 #6b57b0, 0 7px 14px rgba(0, 0, 0, 0.6); }
-h3 { text-shadow: 0 1px 0 rgba(255, 255, 255, 0.2), 0 2px 0 #7f6bc4, 0 4px 8px rgba(0, 0, 0, 0.55); }
+h1, h2, h3, .section-title { text-shadow: 0 2px 6px rgba(0, 0, 0, 0.45); }
 h2 { color: #ffffff; }
 p, li, .lead { color: var(--text-2); }
 .eyebrow, .sub, .muted { color: var(--muted); }
