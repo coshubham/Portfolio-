@@ -5,8 +5,8 @@
 
 :root {
   /* surfaces - deep obsidian background (70% dark) */
-  --bg: #0b0f0e;   /* deep charcoal with a hint of green: dark, but not pure black */
-  --bg-2: #070908;
+  --bg: #110d2b;   /* deep indigo: dark, clearly coloured, never black */
+  --bg-2: #0c0920;
   
   /* light frosted panels (30% light mood) */
   --surface: rgba(255, 255, 255, 0.08);
@@ -15,30 +15,30 @@
   
   /* crisp borders */
   --border: rgba(255, 255, 255, 0.15);
-  --border-strong: rgba(22, 155, 108, 0.4); /* emerald border */
+  --border-strong: rgba(124, 58, 237, 0.4); /* violet border */
 
   /* text - crisp high-contrast for readability */
   --text: #ffffff;
-  --text-2: #d7dedb;
-  --muted: #9aa6a1;
-  --faint: #6c7873;
+  --text-2: #e2ddff;
+  --muted: #b8b0e0;
+  --faint: #7e77a6;
 
   /* accents - Terminal Cyan / Coder Matrix vibe */
-  --purple: #169b6c; /* accent = emerald */
-  --purple-2: #22c48a;
-  --purple-3: #8fecc6;
-  --cyan: #169b6c;
-  --cyan-2: #22c48a;
-  --violet: #c9d1d6;
-  --violet-2: #3ad69c;
-  --green: #22c48a;
+  --purple: #7c3aed; /* accent = violet */
+  --purple-2: #a78bfa;
+  --purple-3: #d8ccff;
+  --cyan: #7c3aed;
+  --cyan-2: #a78bfa;
+  --violet: #f9a8d4;
+  --violet-2: #b794f6;
+  --green: #a78bfa;
   --amber: #d9952a;
-  --rose: #d94a60;
+  --rose: #f43f5e;
 
-  --grad: linear-gradient(135deg, #6fe3b6 0%, #22c48a 50%, #12805a 100%);
-  --grad-soft: linear-gradient(135deg, rgba(111, 227, 182, 0.16), rgba(34, 196, 138, 0.16));
-  --glow-cyan: 0 4px 22px rgba(22, 155, 108, 0.4);
-  --glow-violet: 0 4px 22px rgba(201, 209, 214, 0.3);
+  --grad: linear-gradient(135deg, #c4b5fd 0%, #a78bfa 50%, #7c3aed 100%);
+  --grad-soft: linear-gradient(135deg, rgba(196, 181, 253, 0.16), rgba(167, 139, 250, 0.16));
+  --glow-cyan: 0 4px 22px rgba(124, 58, 237, 0.4);
+  --glow-violet: 0 4px 22px rgba(249, 168, 212, 0.5);
 
   /* type */
   --font-display: 'Sora', 'Inter', system-ui, -apple-system, sans-serif;
@@ -106,7 +106,7 @@ h3 { font-size: clamp(1.15rem, 1.6vw, 1.35rem); font-weight: 600; }
   color: transparent;
 }
 
-::selection { background: rgba(34, 196, 138, 0.32); color: #ffffff; }
+::selection { background: rgba(167, 139, 250, 0.32); color: #ffffff; }
 
 /* thin custom scrollbar */
 ::-webkit-scrollbar { width: 10px; }

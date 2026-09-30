@@ -38,7 +38,7 @@
     g.fillStyle = rg; g.fillRect(0, 0, 64, 64);
     return c;
   };
-  const SPR = [sprite('34,196,138', 0.9), sprite('168,240,211', 1), sprite('111,227,182', 0.85), sprite('246,230,255', 1), sprite('201,209,214', 0.8)];
+  const SPR = [sprite('167,139,250', 0.9), sprite('233,213,255', 1), sprite('196,181,253', 0.85), sprite('246,230,255', 1), sprite('249,168,212', 0.8)];
   const WEIGHTS = [0, 0, 0, 1, 1, 1, 2, 2, 3, 4];
 
   /* ---- particles ---- */
@@ -78,10 +78,10 @@
     ctx.globalAlpha = alpha;
     const l = size * 2.2;
     let g = ctx.createLinearGradient(x - l, y, x + l, y);
-    g.addColorStop(0, 'rgba(168,240,211,0)'); g.addColorStop(0.5, 'rgba(245,247,246,0.95)'); g.addColorStop(1, 'rgba(168,240,211,0)');
+    g.addColorStop(0, 'rgba(233,213,255,0)'); g.addColorStop(0.5, 'rgba(250,245,255,0.95)'); g.addColorStop(1, 'rgba(233,213,255,0)');
     ctx.fillStyle = g; ctx.fillRect(x - l, y - 0.7, l * 2, 1.4);
     g = ctx.createLinearGradient(x, y - l, x, y + l);
-    g.addColorStop(0, 'rgba(168,240,211,0)'); g.addColorStop(0.5, 'rgba(245,247,246,0.95)'); g.addColorStop(1, 'rgba(168,240,211,0)');
+    g.addColorStop(0, 'rgba(233,213,255,0)'); g.addColorStop(0.5, 'rgba(250,245,255,0.95)'); g.addColorStop(1, 'rgba(233,213,255,0)');
     ctx.fillStyle = g; ctx.fillRect(x - 0.7, y - l, 1.4, l * 2);
     ctx.drawImage(SPR[1], x - size, y - size, size * 2, size * 2);
   };
@@ -124,7 +124,7 @@
         const k = Math.sin(Math.min(1, meteor.life / meteor.max) * Math.PI);
         const len = 0.16, tx = meteor.x - meteor.vx * len, ty = meteor.y - meteor.vy * len;
         const g = ctx.createLinearGradient(meteor.x, meteor.y, tx, ty);
-        g.addColorStop(0, 'rgba(245,247,246,0.9)'); g.addColorStop(0.25, 'rgba(34,196,138,0.35)'); g.addColorStop(1, 'rgba(34,196,138,0)');
+        g.addColorStop(0, 'rgba(250,245,255,0.9)'); g.addColorStop(0.25, 'rgba(167,139,250,0.35)'); g.addColorStop(1, 'rgba(167,139,250,0)');
         ctx.globalAlpha = k * 0.7; ctx.strokeStyle = g; ctx.lineWidth = 1.6; ctx.lineCap = 'round';
         ctx.beginPath(); ctx.moveTo(meteor.x, meteor.y); ctx.lineTo(tx, ty); ctx.stroke();
         ctx.drawImage(SPR[3], meteor.x - 6, meteor.y - 6, 12, 12);

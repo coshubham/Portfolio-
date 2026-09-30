@@ -35,7 +35,7 @@
 }
 
 .reach::backdrop {
-  background-color: rgba(6, 8, 7, 0);
+  background-color: rgba(10, 7, 25, 0);
   backdrop-filter: blur(0px);
   transition:
     display 380ms allow-discrete,
@@ -44,9 +44,9 @@
     backdrop-filter 380ms ease-out;
 }
 .reach[open]::backdrop {
-  background-color: rgba(6, 8, 7, 0.72);
+  background-color: rgba(10, 7, 25, 0.72);
   backdrop-filter: blur(10px) saturate(120%);
-  @starting-style { background-color: rgba(6, 8, 7, 0); backdrop-filter: blur(0px); }
+  @starting-style { background-color: rgba(10, 7, 25, 0); backdrop-filter: blur(0px); }
 }
 
 /* the site hides the system cursor for its custom dot; the dot sits under the top layer */
@@ -68,9 +68,9 @@ html.reach-open .ambient, html.reach-open .hero-x canvas, html.reach-open #curso
 .reach-scene {
   position: absolute; inset: 0; overflow: hidden; pointer-events: none;
   background:
-    radial-gradient(55% 45% at 22% 18%, rgba(201, 209, 214, 0.20), transparent 70%),
+    radial-gradient(55% 45% at 22% 18%, rgba(249, 168, 212, 0.20), transparent 70%),
     radial-gradient(55% 45% at 82% 88%, rgba(244, 114, 182, 0.16), transparent 70%),
-    radial-gradient(60% 50% at 50% 50%, rgba(34, 196, 138, 0.14), transparent 72%);
+    radial-gradient(60% 50% at 50% 50%, rgba(167, 139, 250, 0.14), transparent 72%);
 }
 .reach-lines { position: absolute; inset: 0; width: 100%; height: 100%; display: block; opacity: 0; transition: opacity 500ms ease; }
 .reach[open] .reach-lines { opacity: 1; }
@@ -92,7 +92,7 @@ html.reach-open .ambient, html.reach-open .hero-x canvas, html.reach-open #curso
   border-radius: 26px;
   background:
     linear-gradient(150deg, rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0.04) 46%, rgba(255, 255, 255, 0.07)),
-    rgba(11, 15, 14, 0.55);
+    rgba(17, 13, 43, 0.55);
   backdrop-filter: blur(14px) saturate(150%);
   -webkit-backdrop-filter: blur(14px) saturate(150%);
   border: 1px solid rgba(255, 255, 255, 0.16);
@@ -100,8 +100,8 @@ html.reach-open .ambient, html.reach-open .hero-x canvas, html.reach-open #curso
     0 1px 0 rgba(255, 255, 255, 0.22) inset,
     0 -1px 0 rgba(0, 0, 0, 0.3) inset,
     0 40px 90px -20px rgba(0, 0, 0, 0.75),
-    0 0 0 1px rgba(22, 155, 108, 0.08),
-    0 18px 60px -12px rgba(22, 155, 108, 0.35);
+    0 0 0 1px rgba(124, 58, 237, 0.08),
+    0 18px 60px -12px rgba(124, 58, 237, 0.35);
   scrollbar-width: thin;
   scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
 
@@ -131,7 +131,7 @@ html.reach-open .ambient, html.reach-open .hero-x canvas, html.reach-open #curso
   inset: 0;
   padding: 1px;
   border-radius: inherit;
-  background: linear-gradient(135deg, rgba(111, 227, 182, 0.75), rgba(255, 255, 255, 0.05) 38%, rgba(201, 209, 214, 0.55));
+  background: linear-gradient(135deg, rgba(196, 181, 253, 0.75), rgba(255, 255, 255, 0.05) 38%, rgba(249, 168, 212, 0.55));
   mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
   mask-composite: exclude;
   -webkit-mask-composite: xor;
@@ -203,7 +203,7 @@ html.reach-open .ambient, html.reach-open .hero-x canvas, html.reach-open #curso
   perspective: 900px;
 }
 .reach-opt {
-  --tone: 34, 196, 138;
+  --tone: 167, 139, 250;
   position: relative;
   display: grid;
   grid-template-columns: auto 1fr;
@@ -226,9 +226,9 @@ html.reach-open .ambient, html.reach-open .hero-x canvas, html.reach-open #curso
     background 220ms;
 }
 .reach-opt[data-channel="whatsapp"] { --tone: 37, 211, 102; }
-.reach-opt[data-channel="email"]    { --tone: 34, 196, 138; }
-.reach-opt[data-channel="linkedin"] { --tone: 201, 209, 214; }
-.reach-opt[data-channel="form"]     { --tone: 201, 209, 214; }
+.reach-opt[data-channel="email"]    { --tone: 167, 139, 250; }
+.reach-opt[data-channel="linkedin"] { --tone: 249, 168, 212; }
+.reach-opt[data-channel="form"]     { --tone: 249, 168, 212; }
 .reach-opt:hover,
 .reach-opt:focus-visible {
   transform: translateZ(26px) translateY(-3px);
@@ -293,10 +293,10 @@ html.reach-open .ambient, html.reach-open .hero-x canvas, html.reach-open #curso
   height: 8px;
   border-radius: 50%;
   background: var(--green);
-  box-shadow: 0 0 0 0 rgba(34, 196, 138, 0.6);
+  box-shadow: 0 0 0 0 rgba(167, 139, 250, 0.6);
   animation: reach-pulse 2.2s ease-out infinite;
 }
-@keyframes reach-pulse { to { box-shadow: 0 0 0 10px rgba(34, 196, 138, 0); } }
+@keyframes reach-pulse { to { box-shadow: 0 0 0 10px rgba(167, 139, 250, 0); } }
 
 /* ---------- step 2: the ready-written message ---------- */
 .reach-step[hidden] { display: none; }
@@ -339,12 +339,12 @@ html.reach-open .ambient, html.reach-open .hero-x canvas, html.reach-open #curso
   font-size: 13.5px;
   transition: background var(--fast), border-color var(--fast), color var(--fast), transform var(--fast);
 }
-.reach-chip:hover span { border-color: rgba(34, 196, 138, 0.45); color: var(--text); }
+.reach-chip:hover span { border-color: rgba(167, 139, 250, 0.45); color: var(--text); }
 .reach-chip input:checked + span {
-  background: rgba(34, 196, 138, 0.16);
-  border-color: rgba(34, 196, 138, 0.7);
+  background: rgba(167, 139, 250, 0.16);
+  border-color: rgba(167, 139, 250, 0.7);
   color: #ffffff;
-  box-shadow: 0 0 18px -6px rgba(34, 196, 138, 0.8);
+  box-shadow: 0 0 18px -6px rgba(167, 139, 250, 0.8);
 }
 .reach-chip input:focus-visible + span { outline: 2px solid var(--cyan-2); outline-offset: 2px; }
 
@@ -356,7 +356,7 @@ html.reach-open .ambient, html.reach-open .hero-x canvas, html.reach-open #curso
   padding: 11px 13px;
   border-radius: 12px;
   border: 1px solid rgba(255, 255, 255, 0.14);
-  background: rgba(4, 6, 5, 0.45);
+  background: rgba(7, 5, 26, 0.45);
   color: var(--text);
   font: 15px/1.5 var(--font-body);
   transition: border-color var(--fast), box-shadow var(--fast);
@@ -365,8 +365,8 @@ html.reach-open .ambient, html.reach-open .hero-x canvas, html.reach-open #curso
 .reach-field input:focus,
 .reach-field textarea:focus {
   outline: none;
-  border-color: rgba(34, 196, 138, 0.7);
-  box-shadow: 0 0 0 3px rgba(34, 196, 138, 0.18);
+  border-color: rgba(167, 139, 250, 0.7);
+  box-shadow: 0 0 0 3px rgba(167, 139, 250, 0.18);
 }
 .reach [data-only][hidden] { display: none; }
 
@@ -389,12 +389,12 @@ html.reach-open .ambient, html.reach-open .hero-x canvas, html.reach-open #curso
 @media (max-width: 560px) {
   .reach { padding: 12px; place-items: center; }
   .reach-tilt { width: 100%; transform: none !important; }
-  .reach-card { border-radius: 22px; max-height: calc(100dvh - 24px); padding: 20px 16px 16px; backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); background: rgba(11, 15, 14, 0.86); }
+  .reach-card { border-radius: 22px; max-height: calc(100dvh - 24px); padding: 20px 16px 16px; backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); background: rgba(17, 13, 43, 0.86); }
   .reach-card, .reach[open] .reach-card { filter: none; transform: translateY(28px) scale(0.98); }
   .reach[open] .reach-card { transform: none; @starting-style { transform: translateY(28px) scale(0.98); filter: none; } }
   .reach::backdrop, .reach[open]::backdrop { backdrop-filter: none; }
-  .reach[open]::backdrop { background-color: rgba(6, 8, 7, 0.97); }   /* hide the page: no blur here, so its text would ghost through the glass card */
-  .reach-card { backdrop-filter: none !important; -webkit-backdrop-filter: none !important; background: linear-gradient(150deg, rgba(255, 255, 255, 0.10), rgba(255, 255, 255, 0.03)), rgba(11, 15, 14, 0.80) !important; }
+  .reach[open]::backdrop { background-color: rgba(10, 7, 25, 0.97); }   /* hide the page: no blur here, so its text would ghost through the glass card */
+  .reach-card { backdrop-filter: none !important; -webkit-backdrop-filter: none !important; background: linear-gradient(150deg, rgba(255, 255, 255, 0.10), rgba(255, 255, 255, 0.03)), rgba(17, 13, 43, 0.80) !important; }
   .reach-sheen::after { animation: none; }
   .reach-grid { grid-template-columns: 1fr; gap: 10px; }
   .reach-opt { padding: 13px 34px 13px 12px; }

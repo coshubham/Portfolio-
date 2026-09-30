@@ -40,7 +40,7 @@ function initGlobalBackground(mount) {
   // Use the perfect purple color for particles
   const particleMat = new THREE.PointsMaterial({
     size: 2.5,
-    color: 0xc9d1d6, // tailwind purple 500
+    color: 0xf9a8d4, // tailwind purple 500
     transparent: true,
     opacity: 0.6,
     blending: THREE.AdditiveBlending
@@ -52,7 +52,7 @@ function initGlobalBackground(mount) {
   // Additional subtle wave mesh in background
   const waveGeo = new THREE.PlaneGeometry(2000, 2000, 60, 60);
   const waveMat = new THREE.MeshBasicMaterial({
-    color: 0xa7b1b8,
+    color: 0xec4899,
     wireframe: true,
     transparent: true,
     opacity: 0.08

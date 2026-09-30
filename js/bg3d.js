@@ -52,7 +52,7 @@
     const uniforms = {
       uTime: { value: 0 }, uScroll: { value: 0 }, uPR: { value: renderer.getPixelRatio() },
       uSize: { value: small ? 2.3 : 2.1 }, uAlpha: { value: 0 },
-      cLow: { value: new THREE.Color(0x0c4a36) }, cMid: { value: new THREE.Color(0x22c48a) }, cHigh: { value: new THREE.Color(0xd6f7e9) },
+      cLow: { value: new THREE.Color(0x2e1065) }, cMid: { value: new THREE.Color(0xa78bfa) }, cHigh: { value: new THREE.Color(0xf3e8ff) },
     };
     const VERT = `
       uniform float uTime; uniform float uScroll; uniform float uSize; uniform float uPR;

@@ -42,7 +42,7 @@
     if (!cv || !cv.getContext) return { start: function () {}, stop: function () {}, resize: function () {}, warm: function () {} };
     var ctx = cv.getContext('2d');
     var still = window.matchMedia('(prefers-reduced-motion: reduce)');
-    var COLOURS = [[34, 196, 138], [111, 227, 182], [201, 209, 214], [240, 100, 122], [168, 240, 211]];
+    var COLOURS = [[167, 139, 250], [196, 181, 253], [249, 168, 212], [251, 113, 133], [233, 213, 255]];
     var S = 256, TAU = 6.2832;
     var raf = 0, w = 1, h = 1, waves = [], pulses = [], things = [], sprites = null, glow = null;
     var card = null, frame = 0, seed = 5;
@@ -97,7 +97,7 @@
       });
       glow = blank(64);
       var g = glow.getContext('2d'), rg = g.createRadialGradient(32, 32, 0, 32, 32, 32);
-      rg.addColorStop(0, 'rgba(255,255,255,0.95)'); rg.addColorStop(0.22, 'rgba(168,240,211,0.55)'); rg.addColorStop(1, 'rgba(34,196,138,0)');
+      rg.addColorStop(0, 'rgba(255,255,255,0.95)'); rg.addColorStop(0.22, 'rgba(233,213,255,0.55)'); rg.addColorStop(1, 'rgba(167,139,250,0)');
       g.fillStyle = rg; g.fillRect(0, 0, 64, 64);
     }
     function measureCard() {
