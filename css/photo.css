@@ -18,8 +18,8 @@
   perspective: 1400px;
   perspective-origin: 50% 45%;
   background:
-    radial-gradient(70% 80% at 80% 20%, rgba(201, 169, 97, 0.14), transparent 68%),
-    radial-gradient(45% 55% at 12% 90%, rgba(184, 107, 107, 0.10), transparent 70%),
+    radial-gradient(70% 80% at 80% 20%, rgba(34, 196, 138, 0.14), transparent 68%),
+    radial-gradient(45% 55% at 12% 90%, rgba(217, 74, 96, 0.10), transparent 70%),
     linear-gradient(180deg, #0c1527 0%, #0a1020 60%, #070b16 100%);
   font-family: var(--font-body);
   color: var(--text);
@@ -32,8 +32,8 @@
   content: "";
   position: absolute; left: -25%; right: -25%; bottom: -12%; height: 72%;
   background-image:
-    linear-gradient(rgba(217, 189, 122, 0.10) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(217, 189, 122, 0.10) 1px, transparent 1px);
+    linear-gradient(rgba(111, 227, 182, 0.10) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(111, 227, 182, 0.10) 1px, transparent 1px);
   background-size: 36px 36px;
   transform: perspective(520px) rotateX(66deg);
   transform-origin: 50% 100%;
@@ -47,12 +47,12 @@
 .ph-phone {
   position: absolute; inset: 0;
   border-radius: 8.5% / 4.1%;
-  background: linear-gradient(160deg, #2a2b33, #14161d 50%, #1e2027);
-  border: 1px solid rgba(255, 246, 230, 0.22);
+  background: linear-gradient(160deg, #262c2a, #121715 50%, #1b201e);
+  border: 1px solid rgba(255, 255, 255, 0.22);
   box-shadow:
-    0 1px 0 rgba(255, 246, 230, 0.28) inset,
-    0 0 0 4px #07080b,
-    0 0 0 5px rgba(255, 246, 230, 0.06),
+    0 1px 0 rgba(255, 255, 255, 0.28) inset,
+    0 0 0 4px #060807,
+    0 0 0 5px rgba(255, 255, 255, 0.06),
     0 36px 60px -26px rgba(0, 0, 0, 0.9);
   transform-style: preserve-3d;
   transform: rotateY(-34deg) translateZ(-140px);
@@ -61,46 +61,46 @@
 }
 .ph-phone::after {
   content: ""; position: absolute; inset: 3.2%; border-radius: 6% / 3%;
-  background: linear-gradient(112deg, rgba(255, 246, 230, 0.12) 0%, rgba(255, 246, 230, 0.02) 32%, transparent 50%);
+  background: linear-gradient(112deg, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0.02) 32%, transparent 50%);
   pointer-events: none;
 }
-.ph-screen { position: absolute; inset: 3.2%; border-radius: 6% / 3%; overflow: hidden; background: #07080b; }
+.ph-screen { position: absolute; inset: 3.2%; border-radius: 6% / 3%; overflow: hidden; background: #060807; }
 .ph-screen img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transform: scale(1.1); }
 .ph-vf { position: absolute; inset: 0; pointer-events: none;
   background: linear-gradient(180deg, rgba(0, 0, 0, 0.55), transparent 22%, transparent 78%, rgba(0, 0, 0, 0.6)); }
-.ph-vf i { position: absolute; width: 14%; height: 8%; border: 2px solid rgba(255, 246, 230, 0.85); }
+.ph-vf i { position: absolute; width: 14%; height: 8%; border: 2px solid rgba(255, 255, 255, 0.85); }
 .ph-vf i:nth-child(1) { left: 12%; top: 21%; border-right: 0; border-bottom: 0; }
 .ph-vf i:nth-child(2) { right: 12%; top: 21%; border-left: 0; border-bottom: 0; }
 .ph-vf i:nth-child(3) { left: 12%; bottom: 21%; border-right: 0; border-top: 0; }
 .ph-vf i:nth-child(4) { right: 12%; bottom: 21%; border-left: 0; border-top: 0; }
 .ph-vf b { position: absolute; left: 50%; bottom: 5%; width: 16%; aspect-ratio: 1; transform: translateX(-50%);
-  border-radius: 50%; background: #f3eee4; box-shadow: 0 0 0 3px #07080b, 0 0 0 4.5px rgba(255, 246, 230, 0.9); }
+  border-radius: 50%; background: #ffffff; box-shadow: 0 0 0 3px #060807, 0 0 0 4.5px rgba(255, 255, 255, 0.9); }
 .ph-vf small { position: absolute; left: 0; right: 0; top: 8%; text-align: center;
-  font: 600 clamp(7px, 1vw, 10px)/1 var(--font-mono); letter-spacing: 0.14em; color: rgba(255, 246, 230, 0.85); }
-.ph-notch { position: absolute; left: 50%; top: 4.6%; width: 27%; height: 2.4%; transform: translateX(-50%); border-radius: 999px; background: #07080b; z-index: 2; }
-.ph-flash { position: absolute; inset: 3.2%; border-radius: 6% / 3%; background: #f3eee4; opacity: 0; pointer-events: none; }
+  font: 600 clamp(7px, 1vw, 10px)/1 var(--font-mono); letter-spacing: 0.14em; color: rgba(255, 255, 255, 0.85); }
+.ph-notch { position: absolute; left: 50%; top: 4.6%; width: 27%; height: 2.4%; transform: translateX(-50%); border-radius: 999px; background: #060807; z-index: 2; }
+.ph-flash { position: absolute; inset: 3.2%; border-radius: 6% / 3%; background: #ffffff; opacity: 0; pointer-events: none; }
 .ph-shadow { position: absolute; left: -10%; right: -10%; bottom: -5%; height: 12%; border-radius: 50%;
   background: radial-gradient(50% 50% at 50% 50%, rgba(0, 0, 0, 0.7), transparent 70%); transform: translateZ(-40px); opacity: 0; }
 
 /* the captured print: lifts straight off the glass, stays inside the phone */
-.ph-photo { position: absolute; left: 12%; right: 12%; top: 22%; aspect-ratio: 1; border-radius: 8px; overflow: hidden; background: #f3eee4;
-  box-shadow: 0 18px 30px -12px rgba(0, 0, 0, 0.85), 0 0 0 1px rgba(255, 246, 230, 0.5) inset; opacity: 0; will-change: transform, opacity; }
+.ph-photo { position: absolute; left: 12%; right: 12%; top: 22%; aspect-ratio: 1; border-radius: 8px; overflow: hidden; background: #ffffff;
+  box-shadow: 0 18px 30px -12px rgba(0, 0, 0, 0.85), 0 0 0 1px rgba(255, 255, 255, 0.5) inset; opacity: 0; will-change: transform, opacity; }
 .ph-photo img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
 .ph-photo::after { content: ""; position: absolute; inset: 0;
-  background: linear-gradient(120deg, rgba(255, 246, 230, 0.24), transparent 40%, transparent 65%, rgba(255, 246, 230, 0.10)); pointer-events: none; }
-.ph-photo .tag { position: absolute; right: 6%; bottom: 6%; padding: 3px 7px; border-radius: 6px; background: rgba(255, 246, 230, 0.92); color: #0e1016;
+  background: linear-gradient(120deg, rgba(255, 255, 255, 0.24), transparent 40%, transparent 65%, rgba(255, 255, 255, 0.10)); pointer-events: none; }
+.ph-photo .tag { position: absolute; right: 6%; bottom: 6%; padding: 3px 7px; border-radius: 6px; background: rgba(255, 255, 255, 0.92); color: #0b0f0e;
   font: 700 clamp(7px, 0.95vw, 10px)/1 var(--font-mono); }
 .ph-beam { position: absolute; left: 12%; right: 12%; top: 22%; aspect-ratio: 1; border-radius: 8px; overflow: hidden; pointer-events: none; opacity: 0; }
 .ph-beam::before { content: ""; position: absolute; left: -10%; right: -10%; top: 0; height: 12%;
-  background: linear-gradient(180deg, transparent, rgba(217, 189, 122, 0.9), transparent);
-  box-shadow: 0 0 22px 6px rgba(201, 169, 97, 0.55); transform: translateY(-100%); }
+  background: linear-gradient(180deg, transparent, rgba(111, 227, 182, 0.9), transparent);
+  box-shadow: 0 0 22px 6px rgba(34, 196, 138, 0.55); transform: translateY(-100%); }
 .ph-dots { position: absolute; left: 12%; right: 12%; top: 22%; aspect-ratio: 1; pointer-events: none; }
-.ph-dots i { position: absolute; width: 7%; aspect-ratio: 1; border-radius: 50%; background: #f1e6c8;
-  box-shadow: 0 0 10px 3px rgba(201, 169, 97, 0.9); opacity: 0; transform: scale(0.2); }
+.ph-dots i { position: absolute; width: 7%; aspect-ratio: 1; border-radius: 50%; background: #d6f7e9;
+  box-shadow: 0 0 10px 3px rgba(34, 196, 138, 0.9); opacity: 0; transform: scale(0.2); }
 
 /* ---------- stats: a column in the middle, between phone and wall ---------- */
 .ph-stats { position: absolute; left: 34%; top: 27%; width: 17%; display: flex; flex-direction: column; gap: 8px; opacity: 0; transform: translateY(10px); }
-.ph-stats span { padding: 7px 9px; border-radius: 10px; background: rgba(14, 16, 22, 0.82); border: 1px solid rgba(255, 246, 230, 0.16);
+.ph-stats span { padding: 7px 9px; border-radius: 10px; background: rgba(11, 15, 14, 0.82); border: 1px solid rgba(255, 255, 255, 0.16);
   font: 600 clamp(8px, 1vw, 11px)/1.25 var(--font-mono); color: var(--text-2); white-space: normal; overflow-wrap: anywhere; }
 .ph-stats span b { display: block; font-size: 1.35em; color: var(--cyan-2); font-weight: 700; margin-bottom: 2px; }
 
@@ -108,38 +108,38 @@
 .ph-grid { position: absolute; right: 5%; top: 13%; width: 40%; display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.6cqw;   /* equal row and column gaps (a % row-gap collapses here) */
   transform-style: preserve-3d; transform-origin: 0 50%;
   transform: rotateY(-34deg) translateZ(-160px) translateX(60px); opacity: 0; will-change: transform, opacity; }
-.ph-grid figure { position: relative; margin: 0; aspect-ratio: 1; border-radius: 12%; overflow: hidden; background: #14161d;
-  border: 1px solid rgba(255, 246, 230, 0.14);
+.ph-grid figure { position: relative; margin: 0; aspect-ratio: 1; border-radius: 12%; overflow: hidden; background: #121715;
+  border: 1px solid rgba(255, 255, 255, 0.14);
   box-shadow: 0 12px 20px -12px rgba(0, 0, 0, 0.9);
   transform: translateZ(calc(var(--z, 0) * 1px)); }
 .ph-grid figure img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
 .ph-grid figure::after { content: ""; position: absolute; inset: 0;
-  background: linear-gradient(135deg, rgba(255, 246, 230, 0.2), transparent 45%, transparent 70%, rgba(255, 246, 230, 0.06)); pointer-events: none; }
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.2), transparent 45%, transparent 70%, rgba(255, 255, 255, 0.06)); pointer-events: none; }
 .ph-grid figure.hit { z-index: 2; overflow: visible; }
 .ph-grid figure.hit img, .ph-grid figure.hit::after { border-radius: 12%; }
 .ph-grid figure.hit::before { content: ""; position: absolute; inset: -3px; border-radius: 15%; z-index: 2;
-  border: 2px solid rgba(217, 189, 122, 0.95);
-  box-shadow: 0 0 0 4px rgba(201, 169, 97, 0.25), 0 0 30px 6px rgba(201, 169, 97, 0.7); opacity: 0; }
+  border: 2px solid rgba(111, 227, 182, 0.95);
+  box-shadow: 0 0 0 4px rgba(34, 196, 138, 0.25), 0 0 30px 6px rgba(34, 196, 138, 0.7); opacity: 0; }
 
 /* points flying phone → wall (through the middle column) */
 .ph-fly { position: absolute; inset: 0; pointer-events: none; }
-.ph-fly i { position: absolute; left: 24%; top: 42%; width: 6px; height: 6px; border-radius: 50%; background: #e9d7a6;
-  box-shadow: 0 0 12px 3px rgba(201, 169, 97, 0.95); opacity: 0; }
+.ph-fly i { position: absolute; left: 24%; top: 42%; width: 6px; height: 6px; border-radius: 50%; background: #a8f0d3;
+  box-shadow: 0 0 12px 3px rgba(34, 196, 138, 0.95); opacity: 0; }
 
 /* result card: under the wall, never on it */
 .ph-result { position: absolute; right: 5%; bottom: 5%; width: 42%; padding: 8px 10px; border-radius: 12px;
-  background: linear-gradient(150deg, rgba(255, 246, 230, 0.12), rgba(255, 246, 230, 0.04)), rgba(14, 16, 22, 0.88);
-  border: 1px solid rgba(255, 246, 230, 0.2);
-  box-shadow: 0 24px 40px -20px rgba(0, 0, 0, 0.9), 0 0 36px -12px rgba(201, 169, 97, 0.5);
+  background: linear-gradient(150deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.04)), rgba(11, 15, 14, 0.88);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 24px 40px -20px rgba(0, 0, 0, 0.9), 0 0 36px -12px rgba(34, 196, 138, 0.5);
   display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 9px;
   transform: translateY(18px) scale(0.96); opacity: 0; will-change: transform, opacity; }
 .ph-result > span:nth-child(2) { min-width: 0; }
 .ph-result .sw { width: 34px; height: 34px; border-radius: 8px; overflow: hidden; }
 .ph-result .sw img { width: 100%; height: 100%; object-fit: cover; display: block; }
-.ph-result b { display: block; font: 600 clamp(10px, 1.15vw, 13px)/1.2 var(--font-body); color: #f3eee4; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.ph-result b { display: block; font: 600 clamp(10px, 1.15vw, 13px)/1.2 var(--font-body); color: #ffffff; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .ph-result small { display: block; margin-top: 2px; font: 500 clamp(8px, 0.95vw, 11px)/1.2 var(--font-body); color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .ph-result em { font: 700 clamp(9px, 1.05vw, 12px)/1 var(--font-mono); font-style: normal; color: #05202a; padding: 5px 8px; border-radius: 999px;
-  background: linear-gradient(135deg, #e9d7a6, #c9a961); box-shadow: 0 0 14px rgba(201, 169, 97, 0.7); }
+  background: linear-gradient(135deg, #a8f0d3, #22c48a); box-shadow: 0 0 14px rgba(34, 196, 138, 0.7); }
 
 /* ---------- timeline ---------- */
 .photo-scene.is-playing .ph-phone      { animation: ph-phone var(--ph-t) var(--ease) both; }
@@ -226,7 +226,7 @@
 .photo-scene:is(.is-done, .is-still) .ph-stats      { opacity: 1; transform: none; }
 
 .ph-replay { position: absolute; right: 10px; top: 8px; z-index: 3; padding: 5px 9px; border-radius: 999px;
-  border: 1px solid var(--border); background: rgba(14, 16, 22, 0.7); color: var(--text-2); font: 600 10.5px/1 var(--font-mono);
+  border: 1px solid var(--border); background: rgba(11, 15, 14, 0.7); color: var(--text-2); font: 600 10.5px/1 var(--font-mono);
   opacity: 0; transition: opacity var(--fast), color var(--fast), border-color var(--fast); }
 .photo-scene.is-done .ph-replay { opacity: 1; }
 .ph-replay:hover { color: var(--text); border-color: var(--border-strong); }

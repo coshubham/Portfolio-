@@ -42,7 +42,7 @@
     if (!cv || !cv.getContext) return { start: function () {}, stop: function () {}, resize: function () {}, warm: function () {} };
     var ctx = cv.getContext('2d');
     var still = window.matchMedia('(prefers-reduced-motion: reduce)');
-    var COLOURS = [[201, 169, 97], [143, 169, 201], [176, 150, 201], [201, 139, 139], [233, 215, 166]];
+    var COLOURS = [[34, 196, 138], [111, 227, 182], [201, 209, 214], [240, 100, 122], [168, 240, 211]];
     var S = 256, TAU = 6.2832;
     var raf = 0, w = 1, h = 1, waves = [], pulses = [], things = [], sprites = null, glow = null;
     var card = null, frame = 0, seed = 5;
@@ -68,15 +68,15 @@
       grd.addColorStop(0.9, rgba(c, 0.62)); grd.addColorStop(1, rgba(c, 0.92));
       g.fillStyle = grd; g.fillRect(0, 0, S, S);
       grd = g.createRadialGradient(cx + r * 0.34, cy + r * 0.42, 0, cx + r * 0.34, cy + r * 0.42, r * 0.72);
-      grd.addColorStop(0, 'rgba(255,246,230,0.6)'); grd.addColorStop(0.35, rgba(c, 0.38)); grd.addColorStop(1, rgba(c, 0));
+      grd.addColorStop(0, 'rgba(255,255,255,0.6)'); grd.addColorStop(0.35, rgba(c, 0.38)); grd.addColorStop(1, rgba(c, 0));
       g.fillStyle = grd; g.fillRect(0, 0, S, S);
       g.translate(cx - r * 0.36, cy - r * 0.46); g.rotate(-0.6); g.scale(1, 0.55);
       grd = g.createRadialGradient(0, 0, 0, 0, 0, r * 0.42);
-      grd.addColorStop(0, 'rgba(255,246,230,0.95)'); grd.addColorStop(0.5, 'rgba(255,246,230,0.35)'); grd.addColorStop(1, 'rgba(255,246,230,0)');
+      grd.addColorStop(0, 'rgba(255,255,255,0.95)'); grd.addColorStop(0.5, 'rgba(255,255,255,0.35)'); grd.addColorStop(1, 'rgba(255,255,255,0)');
       g.fillStyle = grd; g.beginPath(); g.arc(0, 0, r * 0.42, 0, TAU); g.fill();
       g.restore();
       grd = g.createLinearGradient(cx - r, cy - r, cx + r, cy + r);
-      grd.addColorStop(0, 'rgba(255,246,230,0.9)'); grd.addColorStop(0.45, 'rgba(255,246,230,0.08)'); grd.addColorStop(1, rgba(c, 0.75));
+      grd.addColorStop(0, 'rgba(255,255,255,0.9)'); grd.addColorStop(0.45, 'rgba(255,255,255,0.08)'); grd.addColorStop(1, rgba(c, 0.75));
       g.lineWidth = 2.5; g.strokeStyle = grd; g.beginPath(); g.arc(cx, cy, r - 1.5, 0, TAU); g.stroke();
       return el;
     }
@@ -86,8 +86,8 @@
       grd.addColorStop(0, rgba(c, 0.9)); grd.addColorStop(0.5, rgba(c, 0.22)); grd.addColorStop(1, rgba(c, 0.75));
       g.lineWidth = S * 0.13; g.strokeStyle = grd; g.beginPath(); g.arc(cx, cy, R, 0, TAU); g.stroke();
       g.lineCap = 'round';
-      g.lineWidth = 3.5; g.strokeStyle = 'rgba(255,246,230,0.85)'; g.beginPath(); g.arc(cx, cy, R + S * 0.04, 3.5, 4.9); g.stroke();
-      g.lineWidth = 2; g.strokeStyle = 'rgba(255,246,230,0.4)'; g.beginPath(); g.arc(cx, cy, R - S * 0.038, 0.4, 1.7); g.stroke();
+      g.lineWidth = 3.5; g.strokeStyle = 'rgba(255,255,255,0.85)'; g.beginPath(); g.arc(cx, cy, R + S * 0.04, 3.5, 4.9); g.stroke();
+      g.lineWidth = 2; g.strokeStyle = 'rgba(255,255,255,0.4)'; g.beginPath(); g.arc(cx, cy, R - S * 0.038, 0.4, 1.7); g.stroke();
       return el;
     }
     function makeSprites() {
@@ -97,7 +97,7 @@
       });
       glow = blank(64);
       var g = glow.getContext('2d'), rg = g.createRadialGradient(32, 32, 0, 32, 32, 32);
-      rg.addColorStop(0, 'rgba(255,246,230,0.95)'); rg.addColorStop(0.22, 'rgba(233,215,166,0.55)'); rg.addColorStop(1, 'rgba(201,169,97,0)');
+      rg.addColorStop(0, 'rgba(255,255,255,0.95)'); rg.addColorStop(0.22, 'rgba(168,240,211,0.55)'); rg.addColorStop(1, 'rgba(34,196,138,0)');
       g.fillStyle = rg; g.fillRect(0, 0, 64, 64);
     }
     function measureCard() {

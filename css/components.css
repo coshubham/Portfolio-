@@ -10,12 +10,12 @@
 }
 .btn:hover { transform: translateY(-2px); }
 .btn:active { transform: translateY(0); }
-.btn-primary { color: #07080b; background: #f3eee4; box-shadow: 0 10px 30px -10px rgba(255, 246, 230, 0.35); }
-.btn-primary:hover { background: #f5efe2; box-shadow: 0 14px 34px -10px rgba(201, 169, 97, 0.45); }
+.btn-primary { color: #060807; background: #ffffff; box-shadow: 0 10px 30px -10px rgba(255, 255, 255, 0.35); }
+.btn-primary:hover { background: #f5f7f6; box-shadow: 0 14px 34px -10px rgba(34, 196, 138, 0.45); }
 .btn-primary svg { transition: transform var(--fast) var(--ease); }
 .btn-primary:hover svg { transform: translateX(3px); }
-.btn-ghost { color: var(--text); background: rgba(255, 246, 230, 0.03); border-color: var(--border-strong); }
-.btn-ghost:hover { background: rgba(255, 246, 230, 0.06); border-color: var(--cyan-2); }
+.btn-ghost { color: var(--text); background: rgba(255, 255, 255, 0.03); border-color: var(--border-strong); }
+.btn-ghost:hover { background: rgba(255, 255, 255, 0.06); border-color: var(--cyan-2); }
 .btn-sm { padding: 9px 16px; font-size: 0.86rem; }
 .btn svg { width: 18px; height: 18px; }
 
@@ -24,10 +24,10 @@
 .chip {
   display: inline-flex; align-items: center; gap: 6px; padding: 6px 12px; border-radius: var(--radius-pill);
   font-size: 0.8rem; font-weight: 500; color: var(--text-2);
-  background: rgba(255, 246, 230, 0.04); border: 1px solid var(--border);
+  background: rgba(255, 255, 255, 0.04); border: 1px solid var(--border);
 }
-.chip.is-accent { color: var(--cyan-2); border-color: rgba(212, 181, 115, 0.28); background: rgba(212, 181, 115, 0.06); }
-.chip.is-violet { color: var(--violet-2); border-color: rgba(212, 181, 115, 0.28); background: rgba(212, 181, 115, 0.06); }
+.chip.is-accent { color: var(--cyan-2); border-color: rgba(58, 214, 156, 0.28); background: rgba(58, 214, 156, 0.06); }
+.chip.is-violet { color: var(--violet-2); border-color: rgba(58, 214, 156, 0.28); background: rgba(58, 214, 156, 0.06); }
 
 /* ---------- glass card with gradient border on hover ---------- */
 .card {
@@ -50,7 +50,7 @@
 /* spotlight that follows the pointer (set by JS as --mx/--my) */
 .card.spot::after {
   content: ''; position: absolute; inset: 0; border-radius: inherit; pointer-events: none;
-  background: radial-gradient(420px circle at var(--mx, 50%) var(--my, 50%), rgba(212, 181, 115, 0.06), transparent 45%);
+  background: radial-gradient(420px circle at var(--mx, 50%) var(--my, 50%), rgba(58, 214, 156, 0.06), transparent 45%);
   opacity: 0; transition: opacity var(--med);
 }
 .card.spot:hover::after { opacity: 1; }
@@ -79,7 +79,7 @@
 }
 .portrait .badge b { display: block; font-family: var(--font-display); font-size: 0.95rem; }
 .pulse { position: relative; width: 10px; height: 10px; border-radius: 50%; background: var(--green); }
-.pulse::after { content: ''; position: absolute; inset: 0; border-radius: 50%; background: rgba(156, 184, 155, 0.55); animation: pulseRing 1.8s ease-out infinite; }
+.pulse::after { content: ''; position: absolute; inset: 0; border-radius: 50%; background: rgba(58, 214, 156, 0.55); animation: pulseRing 1.8s ease-out infinite; }
 @keyframes pulseRing { 0% { transform: scale(1); opacity: 0.55; } 70%, 100% { transform: scale(3); opacity: 0; } }
 @media (prefers-reduced-motion: reduce) { .pulse::after { animation: none; } }
 
@@ -88,7 +88,7 @@
 .product-visual svg { width: 100%; height: auto; border-radius: var(--radius); }
 .product-visual .frame {
   border-radius: var(--radius); border: 1px solid var(--border); overflow: hidden;
-  background: linear-gradient(180deg, rgba(255, 246, 230, 0.03), rgba(255, 246, 230, 0.01));
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.01));
   box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
 }
 .feature { display: flex; gap: 14px; align-items: flex-start; }
@@ -131,10 +131,10 @@
 .skill-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
 .skill {
   display: flex; align-items: center; gap: 12px; padding: 12px 14px; border-radius: 12px;
-  background: rgba(255, 246, 230, 0.03); border: 1px solid var(--border);
+  background: rgba(255, 255, 255, 0.03); border: 1px solid var(--border);
   transition: transform var(--fast) var(--ease), border-color var(--fast), background var(--fast);
 }
-.skill:hover { transform: translateY(-2px); border-color: rgba(201, 169, 97, 0.45); background: rgba(201, 169, 97, 0.06); }
+.skill:hover { transform: translateY(-2px); border-color: rgba(34, 196, 138, 0.45); background: rgba(34, 196, 138, 0.06); }
 .skill img { width: 30px; height: 30px; object-fit: contain; flex: 0 0 30px; }
 .skill img.mono { filter: invert(1) brightness(1.4); opacity: 0.9; }
 .skill b { display: block; font-size: 0.93rem; font-weight: 600; line-height: 1.2; }
@@ -158,8 +158,8 @@
 .contact-info .row small { display: block; color: var(--muted); font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; }
 .contact-info .row a:hover { color: var(--cyan-2); }
 .socials { display: flex; gap: 10px; margin-top: 8px; }
-.socials a { width: 44px; height: 44px; border-radius: 12px; display: grid; place-items: center; border: 1px solid var(--border); background: rgba(255, 246, 230, 0.03); transition: border-color var(--fast), transform var(--fast) var(--ease), background var(--fast); }
-.socials a:hover { border-color: var(--cyan-2); background: rgba(212, 181, 115, 0.08); transform: translateY(-2px); }
+.socials a { width: 44px; height: 44px; border-radius: 12px; display: grid; place-items: center; border: 1px solid var(--border); background: rgba(255, 255, 255, 0.03); transition: border-color var(--fast), transform var(--fast) var(--ease), background var(--fast); }
+.socials a:hover { border-color: var(--cyan-2); background: rgba(58, 214, 156, 0.08); transform: translateY(-2px); }
 .socials svg { width: 20px; height: 20px; }
 
 .form { display: grid; gap: 14px; padding: 26px; }
@@ -168,9 +168,9 @@
 .field label { font-size: 0.8rem; color: var(--muted); letter-spacing: 0.04em; }
 .field input, .field textarea {
   width: 100%; padding: 13px 14px; border-radius: 12px; color: var(--text); font: inherit;
-  background: rgba(255, 246, 230, 0.03); border: 1px solid var(--border-strong); transition: border-color var(--fast), box-shadow var(--fast);
+  background: rgba(255, 255, 255, 0.03); border: 1px solid var(--border-strong); transition: border-color var(--fast), box-shadow var(--fast);
 }
-.field input:focus, .field textarea:focus { outline: none; border-color: var(--cyan-2); box-shadow: 0 0 0 3px rgba(212, 181, 115, 0.15); }
+.field input:focus, .field textarea:focus { outline: none; border-color: var(--cyan-2); box-shadow: 0 0 0 3px rgba(58, 214, 156, 0.15); }
 .field textarea { min-height: 140px; resize: vertical; }
 .form-note { font-size: 0.82rem; color: var(--faint); margin: 0; }
 
@@ -202,7 +202,7 @@
 .skill-fallback {
   width: 30px; height: 30px; flex: 0 0 30px; border-radius: 8px; display: grid; place-items: center;
   font-family: var(--font-mono); font-size: 0.7rem; font-weight: 700; color: var(--cyan-2);
-  background: rgba(201, 169, 97, 0.1); border: 1px solid rgba(201, 169, 97, 0.3);
+  background: rgba(34, 196, 138, 0.1); border: 1px solid rgba(34, 196, 138, 0.3);
 }
 .svg-missing { aspect-ratio: 16 / 10; display: grid; place-items: center; color: var(--faint); font-family: var(--font-mono); font-size: 0.8rem; }
 .case-visual svg, .product-visual svg { display: block; }

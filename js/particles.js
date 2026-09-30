@@ -31,14 +31,14 @@
     const c = document.createElement('canvas'); c.width = c.height = 64;
     const g = c.getContext('2d');
     const rg = g.createRadialGradient(32, 32, 0, 32, 32, 32);
-    rg.addColorStop(0, `rgba(255,246,230,${core})`);
+    rg.addColorStop(0, `rgba(255,255,255,${core})`);
     rg.addColorStop(0.12, `rgba(${rgb},0.95)`);
     rg.addColorStop(0.35, `rgba(${rgb},0.28)`);
     rg.addColorStop(1, `rgba(${rgb},0)`);
     g.fillStyle = rg; g.fillRect(0, 0, 64, 64);
     return c;
   };
-  const SPR = [sprite('201,169,97', 0.9), sprite('233,215,166', 1), sprite('224,203,147', 0.85), sprite('246,230,255', 1), sprite('143,169,201', 0.8)];
+  const SPR = [sprite('34,196,138', 0.9), sprite('168,240,211', 1), sprite('111,227,182', 0.85), sprite('246,230,255', 1), sprite('201,209,214', 0.8)];
   const WEIGHTS = [0, 0, 0, 1, 1, 1, 2, 2, 3, 4];
 
   /* ---- particles ---- */
@@ -78,10 +78,10 @@
     ctx.globalAlpha = alpha;
     const l = size * 2.2;
     let g = ctx.createLinearGradient(x - l, y, x + l, y);
-    g.addColorStop(0, 'rgba(233,215,166,0)'); g.addColorStop(0.5, 'rgba(245,239,226,0.95)'); g.addColorStop(1, 'rgba(233,215,166,0)');
+    g.addColorStop(0, 'rgba(168,240,211,0)'); g.addColorStop(0.5, 'rgba(245,247,246,0.95)'); g.addColorStop(1, 'rgba(168,240,211,0)');
     ctx.fillStyle = g; ctx.fillRect(x - l, y - 0.7, l * 2, 1.4);
     g = ctx.createLinearGradient(x, y - l, x, y + l);
-    g.addColorStop(0, 'rgba(233,215,166,0)'); g.addColorStop(0.5, 'rgba(245,239,226,0.95)'); g.addColorStop(1, 'rgba(233,215,166,0)');
+    g.addColorStop(0, 'rgba(168,240,211,0)'); g.addColorStop(0.5, 'rgba(245,247,246,0.95)'); g.addColorStop(1, 'rgba(168,240,211,0)');
     ctx.fillStyle = g; ctx.fillRect(x - 0.7, y - l, 1.4, l * 2);
     ctx.drawImage(SPR[1], x - size, y - size, size * 2, size * 2);
   };
@@ -124,7 +124,7 @@
         const k = Math.sin(Math.min(1, meteor.life / meteor.max) * Math.PI);
         const len = 0.16, tx = meteor.x - meteor.vx * len, ty = meteor.y - meteor.vy * len;
         const g = ctx.createLinearGradient(meteor.x, meteor.y, tx, ty);
-        g.addColorStop(0, 'rgba(245,239,226,0.9)'); g.addColorStop(0.25, 'rgba(201,169,97,0.35)'); g.addColorStop(1, 'rgba(201,169,97,0)');
+        g.addColorStop(0, 'rgba(245,247,246,0.9)'); g.addColorStop(0.25, 'rgba(34,196,138,0.35)'); g.addColorStop(1, 'rgba(34,196,138,0)');
         ctx.globalAlpha = k * 0.7; ctx.strokeStyle = g; ctx.lineWidth = 1.6; ctx.lineCap = 'round';
         ctx.beginPath(); ctx.moveTo(meteor.x, meteor.y); ctx.lineTo(tx, ty); ctx.stroke();
         ctx.drawImage(SPR[3], meteor.x - 6, meteor.y - 6, 12, 12);

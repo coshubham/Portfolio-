@@ -3,9 +3,9 @@
    ========================================================================== */
 .proj-toolbar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; margin: -8px 0 22px; }
 .proj-filters { display: flex; flex-wrap: wrap; gap: 8px; }
-.proj-filters button { padding: 8px 14px; border-radius: 999px; font-size: 0.86rem; font-weight: 500; color: var(--text-2); border: 1px solid var(--border); background: rgba(255, 246, 230, 0.03); transition: all var(--fast); }
+.proj-filters button { padding: 8px 14px; border-radius: 999px; font-size: 0.86rem; font-weight: 500; color: var(--text-2); border: 1px solid var(--border); background: rgba(255, 255, 255, 0.03); transition: all var(--fast); }
 .proj-filters button:hover { border-color: var(--border-strong); color: var(--text); }
-.proj-filters button[aria-pressed="true"] { color: #05060a; background: var(--grad); border-color: transparent; box-shadow: var(--glow-cyan); }
+.proj-filters button[aria-pressed="true"] { color: #040605; background: var(--grad); border-color: transparent; box-shadow: var(--glow-cyan); }
 .proj-count { font-family: var(--font-mono); font-size: 0.78rem; color: var(--muted); }
 .proj-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 18px; }
 .proj { padding: 0; overflow: hidden; display: flex; flex-direction: column; }

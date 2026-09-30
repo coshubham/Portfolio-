@@ -28,7 +28,7 @@ function init(THREE, mount) {
   const isMobile = mqMobile.matches;
   const small = matchMedia('(max-width: 600px)').matches;
   const dprCap = isMobile ? 1 : 1.25;
-  const BG = 0x0e1016, A = 0xc9a961, B = 0xe0cb93, W = 0xefe9dc;
+  const BG = 0x0b0f0e, A = 0x22c48a, B = 0x6fe3b6, W = 0xf2f5f4;
 
   const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, powerPreference: 'default' });
   renderer.setPixelRatio(Math.min(devicePixelRatio || 1, dprCap));
@@ -118,7 +118,7 @@ function init(THREE, mount) {
   const spotOp = isMobile ? 0.4 : 0.55;
   const spot = new THREE.Sprite(new THREE.SpriteMaterial({ map: glowTex, color: A, transparent: true, opacity: spotOp, blending: THREE.AdditiveBlending, depthWrite: false }));
   spot.scale.set(12, 10, 1); spot.position.set(isMobile ? 0 : 2.6, 0.9, -4.5); scene.add(spot);
-  const bloom = new THREE.Sprite(new THREE.SpriteMaterial({ map: glowTex, color: 0x8fa9c9, transparent: true, opacity: 0.22, blending: THREE.AdditiveBlending, depthWrite: false }));
+  const bloom = new THREE.Sprite(new THREE.SpriteMaterial({ map: glowTex, color: 0xc9d1d6, transparent: true, opacity: 0.22, blending: THREE.AdditiveBlending, depthWrite: false }));
   bloom.scale.set(16, 12, 1); bloom.position.set(-4, -1.5, -9); scene.add(bloom);
 
   /* ---- pointer (mouse only: a finger drag should not swing the camera) + scroll ---- */
@@ -216,14 +216,14 @@ function init(THREE, mount) {
     const KW = /^(from|import|async|def|await|return|if|else|for|in|export|function|const|SELECT|FROM|WHERE|GROUP|ORDER|BY|AS|WITHIN|server|location|listen|services|build|image|assert)$/;
     lines.forEach((ln, i) => {
       let x = 22; const y = 20 + i * 34;
-      if (/^(#|\/\/|--)/.test(ln)) { g.fillStyle = 'rgba(160,152,136,0.55)'; g.fillText(ln, x, y); return; }
+      if (/^(#|\/\/|--)/.test(ln)) { g.fillStyle = 'rgba(154,166,161,0.55)'; g.fillText(ln, x, y); return; }
       const parts = ln.match(/("[^"]*"|'[^']*'|\b\d+(?:\.\d+)?\b|[A-Za-z_][\w.]*|\s+|.)/g) || [ln];
       for (const p of parts) {
-        if (/^["']/.test(p)) g.fillStyle = 'rgba(185,209,179,0.9)';
-        else if (/^\d/.test(p)) g.fillStyle = 'rgba(233,215,166,0.9)';
-        else if (KW.test(p)) g.fillStyle = 'rgba(217,189,122,0.95)';
-        else if (/^[A-Za-z_]/.test(p)) g.fillStyle = 'rgba(230,224,211,0.85)';
-        else g.fillStyle = 'rgba(160,152,136,0.7)';
+        if (/^["']/.test(p)) g.fillStyle = 'rgba(168,240,211,0.9)';
+        else if (/^\d/.test(p)) g.fillStyle = 'rgba(168,240,211,0.9)';
+        else if (KW.test(p)) g.fillStyle = 'rgba(111,227,182,0.95)';
+        else if (/^[A-Za-z_]/.test(p)) g.fillStyle = 'rgba(227,232,230,0.85)';
+        else g.fillStyle = 'rgba(154,166,161,0.7)';
         g.fillText(p, x, y); x += g.measureText(p).width;
       }
     });
@@ -231,12 +231,12 @@ function init(THREE, mount) {
   }
   function glowTexture() {
     const c = document.createElement('canvas'); c.width = c.height = 256; const g = c.getContext('2d');
-    const rg = g.createRadialGradient(128, 128, 0, 128, 128, 128); rg.addColorStop(0, 'rgba(255,246,230,1)'); rg.addColorStop(0.35, 'rgba(255,246,230,0.35)'); rg.addColorStop(1, 'rgba(255,246,230,0)');
+    const rg = g.createRadialGradient(128, 128, 0, 128, 128, 128); rg.addColorStop(0, 'rgba(255,255,255,1)'); rg.addColorStop(0.35, 'rgba(255,255,255,0.35)'); rg.addColorStop(1, 'rgba(255,255,255,0)');
     g.fillStyle = rg; g.fillRect(0, 0, 256, 256); const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; return t;
   }
   function dotTexture() {
     const c = document.createElement('canvas'); c.width = c.height = 32; const g = c.getContext('2d');
-    const rg = g.createRadialGradient(16, 16, 0, 16, 16, 16); rg.addColorStop(0, 'rgba(255,246,230,1)'); rg.addColorStop(0.5, 'rgba(255,246,230,0.4)'); rg.addColorStop(1, 'rgba(255,246,230,0)');
+    const rg = g.createRadialGradient(16, 16, 0, 16, 16, 16); rg.addColorStop(0, 'rgba(255,255,255,1)'); rg.addColorStop(0.5, 'rgba(255,255,255,0.4)'); rg.addColorStop(1, 'rgba(255,255,255,0)');
     g.fillStyle = rg; g.fillRect(0, 0, 32, 32); return new THREE.CanvasTexture(c);
   }
 }
