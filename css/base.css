@@ -5,6 +5,11 @@
 
 :root {
   /* surfaces - deep obsidian background (70% dark) */
+  --w: 255, 255, 255;   /* light neutral (glass, hairlines, white text) */
+  --k: 17, 13, 43;      /* dark neutral (backdrops, ink) */
+  --ink-2: #181336;
+  --ac: 167, 139, 250; --ac2: 196, 181, 253; --ac3: 233, 213, 255; --pk: 249, 168, 212;   /* accent rgb triplets */
+  --accent: #a78bfa; --accent-2: #c4b5fd; --accent-soft: #e9d5ff; --pink: #f9a8d4; --paper: #faf5ff;
   --bg: #110d2b;   /* deep indigo: dark, clearly coloured, never black */
   --bg-2: #0c0920;
   
@@ -106,7 +111,7 @@ h3 { font-size: clamp(1.15rem, 1.6vw, 1.35rem); font-weight: 600; }
   color: transparent;
 }
 
-::selection { background: rgba(167, 139, 250, 0.32); color: #ffffff; }
+::selection { background: rgba(var(--ac), 0.32); color: rgb(var(--w)); }
 
 /* thin custom scrollbar */
 ::-webkit-scrollbar { width: 10px; }
