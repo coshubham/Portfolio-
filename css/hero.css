@@ -288,3 +288,20 @@
   .hx-term { width: 68%; right: -4%; }
 }
 @media (prefers-reduced-motion: reduce) { .hx-title .serif { animation: none; } }
+
+/* ---------- ROLE-LINE: the typed role is a large glass "prompt" with gradient text and a glowing block caret ---------- */
+.hx-role { display: inline-flex; align-items: center; gap: 14px; min-width: min(100%, 23ch); min-height: 2.5em; padding: 0.5em 1.1em 0.5em 0.95em; border-radius: 999px;
+  font-size: clamp(1.1rem, 1.75vw, 1.6rem); font-weight: 600; letter-spacing: -0.01em; line-height: 1.2; margin: 0 0 34px;
+  background: linear-gradient(120deg, rgba(var(--ac), 0.16), rgba(var(--pk), 0.10)); border: 1px solid rgba(var(--ac2), 0.42);
+  box-shadow: 0 0 0 1px rgba(var(--w), 0.04) inset, 0 12px 30px -16px rgba(var(--ac), 0.75); }
+.hx-role .hx-prompt { font-weight: 700; color: var(--pink); text-shadow: 0 0 14px rgba(var(--pk), 0.7); }
+.hx-role .hero-line { display: inline; font: inherit; }
+.hx-role .typed { background: linear-gradient(100deg, var(--accent-2) 0%, var(--paper) 30%, var(--pink) 62%, var(--accent-2) 100%); background-size: 230% 100%;
+  -webkit-background-clip: text; background-clip: text; color: transparent; -webkit-text-fill-color: transparent; animation: hxRoleShine 5s linear infinite; }
+@keyframes hxRoleShine { to { background-position: -230% 0; } }
+.hx-role .typed-cursor { display: inline-block; width: 0.5em; height: 1.05em; margin-left: 5px; vertical-align: -0.16em; border-radius: 3px; overflow: hidden; color: transparent; -webkit-text-fill-color: transparent;
+  background: linear-gradient(180deg, var(--accent-2), var(--pink)); box-shadow: 0 0 14px rgba(var(--pk), 0.75), 0 0 4px rgba(var(--ac), 0.9); }
+@media (min-width: 1500px) { .hx-role { font-size: 1.75rem; margin-bottom: 40px; } }
+@media (min-width: 1080px) and (max-height: 860px) { .hx-role { font-size: clamp(1.05rem, 1.6vw, 1.4rem); margin-bottom: 22px; min-height: 2.3em; } }
+@media (max-width: 600px) { .hx-role { font-size: 1.02rem; gap: 10px; min-width: 0; width: 100%; margin-bottom: 26px; } }
+@media (prefers-reduced-motion: reduce) { .hx-role .typed { animation: none; } }
