@@ -1,8 +1,8 @@
-/* theme.js — light / dark mode. Runs before first paint: reads ?theme=, then localStorage, default dark. */
+/* theme.js — light / dark mode. Runs before first paint: reads ?theme=, then localStorage, default light. */
 (function () {
   var d = document.documentElement, q = new URLSearchParams(location.search).get('theme'), s = null;
   try { s = localStorage.getItem('theme'); } catch (e) {}
-  var t = (q === 'light' || q === 'dark') ? q : ((s === 'light' || s === 'dark') ? s : 'dark');
+  var t = (q === 'light' || q === 'dark') ? q : ((s === 'light' || s === 'dark') ? s : 'light');
   d.setAttribute('data-theme', t);
   if (q) { try { localStorage.setItem('theme', t); } catch (e) {} }
   function meta() { var m = document.querySelector('meta[name="theme-color"]'); if (m) m.content = d.getAttribute('data-theme') === 'light' ? '#f5f3ff' : '#110d2b'; }

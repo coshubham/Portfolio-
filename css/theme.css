@@ -100,3 +100,13 @@ html[data-theme="light"] .portrait::before { opacity: 0.16; }
 html[data-theme="light"] .portrait .badge { background: rgba(255, 255, 255, 0.94); border-color: rgba(109, 40, 217, 0.22); color: #16112e; box-shadow: 0 14px 30px -12px rgba(22, 17, 46, 0.45); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); }
 html[data-theme="light"] .portrait .badge b { color: #16112e; }
 html[data-theme="light"] .portrait .badge span, html[data-theme="light"] .portrait .badge small { color: #514a78; }
+
+/* ---------- LIGHT-LOADER: the intro mark reads as deep violet metal on the pearl background ---------- */
+html[data-theme="light"] .lx-bg { background: radial-gradient(120% 90% at 50% 50%, transparent 55%, rgba(109, 40, 217, 0.10) 100%); }
+html[data-theme="light"] .lx-bg::after { opacity: 0.03; }
+html[data-theme="light"] #lxMetal stop:nth-child(1) { stop-color: #8b5cf6; }
+html[data-theme="light"] #lxMetal stop:nth-child(2) { stop-color: #6d28d9; }
+html[data-theme="light"] #lxMetal stop:nth-child(3) { stop-color: #4c1d95; }
+html[data-theme="light"] #lxMetal stop:nth-child(4) { stop-color: #be185d; }
+html[data-theme="light"] #lxMetal stop:nth-child(5) { stop-color: #7c3aed; }
+html[data-theme="light"] .lx-svg .shade { stroke: #2e1065; opacity: 0.35; }
