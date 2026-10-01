@@ -64,7 +64,7 @@
     const narrow = W < 700;
     const four = narrow || W < 1300;                    // mid widths: four thinner rings so front cards stop overlapping
     if ((four ? 4 : 3) !== count) buildRings(four ? 4 : 3);
-    const half = (cards[0].offsetWidth || 180) / 2;
+    const half = Math.max.apply(null, cards.map(c => c.offsetWidth || 180)) / 2;   // the widest card decides how far the rings may reach
     R = narrow ? Math.max(90, (W / 2 - half - 10) / 1.08) : Math.max(160, Math.min(W * 0.42, 560, W / 2 - half * 1.3 - 20));   // never let side cards leave the stage
     if (narrow) { const tilt = Math.max(0.2, Math.asin(Math.min(0.41, 50 / R))); rings.forEach(ring => { ring.tilt = ring.flip ? -tilt : tilt; }); }   // small stages: open the rings up so tiles do not bunch
     if (four) rings.forEach((ring, k) => { ring.y = LAYOUTS[4][k].y * (narrow ? 0.88 : 0.72); if (!narrow) ring.tilt = ring.flip ? -0.2 : 0.2; });   // wide cards on four rings: squeeze the stack so the outer rings stay inside the stage

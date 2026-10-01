@@ -38,7 +38,8 @@
 .sk.is-3d .sk-stage.is-drag { cursor: grabbing; }
 .sk.is-3d .sk-scene { position: absolute; inset: 0; transform-style: preserve-3d; will-change: transform; }
 .sk.is-3d .sk-cards { display: block; position: absolute; inset: 0; transform-style: preserve-3d; }
-.sk.is-3d .sk-card { position: absolute; left: 50%; top: 50%; width: 178px; height: 58px; margin: -29px 0 0 -89px; will-change: transform, opacity; -webkit-user-drag: none; }
+.sk.is-3d .sk-card { position: absolute; left: 50%; top: 50%; width: max-content; min-width: 148px; max-width: 260px; height: 58px; margin: 0; translate: -50% -50%; will-change: transform, opacity; -webkit-user-drag: none; }   /* each card fits its own label */
+.sk.is-3d .sk-in { height: 100%; padding-right: 18px; }
 .sk.is-3d .sk-card img { -webkit-user-drag: none; pointer-events: none; }
 .sk.is-3d .sk-card .sk-in { height: 100%; padding: 8px 14px 8px 8px; }
 .sk.is-3d .sk-card .sk-txt small { display: none; }   /* the readout below carries the detail */
@@ -86,7 +87,7 @@
 @media (max-width: 1080px) { .sk.is-3d .sk-stage { height: 660px; } }
 /* tablets up to 960px: logo tiles, the readout names the one in front (named pills piled up here) */
 @media (max-width: 960px) {
-  .sk.is-3d .sk-card { width: 62px; height: 62px; margin: -31px 0 0 -31px; }
+  .sk.is-3d .sk-card { width: 62px; min-width: 0; height: 62px; margin: 0; }
   .sk.is-3d .sk-card .sk-in { padding: 6px; gap: 0; border-radius: 16px; justify-content: center; }
   .sk.is-3d .sk-card .sk-txt { display: none; }
   .sk.is-3d .sk-card .sk-logo { flex-basis: 48px; width: 48px; height: 48px; border-radius: 13px; }
@@ -104,7 +105,7 @@
   .sk-txt small { display: none; }
   .sk.is-3d .sk-stage { height: 600px; perspective: 1400px; }
   /* phones: logo tiles only; the readout under the orbit names the one in front */
-  .sk.is-3d .sk-card { width: 50px; height: 50px; margin: -25px 0 0 -25px; }
+  .sk.is-3d .sk-card { width: 50px; min-width: 0; height: 50px; margin: 0; }
   .sk.is-3d .sk-card .sk-in { padding: 4px; gap: 0; border-radius: 14px; justify-content: center; }
   .sk.is-3d .sk-card .sk-txt { display: none; }
   .sk.is-3d .sk-card .sk-logo { flex-basis: 40px; width: 40px; height: 40px; border-radius: 11px; }

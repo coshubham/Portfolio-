@@ -116,3 +116,10 @@ html[data-theme="light"] .lx-svg .shade { stroke: #2e1065; opacity: 0.35; }
 .sk-filters { justify-content: center; }
 @media (min-width: 1200px) { .sk.is-3d .sk-hint { position: absolute; right: 0; top: 50%; transform: translateY(-50%); } }
 html[data-theme="light"] .sk-filters button[aria-pressed="true"] span { color: #d8ccff; }
+
+/* ---------- SK-PHONE: the tab row scrolls sideways on phones, so it starts at the left; the core label wraps inside its circle ---------- */
+@media (max-width: 760px) {
+  .sk-bar { justify-content: flex-start; }
+  .sk-filters { justify-content: flex-start; }
+  .sk.is-3d .sk-core-txt span { font-size: 0.5rem; letter-spacing: 0.06em; max-width: 62px; }
+}
