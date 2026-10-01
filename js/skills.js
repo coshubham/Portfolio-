@@ -20,6 +20,13 @@
   const CAT = { ai: 'AI & data', backend: 'Backend', frontend: 'Frontend & mobile', cloud: 'Cloud & DevOps', payments: 'Payments' };
   let orbit = null;
 
+  /* ---- logos: load all 45 together once the section is near, so no card ever turns to the front with a blank logo ---- */
+  const loadLogos = () => $$('.sk-card img', root).forEach(img => { img.loading = 'eager'; });
+  if ('IntersectionObserver' in window) {
+    const near = new IntersectionObserver(es => { if (es.some(e => e.isIntersecting)) { loadLogos(); near.disconnect(); } }, { rootMargin: '1400px 0px' });
+    near.observe(root);
+  } else loadLogos();
+
   /* ---- filters (also work in grid mode) ---- */
   const applyFilter = cat => {
     buttons.forEach(b => b.setAttribute('aria-pressed', String(b.dataset.cat === cat)));

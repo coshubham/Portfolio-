@@ -13,7 +13,7 @@
 .sk-filters button { display: inline-flex; align-items: center; gap: 8px; padding: 8px 14px; border-radius: 999px; font-size: 0.84rem; font-weight: 500; color: var(--text-2); background: rgba(var(--w), 0.03); border: 1px solid var(--border); transition: color var(--fast), background var(--fast), border-color var(--fast); }
 .sk-filters button span { font-family: var(--font-mono); font-size: 0.7rem; color: var(--faint); }
 .sk-filters button:hover { border-color: rgba(var(--ac), 0.45); color: var(--text); }
-.sk-filters button[aria-pressed="true"] { color: #031018; background: #e6fbff; border-color: transparent; }
+.sk-filters button[aria-pressed="true"] { color: #16112e; background: #f5f3ff; border-color: transparent; }
 .sk-filters button[aria-pressed="true"] span { color: #5b21b6; }
 .sk-hint { display: none; align-items: center; gap: 8px; font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--faint); }
 .sk-hint svg { width: 16px; height: 16px; color: var(--cyan-2); }

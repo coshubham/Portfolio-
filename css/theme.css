@@ -110,3 +110,9 @@ html[data-theme="light"] #lxMetal stop:nth-child(3) { stop-color: #4c1d95; }
 html[data-theme="light"] #lxMetal stop:nth-child(4) { stop-color: #be185d; }
 html[data-theme="light"] #lxMetal stop:nth-child(5) { stop-color: #7c3aed; }
 html[data-theme="light"] .lx-svg .shade { stroke: #2e1065; opacity: 0.35; }
+
+/* ---------- SK-TABS: skill filter tabs centred; the count stays readable on the active tab ---------- */
+.sk-bar { justify-content: center; position: relative; }
+.sk-filters { justify-content: center; }
+@media (min-width: 1200px) { .sk.is-3d .sk-hint { position: absolute; right: 0; top: 50%; transform: translateY(-50%); } }
+html[data-theme="light"] .sk-filters button[aria-pressed="true"] span { color: #d8ccff; }
